@@ -32,7 +32,7 @@ Public lesson: https://optics-e03-diffraction-lab.w765809530.chatgpt.site/
 
 Public source: https://github.com/Vandermode/optics-in-5-minutes-course
 
-The notebook requires NumPy, SciPy and Matplotlib, which are normally present in Colab. Its first cell installs only missing packages. Its plots and scientific assertions have also been executed in a local Jupyter kernel; a live Colab session is a separate verification step.
+The notebook requires NumPy, SciPy and Matplotlib, which are normally present in Colab. Its first cell installs only missing packages. All seven code cells have been executed in both local Jupyter and a live Google Colab CPU runtime (2026-10-16; Colab Python 3.13.16, NumPy 2.1.3, SciPy 1.16.3, Matplotlib 3.10.0). The numerical checks passed. Four figures were produced in local Jupyter. The test browser could not finish loading Colab's rich-output iframes, so live figure-display verification remains incomplete. If Colab reports that output JavaScript could not load, try reloading and checking the session; [Colab's FAQ](https://research.google.com/colaboratory/faq.html) also documents a targeted third-party-cookie exception for `googleusercontent.com`.
 
 ## Publish with GitHub Pages
 
