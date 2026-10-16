@@ -1,17 +1,30 @@
-# Optics in 5 Minutes — interactive course materials
+# Optics in 5 Minutes · Season 1 teaching course
 
 Public lessons and runnable notebooks by Vandermode.
 
-## E03 · The Diffraction Limit
+[Open the ten-episode course](https://optics-e03-diffraction-lab.w765809530.chatgpt.site/)
 
-- [Course webpage and interactive experiments](https://optics-e03-diffraction-lab.w765809530.chatgpt.site/)
-- [Open in Colab](https://colab.research.google.com/github/Vandermode/optics-in-5-minutes-course/blob/main/teaching/e03-diffraction/e03_diffraction_limit.ipynb)
-- [Notebook source](teaching/e03-diffraction/e03_diffraction_limit.ipynb)
-- [Setup, model assumptions, and verification](teaching/e03-diffraction/README.md)
-- [Instructor notes and assessment rubric](teaching/e03-diffraction/INSTRUCTOR_NOTES.md)
+Each module includes an interactive lesson, three concept checks, a standalone CPU notebook with saved figures, worked exercises, and instructor notes with a ten-point rubric. Allow 12–15 minutes for a lesson and 25–30 minutes for its core lab; optional extensions go deeper.
 
-The website is a self-contained static lesson. The Python notebook runs independently on CPU with NumPy, SciPy, and Matplotlib. Sign in with a Google account to run it in Colab; no GitHub account or paid Colab plan is required.
+| Episode | Interactive lesson | Notebook |
+| --- | --- | --- |
+| E01 | [The angular spectrum method](https://optics-e03-diffraction-lab.w765809530.chatgpt.site/e01-angular-spectrum/) | [Open in Colab](https://colab.research.google.com/github/Vandermode/optics-in-5-minutes-course/blob/main/teaching/e01-angular-spectrum/e01_angular_spectrum.ipynb) |
+| E02 | [Why a lens computes a Fourier transform](https://optics-e03-diffraction-lab.w765809530.chatgpt.site/e02-lens-fourier/) | [Open in Colab](https://colab.research.google.com/github/Vandermode/optics-in-5-minutes-course/blob/main/teaching/e02-lens-fourier/e02_lens_fourier.ipynb) |
+| E03 | [The diffraction limit](https://optics-e03-diffraction-lab.w765809530.chatgpt.site/e03-diffraction/) | [Open in Colab](https://colab.research.google.com/github/Vandermode/optics-in-5-minutes-course/blob/main/teaching/e03-diffraction/e03_diffraction_limit.ipynb) |
+| E04 | [Coherence and what a camera averages](https://optics-e03-diffraction-lab.w765809530.chatgpt.site/e04-coherence/) | [Open in Colab](https://colab.research.google.com/github/Vandermode/optics-in-5-minutes-course/blob/main/teaching/e04-coherence/e04_coherence.ipynb) |
+| E05 | [Holography and the phase problem](https://optics-e03-diffraction-lab.w765809530.chatgpt.site/e05-phase-problem/) | [Open in Colab](https://colab.research.google.com/github/Vandermode/optics-in-5-minutes-course/blob/main/teaching/e05-phase-problem/e05_phase_problem.ipynb) |
+| E06 | [Flat optics and wrapped phase](https://optics-e03-diffraction-lab.w765809530.chatgpt.site/e06-flat-optics/) | [Open in Colab](https://colab.research.google.com/github/Vandermode/optics-in-5-minutes-course/blob/main/teaching/e06-flat-optics/e06_flat_optics.ipynb) |
+| E07 | [Gratings, Bloch waves, and band gaps](https://optics-e03-diffraction-lab.w765809530.chatgpt.site/e07-periodic-structures/) | [Open in Colab](https://colab.research.google.com/github/Vandermode/optics-in-5-minutes-course/blob/main/teaching/e07-periodic-structures/e07_periodic_structures.ipynb) |
+| E08 | [Waveguides, modes, and resonators](https://optics-e03-diffraction-lab.w765809530.chatgpt.site/e08-trapping-light/) | [Open in Colab](https://colab.research.google.com/github/Vandermode/optics-in-5-minutes-course/blob/main/teaching/e08-trapping-light/e08_trapping_light.ipynb) |
+| E09 | [Maxwell on a grid](https://optics-e03-diffraction-lab.w765809530.chatgpt.site/e09-maxwell-grid/) | [Open in Colab](https://colab.research.google.com/github/Vandermode/optics-in-5-minutes-course/blob/main/teaching/e09-maxwell-grid/e09_maxwell_grid.ipynb) |
+| E10 | [Designing light with gradients](https://optics-e03-diffraction-lab.w765809530.chatgpt.site/e10-adjoint-design/) | [Open in Colab](https://colab.research.google.com/github/Vandermode/optics-in-5-minutes-course/blob/main/teaching/e10-adjoint-design/e10_adjoint_design.ipynb) |
 
-For local preview, run `python -m http.server 8765 --directory teaching/e03-diffraction` from this directory and open http://localhost:8765.
+The notebooks use NumPy, SciPy, and Matplotlib. No repository clone, external dataset, GPU, or paid Colab plan is required. Sign in with a Google account to run a notebook in Colab; save a copy to retain edits. Every module includes a figure ZIP if rich notebook outputs fail to load.
 
-The bundled Lato fonts retain their [license](teaching/e03-diffraction/assets/LICENSE-Lato.txt).
+[Course structure and local development](teaching/README.md) · [Numerical and browser verification](teaching/VALIDATION.md)
+
+All ten notebooks passed clean local CPU execution, including optional sections. Live execution and figure display of the nine new notebooks in authenticated Colab remain unverified; the validation record separates these checks.
+
+For local preview, run `python -m http.server 8787 --directory teaching` and open [the local course](http://localhost:8787/). The site is buildless HTML, CSS, JavaScript, and Canvas. The manually dispatched Pages workflow publishes the complete course; CI checks changes without deploying Pages.
+
+E03’s existing notebook path and legacy root experiment links remain available. The bundled Lato fonts retain their [license](teaching/shared/fonts/LICENSE-Lato.txt).

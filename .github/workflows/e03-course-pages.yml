@@ -1,4 +1,4 @@
-name: Publish E03 course
+name: Publish optics course
 
 on:
   workflow_dispatch:
@@ -9,7 +9,7 @@ permissions:
   id-token: write
 
 concurrency:
-  group: e03-course-pages
+  group: optics-course-pages
   cancel-in-progress: false
 
 jobs:
@@ -20,10 +20,12 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+      - name: Package complete static course
+        run: python teaching/tools/export_course.py dist/course
       - uses: actions/configure-pages@v5
       - uses: actions/upload-pages-artifact@v3
         with:
-          path: teaching/e03-diffraction
+          path: dist/course
       - name: Deploy
         id: deployment
         uses: actions/deploy-pages@v4

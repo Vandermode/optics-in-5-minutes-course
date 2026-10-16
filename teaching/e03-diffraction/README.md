@@ -17,10 +17,10 @@ The website has no runtime dependencies, CDN imports, telemetry, accounts, or ba
 From the repository root:
 
 ```bash
-python -m http.server 8765 --directory teaching/e03-diffraction
+python -m http.server 8787 --directory teaching
 ```
 
-Open http://localhost:8765. Use HTTP because the page imports JavaScript modules. The controls work with keyboard arrows; plot labels and relative intensity scales stay consistent on small screens. Experiment URLs encode the optical settings, display zoom, stripe frequency, and contrast-display choice. Quiz answers are not persisted or uploaded.
+Open http://localhost:8787/e03-diffraction/. Use HTTP because the page imports JavaScript modules. The controls work with keyboard arrows; plot labels and relative intensity scales stay consistent on small screens. Experiment URLs encode the optical settings, display zoom, stripe frequency, and contrast-display choice. Quiz answers are not persisted or uploaded.
 
 ## Run in Colab
 
@@ -28,7 +28,7 @@ Open http://localhost:8765. Use HTTP because the page imports JavaScript modules
 
 You can also download `e03_diffraction_limit.ipynb` and use **File → Upload notebook** in Colab or open it in local Jupyter. The notebook does not depend on any other repository file.
 
-Public lesson: https://optics-e03-diffraction-lab.w765809530.chatgpt.site/
+Public lesson: https://optics-e03-diffraction-lab.w765809530.chatgpt.site/e03-diffraction/
 
 Public source: https://github.com/Vandermode/optics-in-5-minutes-course
 
@@ -36,13 +36,13 @@ The notebook requires NumPy, SciPy and Matplotlib, which are normally present in
 
 ## Publish with GitHub Pages
 
-This is a static site, so no Quarto or Node build step is required. The supplied repository workflow `.github/workflows/e03-course-pages.yml` publishes this directory **only when manually dispatched**. It does not enable Pages, change repository visibility, or automatically deploy on push.
+This is a static site, so no Quarto or Node build step is required. The supplied repository workflow `.github/workflows/e03-course-pages.yml` packages and publishes the complete ten-episode course **only when manually dispatched**. It does not enable Pages, change repository visibility, or automatically deploy on push.
 
 1. Review the content and configure repository **Settings → Pages → Source: GitHub Actions**. Pages availability for private repositories depends on your GitHub plan.
-2. In Actions, select **Publish E03 course**, select the branch containing this module, and run the workflow.
-3. The artifact path is `teaching/e03-diffraction/`. Both the notebook download and local assets use relative URLs, so a repository subpath works.
+2. In Actions, select **Publish optics course**, select the branch containing this module, and run the workflow.
+3. The artifact path is `dist/course/`, prepared by `teaching/tools/export_course.py`. This lesson remains at `e03-diffraction/`; notebook and asset URLs are relative.
 
-Alternatively, upload the contents of this directory to any static web host. The downloadable notebook must remain next to `index.html`.
+Alternatively, export the complete course and upload the resulting directory to a static host. The course navigation expects the episode folders to remain together. The downloadable notebook stays next to the lesson index.
 
 ## Add the video when it is published
 
@@ -73,3 +73,7 @@ python teaching/e03-diffraction/tools/validate_notebook.py
 Generation rebuilds the Airy lookup table, figure, fonts, numerical reference cases, and unexecuted notebook. Validation runs the notebook from the first cell and writes executed outputs back. The browser table linearly interpolates samples spaced by 1/128 in Bessel argument; reference checks require intensity error below 8×10⁻⁶. The notebook independently checks the Fourier model, DC normalization, pupil autocorrelation, and missing-band behavior.
 
 For release QA, also check the page at desktop and mobile widths, all sliders/presets, quiz feedback, parameter sharing, PNG export, and the downloaded notebook. Test physics-changing controls separately from display zoom.
+
+## Season 1 integration check
+
+The complete-course validator re-executed this notebook in a clean Python 3.12 CPU kernel and saved all four PNG outputs. The lesson now also provides `figures.zip`, and its legacy root notebook download is retained. The earlier live-Colab limitation above remains a frontend verification limit; local execution does not establish successful display in Colab. See [course validation](../VALIDATION.md).

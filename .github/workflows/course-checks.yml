@@ -1,0 +1,54 @@
+name: Check teaching course
+
+on:
+  pull_request:
+    paths: ['teaching/**', '.github/workflows/course-checks.yml']
+  push:
+    branches: [main]
+    paths: ['teaching/**', '.github/workflows/course-checks.yml']
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  course:
+    runs-on: ubuntu-latest
+    env:
+      OPENBLAS_NUM_THREADS: '2'
+      OMP_NUM_THREADS: '2'
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+          cache: pip
+          cache-dependency-path: teaching/requirements-dev.txt
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+          cache-dependency-path: teaching/package-lock.json
+      - run: pip install -r teaching/requirements-dev.txt
+      - run: npm ci --prefix teaching
+      - run: npx --prefix teaching playwright install --with-deps chromium
+      - name: Rebuild pages and independent references
+        run: |
+          python teaching/tools/build_course.py
+          python teaching/tools/build_references.py
+      - run: npm test --prefix teaching
+      - name: Execute notebooks in clean CPU kernels
+        run: python teaching/tools/validate_notebooks.py
+      - name: Test desktop, mobile, interactions, and routes
+        run: |
+          python -m http.server 8787 --bind 127.0.0.1 --directory teaching > /tmp/course-server.log 2>&1 &
+          course_server_pid=$!
+          trap 'kill "$course_server_pid"' EXIT
+          npm run test:browser --prefix teaching
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: teaching-course-verification
+          path: |
+            teaching/validation-*.json
+            teaching/.qa/browser/

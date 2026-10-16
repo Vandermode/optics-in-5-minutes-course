@@ -1,0 +1,152 @@
+{
+  "tested_url": "http://127.0.0.1:8788/",
+  "viewports": [
+    1280,
+    390
+  ],
+  "results": [
+    {
+      "episode": "E01",
+      "width": 1280,
+      "layout": "passed",
+      "canvas": "computed",
+      "interactions": "all controls, presets, quiz, download, share, reset; worker stop where applicable"
+    },
+    {
+      "episode": "E02",
+      "width": 1280,
+      "layout": "passed",
+      "canvas": "computed",
+      "interactions": "all controls, presets, quiz, download, share, reset; worker stop where applicable"
+    },
+    {
+      "episode": "E03",
+      "width": 1280,
+      "layout": "passed",
+      "canvas": "computed",
+      "interactions": "all controls, presets, quiz, download, share, reset; worker stop where applicable"
+    },
+    {
+      "episode": "E04",
+      "width": 1280,
+      "layout": "passed",
+      "canvas": "computed",
+      "interactions": "all controls, presets, quiz, download, share, reset; worker stop where applicable"
+    },
+    {
+      "episode": "E05",
+      "width": 1280,
+      "layout": "passed",
+      "canvas": "computed",
+      "interactions": "all controls, presets, quiz, download, share, reset; worker stop where applicable"
+    },
+    {
+      "episode": "E06",
+      "width": 1280,
+      "layout": "passed",
+      "canvas": "computed",
+      "interactions": "all controls, presets, quiz, download, share, reset; worker stop where applicable"
+    },
+    {
+      "episode": "E07",
+      "width": 1280,
+      "layout": "passed",
+      "canvas": "computed",
+      "interactions": "all controls, presets, quiz, download, share, reset; worker stop where applicable"
+    },
+    {
+      "episode": "E08",
+      "width": 1280,
+      "layout": "passed",
+      "canvas": "computed",
+      "interactions": "all controls, presets, quiz, download, share, reset; worker stop where applicable"
+    },
+    {
+      "episode": "E09",
+      "width": 1280,
+      "layout": "passed",
+      "canvas": "computed",
+      "interactions": "all controls, presets, quiz, download, share, reset; worker stop where applicable"
+    },
+    {
+      "episode": "E10",
+      "width": 1280,
+      "layout": "passed",
+      "canvas": "computed",
+      "interactions": "all controls, presets, quiz, download, share, reset; worker stop where applicable"
+    },
+    {
+      "episode": "E01",
+      "width": 390,
+      "layout": "passed",
+      "canvas": "computed",
+      "interactions": "mobile layout"
+    },
+    {
+      "episode": "E02",
+      "width": 390,
+      "layout": "passed",
+      "canvas": "computed",
+      "interactions": "mobile layout"
+    },
+    {
+      "episode": "E03",
+      "width": 390,
+      "layout": "passed",
+      "canvas": "computed",
+      "interactions": "mobile layout"
+    },
+    {
+      "episode": "E04",
+      "width": 390,
+      "layout": "passed",
+      "canvas": "computed",
+      "interactions": "mobile layout"
+    },
+    {
+      "episode": "E05",
+      "width": 390,
+      "layout": "passed",
+      "canvas": "computed",
+      "interactions": "mobile layout"
+    },
+    {
+      "episode": "E06",
+      "width": 390,
+      "layout": "passed",
+      "canvas": "computed",
+      "interactions": "mobile layout"
+    },
+    {
+      "episode": "E07",
+      "width": 390,
+      "layout": "passed",
+      "canvas": "computed",
+      "interactions": "mobile layout"
+    },
+    {
+      "episode": "E08",
+      "width": 390,
+      "layout": "passed",
+      "canvas": "computed",
+      "interactions": "mobile layout"
+    },
+    {
+      "episode": "E09",
+      "width": 390,
+      "layout": "passed",
+      "canvas": "computed",
+      "interactions": "mobile layout"
+    },
+    {
+      "episode": "E10",
+      "width": 390,
+      "layout": "passed",
+      "canvas": "computed",
+      "interactions": "mobile layout"
+    }
+  ],
+  "internal_links_checked": 49,
+  "legacy_e03_routes": "passed",
+  "console_errors": []
+}
