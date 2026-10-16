@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Explore why perfect lenses still blur: an interactive lesson on diffraction, numerical aperture, and the information in an image. Includes a runnable Python notebook.">
+  <meta name="theme-color" content="#f5f3ed">
+  <title>The Diffraction Limit · Optics in 5 Minutes</title>
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="assets/style.css">
+  <script type="module" src="assets/app.js"></script>
+</head>
+<body>
+<a class="skip" href="#main">Skip to lesson</a>
+<header class="site-header">
+  <a class="brand" href="#"><svg viewBox="0 0 36 36" aria-hidden="true"><circle cx="18" cy="18" r="16"/><circle cx="18" cy="18" r="10"/><circle cx="18" cy="18" r="3"/></svg><span>OPTICS<span class="brand-sub">IN 5 MINUTES</span></span></a>
+  <nav aria-label="Lesson navigation"><a href="#idea">The idea</a><a href="#lab">Explore</a><a href="#frequency-space">Go deeper</a><a href="#notebook">Notebook <span aria-hidden="true">↗</span></a></nav>
+</header>
+<main id="main">
+  <section class="hero" aria-labelledby="title">
+    <div class="hero-copy"><p class="eyebrow"><span class="episode">03</span> COMPUTATIONAL OPTICS / AN INTERACTIVE LESSON</p>
+      <h1 id="title">A perfect lens.<br>Still a <em>blurry image.</em></h1>
+      <p class="lede">Two points become two overlapping patterns. Find out what makes them distinguishable—and why zooming in is only part of the story.</p>
+      <div class="hero-actions"><a class="button primary" href="#lab">Try the experiment <span aria-hidden="true">↓</span></a><a class="text-link" href="#idea">Start with the idea <span aria-hidden="true">↗</span></a></div>
+      <p class="lesson-meta">12-minute lesson <span>·</span> 25-minute Python lab <span>·</span> Calculus + basic Python</p>
+    </div>
+    <figure class="hero-figure"><img src="assets/airy-hero.png" width="1000" height="700" alt="Computed intensity patterns of two incoherent point sources, overlapping into a luminous pair with faint diffraction rings."><figcaption><span>WHAT A PERFECT LENS SEES</span><span>Two points. One finite aperture.</span></figcaption></figure>
+  </section>
+
+  <section id="idea" class="section intro">
+    <div class="section-label">01 / BUILD AN INTUITION</div>
+    <div><h2>Every point leaves a footprint.</h2><p class="large">A point source is imaged as an Airy pattern: a bright central spot surrounded by faint rings. This is the lens’s <strong>point spread function</strong>, or PSF.</p>
+      <p>For independent glowing points, like fluorescent emitters, the <strong>intensities add</strong>. An extended object is a sum of these footprints: an intensity convolution, <span class="inline-equation">I = O ∗ h</span>.</p>
+      <div class="goals"><h3>By the end, you can</h3><ol><li>Predict how numerical aperture and wavelength change the PSF.</li><li>Distinguish a two-point resolution criterion from a spatial-frequency cutoff.</li><li>Explain why magnification and deconvolution cannot create missing measurements.</li></ol></div>
+      <div class="prediction"><span class="tiny-label">PREDICT BEFORE YOU TOUCH THE SLIDERS</span><p>Two emitters are 520 nm apart. Would you change the wavelength, the aperture, or the display zoom to make their optical images more distinguishable?</p></div>
+    </div>
+  </section>
+
+  <section id="lab" class="lab-section section">
+    <div class="section-heading"><div><p class="section-label">02 / THE TWO-POINT EXPERIMENT</p><h2>Change the optics.<br>Watch the overlap.</h2></div><p>Start with one variable. Keep the others fixed.<br>All distances below are in object space.</p></div>
+    <noscript><p class="notice">Enable JavaScript to run the interactive experiment. The explanation, reference image, and downloadable notebook remain available.</p></noscript>
+    <div id="load-error" class="notice" hidden>The interactive experiment could not load. Reload the page or download the notebook below.</div>
+    <div class="lab-grid">
+      <aside class="controls" aria-label="Experiment controls">
+        <div class="control"><label for="na">Numerical aperture <output id="na-value" for="na">0.65</output></label><input id="na" type="range" min="0.2" max="0.95" step="0.01" value="0.65"><p>NA = n sin θ. A wider collection cone narrows the PSF.</p></div>
+        <div class="control"><label for="wavelength">Vacuum wavelength <output id="wavelength-value" for="wavelength">550 nm</output></label><input id="wavelength" type="range" min="400" max="700" step="10" value="550"><p>Shorter wavelengths give a smaller diffraction pattern.</p></div>
+        <div class="control"><label for="separation">Point separation <output id="separation-value" for="separation">520 nm</output></label><input id="separation" type="range" min="100" max="2400" step="1" value="520"><p>The actual distance between the two equal emitters.</p></div>
+        <div class="control"><label for="zoom">Display zoom <output id="zoom-value" for="zoom">1.00×</output></label><input id="zoom" type="range" min="1" max="2.5" step="0.25" value="1"><p>Crops the view. The optical PSF and resolution stay the same.</p></div>
+        <label class="check"><input id="rings" type="checkbox" checked> Reveal faint rings <span>(√ intensity)</span></label>
+        <div class="control-actions"><button id="reset" class="button small secondary" type="button">Reset</button><button id="copy-link" class="button small secondary" type="button">Copy this experiment</button></div><p id="copy-status" class="small-status" role="status"></p>
+      </aside>
+      <div class="visuals">
+        <div class="visual-toolbar"><span class="tiny-label">TWO EQUAL, INCOHERENT POINT SOURCES</span><span class="live-dot">Live calculation</span></div>
+        <figure class="image-figure"><canvas id="image-canvas" width="800" height="400" role="img" aria-label="Simulated two-dimensional intensity image of two incoherent sources."></canvas><figcaption><span id="field-caption">5.00 μm field of view</span><span>Intensity scale: 0–2 · per-source peak = 1</span></figcaption></figure>
+        <div class="metrics" aria-live="polite" aria-atomic="true"><div><span>RAYLEIGH SEPARATION</span><strong id="rayleigh-value">516 <small>nm</small></strong></div><div><span>SEPARATION / RAYLEIGH</span><strong id="ratio-value">1.01<small>×</small></strong></div><div><span>REFERENCE COMPARISON</span><strong id="criterion-value" class="criterion">Near Rayleigh</strong></div></div>
+        <figure class="profile-figure"><div class="plot-heading"><h3>A slice through both points</h3><div class="legend"><span class="legend-total">Sum</span><span class="legend-one">Point 1</span><span class="legend-two">Point 2</span></div></div><canvas id="profile-canvas" width="800" height="260" role="img" aria-label="Linear intensity profiles showing the two point spread functions and their sum."></canvas><figcaption>Linear intensity, even when the image above uses square-root contrast. Dashed vertical lines mark the true source positions.</figcaption></figure>
+        <div class="presets" aria-label="Example experiments"><span>TRY A CASE</span><button type="button" data-preset="below">Below Rayleigh</button><button type="button" data-preset="rayleigh">At Rayleigh</button><button type="button" data-preset="above">Above Rayleigh</button><button type="button" id="download-plot">Save profile PNG <span aria-hidden="true">↓</span></button></div>
+      </div>
+    </div>
+    <p class="model-note"><strong>What you are seeing:</strong> a noiseless, in-focus scalar model with a circular, aberration-free pupil. Each single-source PSF is normalized to unit peak, so this compares shape, not light collection or photon counts across NA. Rayleigh is a useful convention, not an abrupt boundary between possible and impossible measurements.</p>
+  </section>
+
+  <section class="section interpretation">
+    <div class="section-label">03 / NAME THE LIMIT</div>
+    <div><h2>One lens. Two different questions.</h2><div class="comparison"><article><span class="tiny-label">TWO POINTS</span><h3>How much do their images overlap?</h3><div class="equation">d<sub>R</sub> ≈ 0.61 λ<sub>0</sub> / NA</div><p>At the Rayleigh separation, the central peak of one Airy pattern lies at the first zero of the other. This convention applies here to two equally bright, mutually incoherent points.</p></article><article><span class="tiny-label">A PERIODIC PATTERN</span><h3>Which frequencies reach the image?</h3><div class="equation">f<sub>c</sub> = 2 NA / λ<sub>0</sub></div><p>The incoherent intensity transfer function reaches zero at this cutoff. Its reciprocal, λ<sub>0</sub>/(2 NA), is a limiting period—not the Rayleigh two-point distance. Contrast is already zero at the cutoff.</p></article></div>
+      <details class="derivation"><summary>Where do the Airy pattern and the factor 0.61 come from?</summary><p>For a circular pupil, the peak-normalized intensity PSF is</p><p class="equation">h(r) = [2 J₁(v) / v]², &nbsp; v = 2π NA r / λ<sub>0</sub>.</p><p>J₁ is the first-order Bessel function, and h(0) = 1 by its limit. Its first positive zero is v ≈ 3.831706. Dividing by 2π gives 0.609835. The two-point image is h(√((x − d/2)² + y²)) + h(√((x + d/2)² + y²)).</p></details>
+    </div>
+  </section>
+
+  <section id="frequency-space" class="section frequency-section">
+    <div class="section-heading"><div><p class="section-label">04 / LOOK IN FREQUENCY SPACE</p><h2>Fine detail loses contrast<br>before it disappears.</h2></div><p>The same NA and wavelength from the experiment above drive this transfer function.</p></div>
+    <div class="frequency-grid"><div class="frequency-copy"><h3>Send a stripe pattern through the lens.</h3><p>For an incoherent sinusoidal object, the modulation transfer function (MTF) tells you what fraction of the input contrast survives.</p><label for="frequency">Spatial frequency / cutoff <output id="frequency-value" for="frequency">0.50</output></label><input type="range" id="frequency" min="0" max="1.3" step="0.01" value="0.5"><dl class="frequency-stats"><div><dt>Cutoff f<sub>c</sub></dt><dd id="cutoff-value">2.36 cycles/μm</dd></div><div><dt>Selected frequency</dt><dd id="selected-frequency">1.18 cycles/μm</dd></div><div><dt>Contrast transmitted</dt><dd id="contrast-value">39.1%</dd></div></dl><p id="frequency-description" class="insight">Only part of this pattern’s contrast survives.</p><p class="small-note">At zero frequency the pattern is uniform; “contrast transmitted” denotes the transfer function’s DC limit.</p></div>
+    <div class="frequency-visual"><canvas id="mtf-canvas" width="700" height="280" role="img" aria-label="Modulation transfer function of a circular pupil, with the selected spatial frequency marked."></canvas><div class="stripes"><figure><canvas id="object-stripes" width="500" height="100" role="img" aria-label="Sinusoidal object intensity."></canvas><figcaption>Object · 80% input contrast</figcaption></figure><figure><canvas id="image-stripes" width="500" height="100" role="img" aria-label="Imaged sinusoidal intensity after modulation transfer."></canvas><figcaption id="stripe-caption">Image · 31.3% output contrast</figcaption></figure></div><p class="small-note">Both strips span 4 μm and use the same linear gray scale. This example is an infinite sinusoid, not a finite cropped object.</p></div></div>
+    <details class="derivation"><summary>See the transfer function and the coherent-imaging distinction</summary><p>For this ideal circular pupil, H(ρ) = (2/π)[arccos ρ − ρ√(1 − ρ²)] for 0 ≤ ρ &lt; 1, and H = 0 for ρ ≥ 1, where ρ = |f|/f<sub>c</sub>. H is real and nonnegative, so MTF = |H| = H.</p><p>For coherent illumination, the pupil instead filters the <em>complex field</em> with cutoff NA/λ<sub>0</sub>; intensity is taken afterward. Do not compare that field cutoff to an intensity cutoff without specifying the object and illumination. This experiment stays with incoherent emitters throughout.</p></details>
+  </section>
+
+  <section id="check" class="section check-section"><div><p class="section-label">05 / CHECK YOUR UNDERSTANDING</p><h2>Make the prediction<br>your own.</h2><p>Try answering before opening the Python lab. Each answer comes with an explanation.</p></div><form id="quiz"><fieldset><legend>1. At fixed wavelength, doubling NA changes the Rayleigh separation by…</legend><label><input type="radio" name="q1" value="double"> A factor of two larger</label><label><input type="radio" name="q1" value="half"> A factor of two smaller</label><label><input type="radio" name="q1" value="same"> No change</label><p id="q1-feedback" class="feedback"></p></fieldset><fieldset><legend>2. Increasing only display zoom makes two unresolved patterns…</legend><label><input type="radio" name="q2" value="information"> Contain new spatial-frequency information</label><label><input type="radio" name="q2" value="aperture"> Behave like a larger optical aperture</label><label><input type="radio" name="q2" value="larger"> Look larger, with the same optical overlap</label><p id="q2-feedback" class="feedback"></p></fieldset><fieldset><legend>3. Where H(f) = 0, dividing the measured spectrum by H can…</legend><label><input type="radio" name="q3" value="restore"> Recover the original coefficient exactly</label><label><input type="radio" name="q3" value="missing"> Not uniquely determine the missing coefficient from this measurement</label><label><input type="radio" name="q3" value="noise"> Work if we increase the display contrast</label><p id="q3-feedback" class="feedback"></p></fieldset><button class="button primary" type="submit">Check answers <span aria-hidden="true">→</span></button><p id="quiz-status" role="status"></p></form></section>
+
+  <section id="notebook" class="section notebook-section"><div><p class="section-label">06 / TURN THE PICTURE INTO CODE</p><h2>Your next experiment<br>is a few cells away.</h2><p>The self-contained Python notebook reproduces the Airy profiles, builds a PSF from a pupil with an FFT, verifies the transfer function, and explores noisy deconvolution.</p><div class="notebook-actions"><a class="button primary" id="colab-link" href="https://colab.research.google.com/github/Vandermode/optics-in-5-minutes-course/blob/main/teaching/e03-diffraction/e03_diffraction_limit.ipynb" target="_blank" rel="noopener">Open in Colab <span aria-hidden="true">↗</span></a><a class="button secondary" href="e03_diffraction_limit.ipynb" download>Download .ipynb <span aria-hidden="true">↓</span></a></div><p class="small-note">The notebook is publicly available on GitHub. Choose <strong>Open in Colab</strong>, sign in with your Google account, then select <strong>Runtime → Run all</strong>. No GitHub account, repository clone, GPU, or paid Colab plan is needed. To keep your edits, save a copy to your own Drive. You can also download the notebook for local Jupyter.</p></div><div class="code-preview"><div class="code-top"><span>FROM APERTURE TO IMAGE</span><span>Python / CPU</span></div><pre><code><span class="code-comment"># An incoherent image is intensity convolution.</span>
+field_psf = np.fft.ifft2(pupil)
+psf = np.abs(field_psf) ** 2
+psf /= psf.sum()
+
+otf = np.fft.fft2(psf)
+image = np.fft.ifft2(
+    np.fft.fft2(object_intensity) * otf
+).real</code></pre><p>The notebook makes the sampling, array layout, and periodic FFT boundary assumptions explicit.</p></div></section>
+
+  <section class="section footnotes"><div><p class="section-label">MODEL, MATERIALS & SOURCES</p><h3>Know what the model leaves out.</h3></div><div><p>This is a scalar, monochromatic, shift-invariant model. It omits aberrations, vector polarization effects, defocus, finite emitters, detector pixel integration, and photon noise in the browser demo. High-NA behavior is illustrative; vector models may be needed for quantitative microscopy. The notebook introduces additive noise separately.</p><p><strong>Video companion:</strong> the E03 film covers these ideas in five minutes. A public video link will be added after release; this lesson is complete without it.</p><ul class="source-list"><li><a href="https://github.com/Vandermode/optics-in-5-minutes-course/tree/main/teaching/e03-diffraction" target="_blank" rel="noopener">Lesson source & instructor notes ↗</a></li><li><a href="https://qiweb.tudelft.nl/aoi/incoherentimaging/incoherentimaging/" target="_blank" rel="noopener">TU Delft · Advanced Optical Imaging: incoherent imaging ↗</a></li><li><a href="https://www.microscopyu.com/microscopy-basics/numerical-aperture" target="_blank" rel="noopener">Nikon MicroscopyU · Numerical aperture and image resolution ↗</a></li></ul><p class="small-note">Learning checks run locally in your browser. No answers are uploaded or stored.</p></div></section>
+</main>
+<footer><a class="footer-brand" href="#">OPTICS IN 5 MINUTES</a><span>03 / THE DIFFRACTION LIMIT</span><a href="#main">Back to top ↑</a></footer>
+</body>
+</html>

@@ -1,0 +1,1 @@
+{"name":"optics-e03-teaching-module","private":true,"type":"module","scripts":{"check":"node tests/check-model.mjs"}}
