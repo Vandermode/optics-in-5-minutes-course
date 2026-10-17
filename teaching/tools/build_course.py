@@ -329,9 +329,9 @@ def main():
     text=text.replace('Calculus + basic Python</p>', '<a href="#preparation">Prerequisites & recommended learning resources ↓</a></p>')
     if '<!-- course-navigation -->' not in text:
         text=text.replace('<nav aria-label="Lesson navigation">','<nav aria-label="Lesson navigation"><a href="../">All episodes</a>')
-        text=text.replace("</main>",'<!-- course-navigation --><div style="display:flex;justify-content:space-between;gap:20px;max-width:1200px;margin:30px auto;padding:0 24px;font-size:14px"><a href="../e02-lens-fourier/">← E02 · Lens Fourier transforms</a><a href="../e04-coherence/">E04 · Coherence →</a></div></main>')
+        text=text.replace("</main>",'<!-- course-navigation --><div style="display:flex;justify-content:space-between;gap:20px;max-width:1200px;margin:30px auto;padding:0 24px;font-size:1rem"><a href="../e02-lens-fourier/">← E02 · Lens Fourier transforms</a><a href="../e04-coherence/">E04 · Coherence →</a></div></main>')
         e03.write_text(text)
-    course_nav='<!-- course-navigation -->'+navigation("E03").replace('class="next-prev"', 'style="display:flex;justify-content:space-between;gap:20px;max-width:1200px;margin:30px auto;padding:0 24px;font-size:14px"')
+    course_nav='<!-- course-navigation -->'+navigation("E03").replace('class="next-prev"', 'style="display:flex;justify-content:space-between;gap:20px;max-width:1200px;margin:30px auto;padding:0 24px;font-size:1rem"')
     text=re.sub(r'<!-- course-navigation -->.*?</div>(?=</main>)',course_nav,text,flags=re.S)
     e03.write_text(text)
     if 'href="figures.zip"' not in text:
