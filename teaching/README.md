@@ -4,6 +4,8 @@ Ten interactive lessons connect wave propagation to adjoint design. Each lesson 
 
 The website opens in English on a first visit. Use **English / 中文** in the header or chapter sidebar to switch to Simplified Chinese. The choice is remembered, and switching keeps the current section and experiment settings, including controls changed before selecting Run. The homepage, preparation guide, and all ten lessons include Chinese prose, controls, chart labels, quiz feedback, and term explanations. The films and downloadable Python notebooks retain their original language and code.
 
+The homepage starts with a concept map. Twelve concept groups connect the ten episodes across four themes; selecting a concept highlights its relationships and opens the relevant lesson links. Solid arrows show conceptual foundations, and dashed connections show shared methods or applications. These are not episode completion requirements. Expand “Foundations & connections” to find focused refreshers and explanations of each relationship. Concept links support browser history and direct URLs, and language switching preserves the selection. The episode index remains available below the map.
+
 Every lesson and notebook opens with a concrete optical problem, why it matters, and what studying the topic enables you to do. This motivation comes before the prerequisite checklist.
 
 Each lesson page has a navigation sidebar for its own sections, with the current section highlighted as you read. Terms marked with a dotted underline open an explanation in the selected language with a concise definition, its role in that chapter, and a formula where helpful. The explanation can be closed with its close button or Escape. On narrow screens, the section list expands from “On this page” and explanations open in a modal side panel.
@@ -29,7 +31,7 @@ All numerical data are synthetic and seeded. The notebooks use CPU NumPy, SciPy,
 
 ## Teaching sequence
 
-Follow the episode order for a full course, or use the preparation links on each lesson. A classroom session can use 3 minutes of prediction, 8 minutes of browser exploration, 6 minutes of explanation, 3 minutes of concept checks, 20–25 minutes of notebook work, and 5 minutes of reflection. Optional sections suit a longer lab or independent study.
+Choose a starting point from the concept map, then follow connections and review the preparation links for unfamiliar foundations. Episode numbers identify material rather than prescribing a learning order. A classroom session can use 3 minutes of prediction, 8 minutes of browser exploration, 6 minutes of explanation, 3 minutes of concept checks, 20–25 minutes of notebook work, and 5 minutes of reflection. Optional sections suit a longer lab or independent study.
 
 E04 follows the corrected extended narrative: fields always superpose, the detector averages cross terms, fixed spatial randomness differs from temporal variation, and independent source contributions lead to mutual intensity and coherent modes. The teaching course does not modify the films.
 
@@ -57,11 +59,13 @@ The lesson code uses static HTML/CSS, native modules, and Canvas, with no build 
 
 `tools/locales/zh.json` holds the reviewed Chinese phrases and term aliases. The course builder calls `tools/localization.py` to create sibling `index.zh.html` pages and `shared/zh.js`; missing page translations fail the build. Update the catalog when editing English content, then rebuild instead of editing generated Chinese files. Equations, code, and numerical configuration are preserved, and both languages share the same models. `shared/language.js` translates runtime text and handles preference and state-preserving navigation. `tests/languages.mjs` checks the English default, remembered choice, round-trip controls and section anchors, Chinese glossary and feedback, phone layouts, and navigation without JavaScript or browser storage.
 
+`tools/knowledge.py` authors concept names, descriptions, foundation links, episode mappings, and typed relationships independently of episode order. The builder renders every concept and destination into static HTML; `shared/knowledge.js` adds selection and responsive connection routing. With JavaScript disabled, concept links jump to their complete episode lists. `tests/knowledge.mjs` checks both languages at six widths, all ten episode destinations, node and edge geometry, keyboard and history navigation, selection across language switches, and static fallback links.
+
 `tools/export_course.py <destination>` packages the complete static course, notebook downloads, and figures without development environments or tests. The manual Pages workflow publishes that package only when dispatched. CI independently runs numerical checks, all notebooks, and browser tests; a push does not trigger Pages publication.
 
 ## Public interfaces and compatibility
 
-Each `eNN-topic/` route is stable, with experiment values encoded in query parameters. E03 retains its public GitHub notebook path. Legacy root experiment parameters and section hashes redirect to `e03-diffraction/`, and the old root `e03_diffraction_limit.ipynb` download remains available. The root is now the ten-lesson catalog.
+Each `eNN-topic/` route is stable, with experiment values encoded in query parameters. E03 retains its public GitHub notebook path. Legacy root experiment parameters and section hashes redirect to `e03-diffraction/`, and the old root `e03_diffraction_limit.ipynb` download remains available. The root opens the concept map, followed by the ten-lesson index. A `#concept-<id>` link selects a concept; the language switch also carries a `concept` query parameter so the selection survives when another homepage section is in view.
 
 Chinese pages use `index.zh.html` in the same folders, including the [Chinese homepage](https://vandermode.github.io/optics-in-5-minutes-course/index.zh.html). Their internal lesson and preparation links retain Chinese, and their experiment links include the page language as well as parameter values. Both languages have readable static content and ordinary language links when JavaScript is disabled.
 
