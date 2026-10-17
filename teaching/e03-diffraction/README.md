@@ -2,6 +2,16 @@
 
 A complete English-language lesson connecting diffraction and image formation to a runnable Python model. The preparation checklist below names the expected background and focused review resources. This module includes the E03 film and can also be used independently.
 
+<!-- course-motivation:start -->
+## Why learn this?
+
+**Why does more magnification stop revealing detail?**
+
+You want to distinguish two nearby emitters in a microscope. Enlarging the image also enlarges their blur spots, so a bigger picture alone does not tell you whether the optics captured the separation. You need a way to connect the instrument to the information it records.
+
+**What you gain:** Compare changes in numerical aperture and wavelength, distinguish optical resolution from display zoom, and judge which detail a measured image can support before attempting deconvolution.
+<!-- course-motivation:end -->
+
 <!-- course-preparation:start -->
 ## Before this lesson
 

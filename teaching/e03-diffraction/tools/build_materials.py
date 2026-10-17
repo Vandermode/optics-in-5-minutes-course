@@ -19,6 +19,7 @@ from scipy.special import j1
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT.parent / "tools"))
 from preparation import refresh_preparation_markdown
+from motivation import refresh_motivation_markdown
 REPO = ROOT.parents[1]
 ASSETS = ROOT / "assets"
 ASSETS.mkdir(exist_ok=True)
@@ -423,6 +424,7 @@ independently checks the Fourier-optics construction. Numerical noise uses seed 
     # Stable cell ids keep regenerated source reviews concise.
     for i, cell in enumerate(nb.cells): cell.id = f"e03-{i:02d}"
     nb.cells[0].source = refresh_preparation_markdown(nb.cells[0].source, "E03", "Before this lab")
+    nb.cells[0].source = refresh_motivation_markdown(nb.cells[0].source, "E03")
     nbf.write(nb, ROOT / "e03_diffraction_limit.ipynb")
 
 if __name__ == "__main__": main()

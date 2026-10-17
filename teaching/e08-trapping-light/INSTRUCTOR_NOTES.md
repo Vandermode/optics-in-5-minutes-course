@@ -1,5 +1,15 @@
 # Instructor notes · E08 · Waveguides, modes, and resonators
 
+<!-- course-motivation:start -->
+## Why learn this?
+
+**How do you route and store light on a chip?**
+
+An optical circuit must keep light inside a guide, transfer it to a neighbouring path, or build it up in a resonator. Drawing the paths is not enough to predict the power: the supported field shapes and their relative phases determine what the device does.
+
+**What you gain:** Connect confinement to guided modes, choose a coupling length from mode beating, and explain how round-trip phase, coupling, and loss set a ring's spectral response.
+<!-- course-motivation:end -->
+
 For learners with undergraduate calculus, linear algebra, and basic Python. Each lesson names the specific ideas it uses and links to focused refreshers. Review unfamiliar topics as needed; the lesson develops the optical method. Use the checklist below before class. During the lesson, give a short notation reminder or point back to a resource when needed, then keep the explanation focused on the current optical question.
 
 <!-- course-preparation:start -->

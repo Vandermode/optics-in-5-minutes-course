@@ -2,7 +2,7 @@
 <html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="description" content="Solve Maxwell’s coupled field equations with staggered samples, then find out why time steps, pixels, and computational boundaries are part of the physics calculation."><meta name="theme-color" content="#f5f3ed">
 <title>E09 · Maxwell on a grid · Optics in 5 Minutes</title>
-<link rel="icon" href="../e03-diffraction/assets/favicon.svg"><link rel="stylesheet" href="../shared/course.css"><link rel="stylesheet" href="../shared/preparation.css">
+<link rel="icon" href="../e03-diffraction/assets/favicon.svg"><link rel="stylesheet" href="../shared/course.css"><link rel="stylesheet" href="../shared/preparation.css"><link rel="stylesheet" href="../shared/motivation.css">
 <script type="module" src="../shared/lesson.js"></script></head><body>
 <a class="skip" href="#main">Skip to lesson</a><div class="shell">
 <header class="topbar"><a class="brand" href="../">OPTICS<span>IN 5 MINUTES</span></a>
@@ -11,6 +11,12 @@
 <h1>Update a neighbour.<br><em>Watch a wave emerge.</em></h1><p class="lede">Solve Maxwell’s coupled field equations with staggered samples, then find out why time steps, pixels, and computational boundaries are part of the physics calculation.</p><div class="actions"><a class="button" href="#lab">Try the experiment ↓</a><a href="#video">Watch the film ↓</a></div>
 <p class="meta">12–15-minute lesson · 25–30-minute Python lab<br><a href="#preparation">Prerequisites & recommended learning resources ↓</a></p></div>
 <figure><img src="assets/hero.png" width="1000" height="700" alt="Computed illustration from this lesson’s numerical model."><figcaption>COMPUTED FROM THE LESSON MODEL</figcaption></figure></section>
+    <section id="motivation" class="motivation" aria-labelledby="motivation-title">
+<div><p class="motivation-kicker">E09 / WHY LEARN THIS?</p>
+<h2 id="motivation-title">When can you trust a simulated electromagnetic field?</h2></div>
+<div class="motivation-copy"><p>A device with reflections, interfaces, or wavelength-scale features may need Maxwell&#x27;s coupled fields rather than a prescribed phase mask. Computing those fields still does not make every plotted ripple physical: the grid, time step, and artificial boundaries can change the result.</p>
+<p><strong>What you gain:</strong> Build a time-domain Maxwell solver and test its stability, propagation error, and boundary reflections before interpreting a simulated device response.</p></div>
+</section>
     <section id="preparation" class="preparation" aria-labelledby="preparation-title">
 <p class="prep-kicker">BEFORE E09 / PREREQUISITES</p>
 <h2 id="preparation-title">Check your starting point.</h2>
