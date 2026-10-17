@@ -1,0 +1,15 @@
+.topbar,.site-header{flex-wrap:wrap;height:auto;gap:18px;padding-top:24px;padding-bottom:24px}
+nav.language-switch{display:inline-flex;flex:none;flex-direction:row;flex-wrap:nowrap;width:auto;gap:0;align-items:center;justify-content:flex-start;border:1px solid #b9c6bd;border-radius:5px;padding:3px;background:#fffdf8;font:1rem/1.5 Lato,"Noto Sans CJK SC","Microsoft YaHei",sans-serif;letter-spacing:0}
+.language-switch a{display:block;padding:5px 10px;border:0;border-radius:3px;text-decoration:none;color:#536765;white-space:nowrap}
+.language-switch a[aria-current]{background:#135b60;color:#fff;font-weight:700}
+.language-switch a:hover{background:#e4ebe1;color:#135b60}
+.language-switch a[aria-current]:hover{background:#104e52;color:#fff}
+.chapter-sidebar nav.language-switch{margin:0 0 22px;font-size:1rem}
+.chapter-sidebar nav.language-switch a{border:0;padding:5px 10px}
+.chapter-sidebar nav.language-switch a[aria-current]{background:#135b60;color:#fff}
+html[lang="zh-CN"] body{font-family:Lato,"Noto Sans CJK SC","Noto Sans SC","PingFang SC","Microsoft YaHei",sans-serif;line-height:1.85}
+html[lang="zh-CN"] h1,html[lang="zh-CN"] h2,html[lang="zh-CN"] .hero h1 em{font-family:Georgia,"Noto Serif CJK SC","Songti SC",SimSun,serif;letter-spacing:0;line-height:1.3}
+html[lang="zh-CN"] .reader-kicker,html[lang="zh-CN"] .eyebrow,html[lang="zh-CN"] .section-label{letter-spacing:.07em}
+html[lang="zh-CN"] .term-panel{font-family:Lato,"Noto Sans CJK SC","Noto Sans SC","PingFang SC","Microsoft YaHei",sans-serif}
+html[lang="zh-CN"] .pathway a{white-space:normal}
+@media print{.language-switch{display:none!important}}

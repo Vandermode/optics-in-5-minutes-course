@@ -1,3 +1,4 @@
+import {t} from '../../shared/language.js';
 import {psf, pairIntensity, rayleighNm, cutoff, mtf, criterion} from './physics.js';
 
 const $ = id => document.getElementById(id);
@@ -47,10 +48,10 @@ function drawImage() {
   const length = state.zoom > 1.5 ? .5 : 1;
   s.ctx.beginPath();s.ctx.moveTo(18,s.h-22);s.ctx.lineTo(18+length/field*s.w,s.h-22);s.ctx.lineWidth=2;s.ctx.stroke();
   s.ctx.fillText(length+' μm',18,s.h-30);
-  s.ctx.fillStyle='rgba(235,240,230,.75)';s.ctx.textAlign='right';s.ctx.fillText(reveal?'√ intensity display':'Linear intensity display',s.w-15,20);
+  s.ctx.fillStyle='rgba(235,240,230,.75)';s.ctx.textAlign='right';s.ctx.fillText(t(reveal?'√ intensity display':'Linear intensity display'),s.w-15,20);
   const clipped = state.separation/1000 > field;
-  $('field-caption').textContent = field.toFixed(2)+' μm field of view'+(clipped?' · source centers outside crop':'');
-  $('image-canvas').setAttribute('aria-label','Computed intensity of two sources '+state.separation+' nm apart at NA '+state.na.toFixed(2)+' and wavelength '+state.wavelength+' nm. '+criterion(state.separation/rayleighNm(state.na,state.wavelength))+'.');
+  $('field-caption').textContent = t('{field} μm field of view',{field:field.toFixed(2)})+(clipped?t(' · source centers outside crop'):'');
+  $('image-canvas').setAttribute('aria-label',t('Computed intensity of two sources {separation} nm apart at NA {na} and wavelength {wavelength} nm.',{separation:state.separation,na:state.na.toFixed(2),wavelength:state.wavelength})+' '+t(criterion(state.separation/rayleighNm(state.na,state.wavelength)))+'.');
 }
 function axes(s, xmin, xmax, ymax, xlabel, ylabel) {
   const box={left:64,right:s.w-20,top:24,bottom:s.h-60};
@@ -66,8 +67,8 @@ function axes(s, xmin, xmax, ymax, xlabel, ylabel) {
   for(let i=0;i<tickCount;i++){
     const x=xmin+(xmax-xmin)*i/(tickCount-1);s.ctx.fillText(x.toFixed(1),X(x),box.bottom+22);
   }
-  s.ctx.fillStyle='#536765';s.ctx.fillText(xlabel,s.w/2,s.h-12);
-  s.ctx.save();s.ctx.translate(16,(box.top+box.bottom)/2);s.ctx.rotate(-Math.PI/2);s.ctx.fillText(ylabel,0,0);s.ctx.restore();
+  s.ctx.fillStyle='#536765';s.ctx.fillText(t(xlabel),s.w/2,s.h-12);
+  s.ctx.save();s.ctx.translate(16,(box.top+box.bottom)/2);s.ctx.rotate(-Math.PI/2);s.ctx.fillText(t(ylabel),0,0);s.ctx.restore();
   return {X,Y,...box};
 }
 function line(ctx, a, xs, fn, color, width=2, dash=[]) {
@@ -92,7 +93,7 @@ function drawMtf() {
   const xs=Array.from({length:450},(_,i)=>1.3*i/449);
   line(s.ctx,a,xs,mtf,'#135b60',2.8);
   s.ctx.setLineDash([4,4]);s.ctx.strokeStyle='#b36e42';s.ctx.beginPath();s.ctx.moveTo(a.X(1),a.top);s.ctx.lineTo(a.X(1),a.bottom);s.ctx.stroke();s.ctx.setLineDash([]);
-  s.ctx.fillStyle='#92572f';s.ctx.textAlign='center';s.ctx.fillText('cutoff',a.X(1),16);
+  s.ctx.fillStyle='#92572f';s.ctx.textAlign='center';s.ctx.fillText(t('cutoff'),a.X(1),16);
   s.ctx.fillStyle='#172f32';s.ctx.beginPath();s.ctx.arc(a.X(state.frequency),a.Y(mtf(state.frequency)),4,0,2*Math.PI);s.ctx.fill();
   const f=state.frequency*cutoff(state.na,state.wavelength), H=mtf(state.frequency);
   for(const [id,modulation] of [['object-stripes',.8],['image-stripes',.8*H]]){
@@ -103,11 +104,11 @@ function drawMtf() {
     }
   }
   $('frequency-value').textContent=state.frequency.toFixed(2);
-  $('cutoff-value').textContent=cutoff(state.na,state.wavelength).toFixed(2)+' cycles/μm';
-  $('selected-frequency').textContent=f.toFixed(2)+' cycles/μm';
+  $('cutoff-value').textContent=cutoff(state.na,state.wavelength).toFixed(2)+' '+t('cycles/μm');
+  $('selected-frequency').textContent=f.toFixed(2)+' '+t('cycles/μm');
   $('contrast-value').textContent=(H*100).toFixed(1)+'%';
-  $('stripe-caption').textContent='Image · '+(H*80).toFixed(1)+'% output contrast';
-  $('frequency-description').textContent=state.frequency>=1?'At and beyond the cutoff, this pattern has no image modulation.':state.frequency===0?'A uniform object passes unchanged: H(0) = 1.':'Only '+(H*100).toFixed(1)+'% of this pattern’s contrast survives.';
+  $('stripe-caption').textContent=t('Image · {contrast}% output contrast',{contrast:(H*80).toFixed(1)});
+  $('frequency-description').textContent=state.frequency>=1?t('At and beyond the cutoff, this pattern has no image modulation.'):state.frequency===0?t('A uniform object passes unchanged: H(0) = 1.'):t('Only {contrast}% of this pattern’s contrast survives.',{contrast:(H*100).toFixed(1)});
 }
 function render() {
   try {
@@ -118,7 +119,7 @@ function render() {
     const r=rayleighNm(state.na,state.wavelength), ratio=state.separation/r;
     $('rayleigh-value').innerHTML=Math.round(r)+' <small>nm</small>';
     $('ratio-value').innerHTML=ratio.toFixed(2)+'<small>×</small>';
-    $('criterion-value').textContent=criterion(ratio);
+    $('criterion-value').textContent=t(criterion(ratio));
     drawImage();drawProfile();drawMtf();$('load-error').hidden=true;
   } catch(error) { $('load-error').hidden=false; console.error(error); }
 }
@@ -136,17 +137,17 @@ $('copy-link').addEventListener('click',async()=>{
   const share=new URL(location.href);share.search='';share.hash='lab';
   for(const [key,value] of Object.entries(state))share.searchParams.set(key,value);
   share.searchParams.set('rings',$('rings').checked?'1':'0');
-  try{await navigator.clipboard.writeText(share.toString());$('copy-status').textContent='Experiment link copied.';}
-  catch{const a=document.createElement('a');a.href=share;a.textContent='Open this experiment link, then copy the address.';$('copy-status').replaceChildren(a);}
+  try{await navigator.clipboard.writeText(share.toString());$('copy-status').textContent=t('Experiment link copied.');}
+  catch{const a=document.createElement('a');a.href=share;a.textContent=t('Open this experiment link, then copy the address.');$('copy-status').replaceChildren(a);}
 });
 $('download-plot').addEventListener('click',()=>{
   const original=$('profile-canvas'), c=document.createElement('canvas');c.width=original.width;c.height=original.height+80;
   const ctx=c.getContext('2d');ctx.fillStyle='#fdfcf7';ctx.fillRect(0,0,c.width,c.height);ctx.drawImage(original,0,0);
   ctx.fillStyle='#172f32';ctx.font='16px sans-serif';ctx.fillText('NA '+state.na.toFixed(2)+' | λ₀ '+state.wavelength+' nm | d '+state.separation+' nm',18,original.height+28);
-  ctx.fillText('E03 · Equal incoherent points · Peak-normalized scalar model',18,original.height+55);
+  ctx.fillText(t('E03 · Equal incoherent points · Peak-normalized scalar model'),18,original.height+55);
   let a=$('profile-download-link');
   if(!a){a=document.createElement('a');a.id='profile-download-link';a.className='text-link';$('download-plot').after(a);}
-  a.download='e03-two-point-profile.png';a.href=c.toDataURL('image/png');a.textContent='Download generated PNG ↓';
+  a.download='e03-two-point-profile.png';a.href=c.toDataURL('image/png');a.textContent=t('Download generated PNG ↓');
   // Keep a visible download link for embedded browsers that block automatic downloads.
   a.click();
 });
@@ -156,10 +157,11 @@ $('quiz').addEventListener('submit',event=>{
   for(const [name,[expected,explanation]] of Object.entries(answers)){
     const selected=data.get(name),ok=selected===expected,feedback=$(name+'-feedback');
     if(selected)answered++;if(ok)correct++;
-    feedback.textContent=selected?(ok?'Correct. ':'Try again. ')+explanation:'Choose an answer, then check again.';
+    feedback.textContent=selected?t(ok?'Correct.':'Try again.')+' '+t(explanation):t('Choose an answer, then check again.');
     feedback.classList.toggle('wrong',!ok);
   }
-  $('quiz-status').textContent=answered<3?'You answered '+answered+' of 3 questions.':correct+' of 3 correct. Revisit the experiment and check again whenever you like.';
+  $('quiz-status').textContent=answered<3?t('You answered {answered} of 3 questions.',{answered}):t('{correct} of 3 correct. Revisit the experiment and check again whenever you like.',{correct});
 });
+addEventListener('course:language-change',({detail})=>{for(const [key,value] of Object.entries(state))detail.url.searchParams.set(key,value);detail.url.searchParams.set('rings',$('rings').checked?'1':'0');});
 new ResizeObserver(schedule).observe($('lab'));
 document.fonts.ready.then(schedule);render();

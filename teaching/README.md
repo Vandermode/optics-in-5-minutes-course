@@ -2,9 +2,11 @@
 
 Ten interactive lessons connect wave propagation to adjoint design. Each lesson combines an embedded five-minute film, a 12–15-minute explanation and experiment, three concept checks, a standalone 25–30-minute Python lab, optional deeper calculations, and instructor notes with worked reasoning and a ten-point rubric.
 
+The website opens in English on a first visit. Use **English / 中文** in the header or chapter sidebar to switch to Simplified Chinese. The choice is remembered, and switching keeps the current section and experiment settings, including controls changed before selecting Run. The homepage, preparation guide, and all ten lessons include Chinese prose, controls, chart labels, quiz feedback, and term explanations. The films and downloadable Python notebooks retain their original language and code.
+
 Every lesson and notebook opens with a concrete optical problem, why it matters, and what studying the topic enables you to do. This motivation comes before the prerequisite checklist.
 
-Each lesson page has a navigation sidebar for its own sections, with the current section highlighted as you read. Terms marked with a dotted underline open an English explanation with a concise definition, its role in that chapter, and a formula where helpful. The explanation can be closed with its close button or Escape. On narrow screens, the section list expands from “On this page” and explanations open in a modal side panel.
+Each lesson page has a navigation sidebar for its own sections, with the current section highlighted as you read. Terms marked with a dotted underline open an explanation in the selected language with a concise definition, its role in that chapter, and a formula where helpful. The explanation can be closed with its close button or Escape. On narrow screens, the section list expands from “On this page” and explanations open in a modal side panel.
 
 The course is for learners with undergraduate calculus, linear algebra, and basic Python. Each lesson lists the specific prior skills it uses, where they enter the argument, and focused resources for review. Complex amplitudes and Fourier decomposition are useful from E01; probability, electromagnetic fields, and gradients are called out where needed. The optical methods are developed in the lessons. See the [prerequisites and learning resources](https://vandermode.github.io/optics-in-5-minutes-course/preparation/) and the matching preparation block at the start of each notebook.
 
@@ -53,11 +55,15 @@ The lesson code uses static HTML/CSS, native modules, and Canvas, with no build 
 
 `shared/glossary.js` contains the authored term definitions, matching aliases, and chapter-specific uses. `shared/reader.js` adds the section navigation and marks each term's first prose occurrence per section, excluding controls, code, equations, and quiz choices. `shared/reader.css` adapts the content to the space beside the panels without reducing text size. `tests/reader.mjs` checks all ten chapters at six widths, including navigation, unchanged prose, term coverage, keyboard access, focus restoration, reading position, and modal behavior.
 
+`tools/locales/zh.json` holds the reviewed Chinese phrases and term aliases. The course builder calls `tools/localization.py` to create sibling `index.zh.html` pages and `shared/zh.js`; missing page translations fail the build. Update the catalog when editing English content, then rebuild instead of editing generated Chinese files. Equations, code, and numerical configuration are preserved, and both languages share the same models. `shared/language.js` translates runtime text and handles preference and state-preserving navigation. `tests/languages.mjs` checks the English default, remembered choice, round-trip controls and section anchors, Chinese glossary and feedback, phone layouts, and navigation without JavaScript or browser storage.
+
 `tools/export_course.py <destination>` packages the complete static course, notebook downloads, and figures without development environments or tests. The manual Pages workflow publishes that package only when dispatched. CI independently runs numerical checks, all notebooks, and browser tests; a push does not trigger Pages publication.
 
 ## Public interfaces and compatibility
 
 Each `eNN-topic/` route is stable, with experiment values encoded in query parameters. E03 retains its public GitHub notebook path. Legacy root experiment parameters and section hashes redirect to `e03-diffraction/`, and the old root `e03_diffraction_limit.ipynb` download remains available. The root is now the ten-lesson catalog.
+
+Chinese pages use `index.zh.html` in the same folders, including the [Chinese homepage](https://vandermode.github.io/optics-in-5-minutes-course/index.zh.html). Their internal lesson and preparation links retain Chinese, and their experiment links include the page language as well as parameter values. Both languages have readable static content and ordinary language links when JavaScript is disabled.
 
 Each notebook stores static PNG outputs. Every lesson also provides `figures.zip` and individual PNGs in `figures/`. In Colab, use Runtime → Run all; if an output iframe fails, use the notebook's Files sidebar or the public figure download. See [verification details and limits](VALIDATION.md) for the distinction between local execution and live Colab frontend checks.
 

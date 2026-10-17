@@ -1,4 +1,5 @@
 import {terms, lessonTerms} from './glossary.js';
+import {t, language, languageLinks, termAliases} from './language.js';
 
 const main = document.querySelector('main');
 const episode = document.body.dataset.episode;
@@ -18,20 +19,22 @@ function initializeReader() {
   const toc = document.createElement('aside');
   toc.className = 'chapter-sidebar';
   toc.id = 'chapter-sidebar';
-  toc.setAttribute('aria-label', 'Current chapter');
-  toc.innerHTML = `<p class="reader-kicker">${episode} / ON THIS PAGE</p><nav aria-label="Chapter sections"></nav><p class="term-hint">Select a <span>marked term</span> in the text to see its explanation.</p>`;
+  toc.setAttribute('aria-label', t('Current chapter'));
+  toc.innerHTML = `<p class="reader-kicker">${episode} / ${t('ON THIS PAGE')}</p><nav aria-label="${t('Chapter sections')}"></nav><p class="term-hint">${t('Select a')} <span>${t('marked term')}</span> ${t('in the text to see its explanation.')}</p>`;
   const nav = toc.querySelector('nav');
+  nav.className = 'chapter-sections';
+  toc.prepend(languageLinks());
   for (const section of sections) {
     const a = document.createElement('a');
     a.href = '#' + section.id;
-    a.textContent = labels[section.id];
+    a.textContent = t(labels[section.id]);
     nav.append(a);
   }
   const toggle = document.createElement('button');
   toggle.type = 'button';
   toggle.className = 'chapter-toggle';
   toggle.id = 'chapter-toggle';
-  toggle.textContent = '☰  On this page';
+  toggle.textContent = t('☰  On this page');
   toggle.setAttribute('aria-controls', toc.id);
   toggle.setAttribute('aria-expanded', 'false');
 
@@ -39,7 +42,7 @@ function initializeReader() {
   panel.id = 'term-panel';
   panel.className = 'term-panel';
   panel.setAttribute('aria-labelledby', 'term-title');
-  panel.innerHTML = `<div class="term-panel-top"><p class="reader-kicker">${episode} / TERM EXPLAINED</p><button type="button" class="term-close" aria-label="Close explanation">×</button></div><h2 id="term-title" tabindex="-1"></h2><p id="term-definition"></p><h3>In this chapter</h3><p id="term-context"></p><div class="term-math" hidden><p id="term-formula"></p><p id="term-notation"></p></div><button type="button" class="term-return">Back to reading →</button>`;
+  panel.innerHTML = `<div class="term-panel-top"><p class="reader-kicker">${episode} / ${t('TERM EXPLAINED')}</p><button type="button" class="term-close" aria-label="${t('Close explanation')}">×</button></div><h2 id="term-title" tabindex="-1"></h2><p id="term-definition"></p><h3>${t('In this chapter')}</h3><p id="term-context"></p><div class="term-math" hidden><p id="term-formula"></p><p id="term-notation"></p></div><button type="button" class="term-return">${t('Back to reading →')}</button>`;
   document.body.append(toggle, toc, panel);
   document.body.classList.add('reader-ready');
 
@@ -89,12 +92,12 @@ function initializeReader() {
     const entry = terms[id];
     activeTrigger?.setAttribute('aria-expanded', 'false');
     activeTrigger = trigger;
-    panel.querySelector('#term-title').textContent = entry.name;
-    panel.querySelector('#term-definition').textContent = entry.definition;
-    panel.querySelector('#term-context').textContent = contexts[id];
+    panel.querySelector('#term-title').textContent = t(entry.name);
+    panel.querySelector('#term-definition').textContent = t(entry.definition);
+    panel.querySelector('#term-context').textContent = t(contexts[id]);
     panel.querySelector('.term-math').hidden = !entry.formula;
-    panel.querySelector('#term-formula').textContent = entry.formula;
-    panel.querySelector('#term-notation').textContent = entry.notation;
+    panel.querySelector('#term-formula').textContent = t(entry.formula);
+    panel.querySelector('#term-notation').textContent = t(entry.notation);
     setToc(false);
     keepReadingPosition(() => {
       document.body.classList.add('term-panel-open');
@@ -156,11 +159,17 @@ function initializeReader() {
 function markTerms(main, contexts) {
   const aliases = new Map();
   for (const id of Object.keys(contexts)) {
-    for (const alias of terms[id].aliases) aliases.set(alias.toLowerCase(), id);
+    for (const alias of (language === 'zh' ? termAliases[id] : terms[id].aliases)) aliases.set(alias.toLowerCase(), id);
   }
   const escape = text => text.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
-  const pattern = [...aliases.keys()].sort((a, b) => b.length - a.length).map(escape).join('|');
-  const matcher = new RegExp(`(?<![\\p{L}\\p{N}_])(?:${pattern})(?![\\p{L}\\p{N}_])`, 'giu');
+  // Chinese terms do not have whitespace boundaries. Latin abbreviations still
+  // need boundaries so, for example, PML does not match inside CPML.
+  const pattern = [...aliases.keys()].sort((a, b) => b.length - a.length).map(alias => {
+    const escaped = escape(alias);
+    if (language === 'zh') return /\p{Script=Han}/u.test(alias) ? escaped : `(?<![A-Za-z0-9_])${escaped}(?![A-Za-z0-9_])`;
+    return `(?<![\\p{L}\\p{N}_])${escaped}(?![\\p{L}\\p{N}_])`;
+  }).join('|');
+  const matcher = new RegExp(pattern, 'giu');
   // Annotate prose only. Never change controls, code, equations, quiz choices,
   // links, or elements that the numerical demonstrations update themselves.
   const excluded = 'a, button, label, summary, form, pre, code, script, style, h1, h2, h3, h4, figcaption, .video-caption, .equation, .inline-equation, .section-label, .eyebrow, .meta, .lesson-meta, .prep-kicker, .motivation-kicker, .controls, .plots, .metrics, .frequency-stats, [aria-live], [role="status"]';
@@ -187,7 +196,7 @@ function markTerms(main, contexts) {
         button.className = 'glossary-term';
         button.dataset.term = id;
         button.textContent = match[0];
-        button.setAttribute('aria-label', 'Explain ' + match[0]);
+        button.setAttribute('aria-label', t('Explain {term}', {term: match[0]}));
         button.setAttribute('aria-haspopup', 'dialog');
         button.setAttribute('aria-controls', 'term-panel');
         button.setAttribute('aria-expanded', 'false');
