@@ -149,8 +149,10 @@ function detour(a, b, width, height, labels) {
     top: node.y - node.h / 2 - 6, bottom: node.y + node.h / 2 + 6,
   })).concat(labels.map(label => ({left: label.x - 5, right: label.x + label.w + 5, top: label.y - 5, bottom: label.y + label.h + 5})));
   const ports = node => [
-    {x: node.x, y: node.y - node.h / 2 - 9}, {x: node.x, y: node.y + node.h / 2 + 9},
-    {x: node.x - node.w / 2 - 9, y: node.y}, {x: node.x + node.w / 2 + 9, y: node.y},
+    {x: node.x, y: node.y - node.h / 2 - 9, dx: 0, dy: -1},
+    {x: node.x, y: node.y + node.h / 2 + 9, dx: 0, dy: 1},
+    {x: node.x - node.w / 2 - 9, y: node.y, dx: -1, dy: 0},
+    {x: node.x + node.w / 2 + 9, y: node.y, dx: 1, dy: 0},
   ];
   const xs = [3, width - 3, ...obstacles.flatMap(box => [box.left - 3, box.right + 3])].filter(x => x >= 3 && x <= width - 3);
   const ys = [42, height - 3, ...obstacles.flatMap(box => [box.top - 3, box.bottom + 3])].filter(y => y >= 42 && y <= height - 3);
@@ -170,10 +172,14 @@ function detour(a, b, width, height, labels) {
     if (!best || cost < best.cost) best = {cost, points};
   }
   for (const start of ports(a)) for (const end of ports(b)) {
-    consider([start, {x: start.x, y: end.y}, end]);
-    consider([start, {x: end.x, y: start.y}, end]);
-    for (const x of xs) consider([start, {x, y: start.y}, {x, y: end.y}, end]);
-    for (const y of ys) consider([start, {x: start.x, y}, {x: end.x, y}, end]);
+    // Short outward stubs make both endpoints face their own node. Without
+    // these, a clear lane can end sideways beside the intended target.
+    const from = {x: start.x + start.dx * 12, y: start.y + start.dy * 12};
+    const to = {x: end.x + end.dx * 12, y: end.y + end.dy * 12};
+    consider([start, from, {x: from.x, y: to.y}, to, end]);
+    consider([start, from, {x: to.x, y: from.y}, to, end]);
+    for (const x of xs) consider([start, from, {x, y: from.y}, {x, y: to.y}, to, end]);
+    for (const y of ys) consider([start, from, {x: from.x, y}, {x: to.x, y}, to, end]);
   }
   if (!best) return null;
   // Keep bends inside the clear lanes. The labels and nodes remain at least
