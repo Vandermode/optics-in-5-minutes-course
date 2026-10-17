@@ -30,7 +30,7 @@ You can also download `e03_diffraction_limit.ipynb` and use **File → Upload no
 
 Public lesson: https://vandermode.github.io/optics-in-5-minutes-course/e03-diffraction/
 
-Video companion: [Why Even a Perfect Lens Blurs](https://www.youtube.com/watch?v=1UCPEtZJJzw) (5:11), embedded near the top of the lesson. The film plays on demand in a responsive YouTube player, with a direct viewing link as a fallback.
+Video companion: [Why Even a Perfect Lens Blurs](https://www.youtube.com/watch?v=1UCPEtZJJzw) (5:12), embedded near the top of the lesson. The film plays on demand in a responsive YouTube player, with a direct viewing link as a fallback.
 
 Public source: https://github.com/Vandermode/optics-in-5-minutes-course
 

@@ -9,6 +9,9 @@ const report=[],links=new Set(),errors=[];
 try{
   for(const width of [1280,390]){
     const context=await browser.newContext({viewport:{width,height:900},acceptDownloads:true,permissions:['clipboard-read','clipboard-write'],reducedMotion:'reduce'});
+    // Check the course independently of YouTube's scripts and permission messages.
+    // Real video playback is verified separately on the published lesson.
+    await context.route('https://www.youtube-nocookie.com/embed/**',route=>route.fulfill({status:200,contentType:'text/html',body:'<!doctype html><html lang="en"><title>External video player</title></html>'}));
     const page=await context.newPage();
     page.on('pageerror',e=>errors.push(e.message));
     page.on('console',message=>{if(message.type()==='error')errors.push(message.text());});
@@ -78,6 +81,6 @@ try{
   for(const url of links){const response=await context.request.get(url);assert.equal(response.status(),200,`Broken course link: ${url}`);}
   await context.close();
   assert.deepEqual(errors,[],`Browser errors: ${errors.join('; ')}`);
-  fs.writeFileSync(new URL('validation-browser.json',root),JSON.stringify({tested_url:base,viewports:[1280,390],results:report,internal_links_checked:links.size,legacy_e03_routes:'passed',console_errors:errors},null,2)+'\n');
+  fs.writeFileSync(new URL('validation-browser.json',root),JSON.stringify({tested_url:base,viewports:[1280,390],results:report,internal_links_checked:links.size,legacy_e03_routes:'passed',external_video_playback:'not covered; YouTube iframe stubbed',console_errors:errors},null,2)+'\n');
   console.log(`PASS ${links.size} internal links, all ten lessons at two widths, and legacy E03 routes.`);
 }finally{await browser.close();}

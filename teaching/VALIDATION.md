@@ -42,6 +42,8 @@ The browser-model suite passes 9,112 numerical comparisons and invariants, plus 
 
 Headless Chromium was used at 1280×900 and 390×900. Checks cover all ten lessons, nonblank computed canvases, labels, horizontal overflow, keyboard slider operation, every new control, presets, reset, concept feedback, PNG downloads, clipboard experiment links, and URL state restoration. E09 and E10 workers stop and restart correctly. No browser console or page errors were observed. All 49 linked local course routes and downloads return HTTP 200. A package-level scan also checked 165 local HTML/Markdown links and assets. The added E09 stored-time selector was checked separately at 10 and 27 periods and after reset.
 
+The course browser suite substitutes a minimal document for YouTube's iframe, so third-party player scripts and permission messages do not affect checks of the lesson code. The report marks external video playback as outside this suite; playback is checked separately against the real player.
+
 The E03 regression preserves its existing model and notebook GitHub path. Legacy root experiment parameters, section anchors, and notebook download remain available. The homepage has a distinct skip-link anchor so it does not conflict with E03's historical #main link. Grating rays use equal coordinate scales; line weights do not imply diffraction efficiency.
 
 ## Live Colab verification limit
