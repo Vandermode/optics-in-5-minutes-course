@@ -1,0 +1,129 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="探索为什么完美透镜仍会产生模糊：关于衍射、数值孔径与图像信息的交互课程，附可运行的 Python 实验。">
+  <meta name="theme-color" content="#f5f3ed">
+  <title>衍射极限 · 五分钟光学</title>
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="assets/style.css">
+  <link rel="stylesheet" href="../shared/preparation.css">
+  <link rel="stylesheet" href="../shared/motivation.css">
+  <script type="module" src="assets/app.js"></script>
+  <link rel="stylesheet" href="../shared/reader.css">
+  <script type="module" src="../shared/reader.js"></script>
+<link rel="stylesheet" href="../shared/language.css"><script type="module" src="../shared/language.js"></script></head>
+<body data-episode="E03">
+<a class="skip" href="#main">跳到课程内容</a>
+<header class="site-header">
+  <a class="brand" href="#"><svg viewbox="0 0 36 36" aria-hidden="true"><circle cx="18" cy="18" r="16" /><circle cx="18" cy="18" r="10" /><circle cx="18" cy="18" r="3" /></svg><span>光学<span class="brand-sub">五分钟入门</span></span></a>
+  <nav aria-label="本课导航"><a href="../index.zh.html">全部课程</a><a href="#idea">核心概念</a><a href="#lab">探索</a><a href="#frequency-space">深入理解</a><a href="#notebook">Python 实验 <span aria-hidden="true">↗</span></a></nav>
+<!-- course-languages --><nav class="language-switch" aria-label="Language / 语言" translate="no"><a href="index.html" data-language="en" lang="en" hreflang="en">English</a><a href="index.zh.html" data-language="zh" lang="zh-CN" hreflang="zh-CN" aria-current="page">中文</a></nav><!-- /course-languages --></header>
+<main id="main">
+  <section id="overview" class="hero" aria-labelledby="title">
+    <div class="hero-copy"><p class="eyebrow"><span class="episode">03</span> 计算光学 / 交互课程</p>
+      <h1 id="title">完美的透镜。<br>依然得到 <em>模糊的图像。</em></h1>
+      <p class="lede">两个点变成两幅重叠的图案。探索什么决定它们能否被分辨，以及为什么放大只解决了部分问题。</p>
+      <div class="hero-actions"><a class="button primary" href="#lab">动手实验 <span aria-hidden="true">↓</span></a><a class="text-link" href="#video">观看短片 <span aria-hidden="true">↓</span></a></div>
+      <p class="lesson-meta">课程约 12 分钟 <span>·</span> Python 实验约 25 分钟 <span>·</span> <a href="#preparation">预备知识与推荐学习资源 ↓</a></p>
+    </div>
+    <figure class="hero-figure"><img src="assets/airy-hero.png" width="1000" height="700" alt="两个非相干点光源的计算强度图样，重叠成带有微弱衍射环的一对亮斑。"><figcaption><span>完美透镜所看到的</span><span>两个点，一个有限孔径。</span></figcaption></figure>
+  </section>
+
+<!-- course-motivation -->
+<section id="motivation" class="motivation motivation-e03" aria-labelledby="motivation-title">
+<div><p class="motivation-kicker">E03 / 为什么学这一课？</p>
+<h2 id="motivation-title">为什么继续放大不再显露更多细节？</h2></div>
+<div class="motivation-copy"><p>你想在显微镜中分辨两个相邻的发光体。放大图像也会放大它们的模糊光斑，所以图像更大，并不能说明光学系统是否记录到了它们的间距。你需要把仪器参数与它实际记录的信息联系起来。</p>
+<p><strong>你将学会：</strong> 比较数值孔径与波长变化的效果，区分光学分辨率与显示缩放，并在尝试反卷积前判断测量图像能支持哪些细节。</p></div>
+</section>
+<!-- /course-motivation -->
+
+<!-- course-preparation -->
+<section id="preparation" class="preparation preparation-e03" aria-labelledby="preparation-title">
+<p class="prep-kicker">学习 E03 之前 / 预备知识</p>
+<h2 id="preparation-title">确认你的知识起点。</h2>
+<p class="prep-earlier">有帮助的前序课程： <a href="../e01-angular-spectrum/index.zh.html">E01</a>, <a href="../e02-lens-fourier/index.zh.html">E02</a></p>
+<ul class="prep-checklist"><li><strong>复振幅与相位。</strong> 区分复光场 u 与强度 |u|²。<span class="prep-use">本课用途：瞳函数决定光场响应；非相干成像使用强度点扩散函数。</span></li><li><strong>傅里叶变换与卷积。</strong> 将卷积理解为平移响应的叠加，以及频域中的乘法。<span class="prep-use">本课用途：将点扩散函数与成像传递函数联系起来。</span></li></ul>
+<details class="prep-refreshers"><summary>需要复习？打开推荐阅读材料。</summary>
+<p>针对不熟悉的概念阅读指定章节，然后回到本课。</p>
+<ul class="prep-resources"><li><a href="https://ocw.mit.edu/courses/18-03sc-differential-equations-fall-2011/pages/unit-i-first-order-differential-equations/complex-arithmetic-and-exponentials/" target="_blank" rel="noopener">MIT OCW · 复数运算与指数函数 ↗</a><p>阅读欧拉公式、极坐标形式、乘法和复共轭的讲义。微分方程中的应用可以暂时跳过。</p></li><li><a href="https://qiweb.tudelft.nl/aoi/fourieranalysis/fourieranalysis/" target="_blank" rel="noopener">代尔夫特理工大学 · 傅里叶分析 ↗</a><p>先读 §4.1 的变换对，再读 §4.2.1–4.2.4 的线性、缩放、平移和卷积。连续两次变换可参阅 §4.2.7。</p></li></ul></details>
+<p class="prep-lab"><strong>Python 实验准备：</strong> 使用二维数组与 FFT；在相同单位和归一化下比较曲线。<br><a href="https://numpy.org/doc/stable/user/absolute_beginners.html" target="_blank" rel="noopener">NumPy · 初学者基础指南 ↗</a> · <a href="https://numpy.org/doc/stable/reference/routines.fft.html" target="_blank" rel="noopener">NumPy · 离散傅里叶变换 ↗</a></p>
+<p class="prep-new"><strong>本课将展开：</strong> 区分两点分辨判据与空间频率截止。本课将介绍艾里图样和数值孔径 NA。</p>
+<a class="prep-all" href="../preparation/index.zh.html">浏览全部预备知识与学习资源 →</a>
+</section>
+<!-- /course-preparation -->
+
+  <section id="video" class="section video-section" aria-labelledby="video-title">
+    <div class="section-heading"><div><p class="section-label">E03 / 五分钟短片</p><h2 id="video-title">为什么完美透镜也会模糊。</h2></div><p>先观看短片，再在下方实验中改变孔径、波长和点间距。</p></div>
+    <div class="video-player">
+      <iframe width="1280" height="720" src="https://www.youtube-nocookie.com/embed/1UCPEtZJJzw?rel=0&amp;playsinline=1&amp;hl=zh-CN" title="为什么完美透镜也会模糊 | 五分钟理解衍射极限" loading="lazy" referrerpolicy="strict-origin-when-cross-origin" allow="autoplay; encrypted-media; picture-in-picture; fullscreen; web-share" allowfullscreen></iframe>
+    </div>
+    <p class="video-caption"><span>5:12 · E03 · 衍射极限</span><a href="https://www.youtube.com/watch?v=1UCPEtZJJzw" target="_blank" rel="noopener">在 YouTube 观看 <span aria-hidden="true">↗</span></a></p>
+  </section>
+
+  <section id="idea" class="section intro">
+    <div class="section-label">01 / 建立直觉</div>
+    <div><h2>每个点都会留下一个光斑。</h2><p class="large">点光源的像是一个艾里图样：明亮的中央光斑周围环绕着微弱的圆环。这就是透镜的 <strong>点扩散函数</strong>，简称 PSF。</p>
+      <p>对于彼此独立的发光点，例如荧光发射体，它们的 <strong>强度相加</strong>。扩展物体的像是这些光斑的叠加，即强度卷积： <span class="inline-equation">I = O ∗ h</span>.</p>
+      <div class="goals"><h3>学完后，你能够</h3><ol><li>预测数值孔径与波长如何改变点扩散函数。</li><li>区分两点分辨判据与空间频率截止。</li><li>解释为什么放大与反卷积无法创造缺失的测量信息。</li></ol></div>
+      <div class="prediction"><span class="tiny-label">调整滑块之前，先做预测</span><p>两个发光体相距 520 nm。要让它们的光学图像更容易区分，你会改变波长、孔径，还是显示缩放？</p></div>
+    </div>
+  </section>
+
+  <section id="lab" class="lab-section section">
+    <div class="section-heading"><div><p class="section-label">02 / 两点实验</p><h2>改变光学参数。<br>观察光斑重叠。</h2></div><p>从一个变量开始，其余保持固定。<br>下方所有距离均以物空间为准。</p></div>
+    <noscript><p class="notice">请启用 JavaScript 以运行交互实验。说明文字、参考图和可下载的 Python 实验仍可使用。</p></noscript>
+    <div id="load-error" class="notice" hidden>交互实验加载失败。请刷新页面，或下载下方的 Python 实验。</div>
+    <div class="lab-grid">
+      <aside class="controls" aria-label="实验参数">
+        <div class="control"><label for="na">数值孔径 <output id="na-value" for="na">0.65</output></label><input id="na" type="range" min="0.2" max="0.95" step="0.01" value="0.65"><p>NA = n sin θ。收集光线的锥角越大，点扩散函数越窄。</p></div>
+        <div class="control"><label for="wavelength">真空波长 <output id="wavelength-value" for="wavelength">550 nm</output></label><input id="wavelength" type="range" min="400" max="700" step="10" value="550"><p>波长越短，衍射图样越小。</p></div>
+        <div class="control"><label for="separation">点间距 <output id="separation-value" for="separation">520 nm</output></label><input id="separation" type="range" min="100" max="2400" step="1" value="520"><p>两个等亮发光体之间的实际距离。</p></div>
+        <div class="control"><label for="zoom">显示缩放 <output id="zoom-value" for="zoom">1.00×</output></label><input id="zoom" type="range" min="1" max="2.5" step="0.25" value="1"><p>裁剪显示范围。光学点扩散函数与分辨率保持不变。</p></div>
+        <label class="check"><input id="rings" type="checkbox" checked> 显示微弱衍射环 <span>（强度开平方）</span></label>
+        <div class="control-actions"><button id="reset" class="button small secondary" type="button">重置</button><button id="copy-link" class="button small secondary" type="button">复制此实验链接</button></div><p id="copy-status" class="small-status" role="status"></p>
+      </aside>
+      <div class="visuals">
+        <div class="visual-toolbar"><span class="tiny-label">两个等亮、互不相干的点光源</span><span class="live-dot">实时计算</span></div>
+        <figure class="image-figure"><canvas id="image-canvas" width="800" height="400" role="img" aria-label="两个非相干点光源的二维强度模拟图。"></canvas><figcaption><span id="field-caption">5.00 μm 视场</span><span>强度标尺：0–2 · 单光源峰值 = 1</span></figcaption></figure>
+        <div class="metrics" aria-live="polite" aria-atomic="true"><div><span>瑞利间距</span><strong id="rayleigh-value">516 <small>nm</small></strong></div><div><span>点间距 / 瑞利间距</span><strong id="ratio-value">1.01<small>×</small></strong></div><div><span>参考比较</span><strong id="criterion-value" class="criterion">接近瑞利间距</strong></div></div>
+        <figure class="profile-figure"><div class="plot-heading"><h3>经过两个点的截面</h3><div class="legend"><span class="legend-total">总和</span><span class="legend-one">点 1</span><span class="legend-two">点 2</span></div></div><canvas id="profile-canvas" width="800" height="260" role="img" aria-label="两条点扩散函数及其总和的线性强度截面。"></canvas><figcaption>这里始终显示线性强度，即使上图使用了平方根对比度。竖直虚线标出光源的真实位置。</figcaption></figure>
+        <div class="presets" aria-label="示例实验"><span>试一个示例</span><button type="button" data-preset="below">小于瑞利间距</button><button type="button" data-preset="rayleigh">等于瑞利间距</button><button type="button" data-preset="above">大于瑞利间距</button><button type="button" id="download-plot">保存截面为 PNG <span aria-hidden="true">↓</span></button></div>
+      </div>
+    </div>
+    <p class="model-note"><strong>你看到的是：</strong> 无噪声、准确对焦的标量模型，采用无像差的圆形瞳孔。每个单光源的 PSF 都归一化为峰值 1，因此比较的是形状，而非不同 NA 下的集光量或光子计数。瑞利判据是一个实用约定，并不是测量从可能变为不可能的突变边界。</p>
+  </section>
+
+  <section id="explain" class="section interpretation">
+    <div class="section-label">03 / 明确极限的含义</div>
+    <div><h2>一片透镜，两个不同问题。</h2><div class="comparison"><article><span class="tiny-label">两个点</span><h3>它们的图像重叠了多少？</h3><div class="equation">d<sub>R</sub> ≈ 0.61 λ<sub>0</sub> / NA</div><p>当点间距等于瑞利间距时，一个艾里图样的中央峰位于另一个的第一零点。本课中，这一约定适用于两个等亮且互不相干的点。</p></article><article><span class="tiny-label">周期图案</span><h3>哪些频率能传到图像中？</h3><div class="equation">f<sub>c</sub> = 2 NA / λ<sub>0</sub></div><p>非相干强度传递函数在这一截止频率降为零。其倒数 λ<sub>0</sub>/(2 NA) 是极限周期，而不是瑞利两点间距。在截止处，对比度已经为零。</p></article></div>
+      <details class="derivation"><summary>艾里图样和系数 0.61 从哪里来？</summary><p>对于圆形瞳孔，峰值归一化的强度点扩散函数为</p><p class="equation">h(r) = [2 J₁(v) / v]²,   v = 2π NA r / λ<sub>0</sub>.</p><p>J₁ 是一阶贝塞尔函数，根据极限有 h(0) = 1。其第一个正零点为 v ≈ 3.831706；除以 2π 得到 0.609835。两点图像为 h(√((x − d/2)² + y²)) + h(√((x + d/2)² + y²))。</p></details>
+    </div>
+  </section>
+
+  <section id="frequency-space" class="section frequency-section">
+    <div class="section-heading"><div><p class="section-label">04 / 观察频率空间</p><h2>精细结构会先失去对比度，<br>然后才消失。</h2></div><p>此传递函数使用上方实验中的同一组 NA 与波长。</p></div>
+    <div class="frequency-grid"><div class="frequency-copy"><h3>让条纹图案通过透镜。</h3><p>对于非相干正弦物体，调制传递函数（MTF）表示输入对比度中有多少能够保留下来。</p><label for="frequency">空间频率 / 截止频率 <output id="frequency-value" for="frequency">0.50</output></label><input type="range" id="frequency" min="0" max="1.3" step="0.01" value="0.5"><dl class="frequency-stats"><div><dt>截止频率 f<sub>c</sub></dt><dd id="cutoff-value">2.36 周期/μm</dd></div><div><dt>选定频率</dt><dd id="selected-frequency">1.18 周期/μm</dd></div><div><dt>对比度传递比例</dt><dd id="contrast-value">39.1%</dd></div></dl><p id="frequency-description" class="insight">此图案只有部分对比度得以保留。</p><p class="small-note">零频率时，图案是均匀的；“对比度传递比例”表示传递函数的直流极限。</p></div>
+    <div class="frequency-visual"><canvas id="mtf-canvas" width="700" height="280" role="img" aria-label="圆形瞳孔的调制传递函数，图中标出了选定空间频率。"></canvas><div class="stripes"><figure><canvas id="object-stripes" width="500" height="100" role="img" aria-label="正弦物体强度。"></canvas><figcaption>物体 · 输入对比度 80%</figcaption></figure><figure><canvas id="image-stripes" width="500" height="100" role="img" aria-label="经过调制传递后的正弦像强度。"></canvas><figcaption id="stripe-caption">图像 · 输出对比度 31.3%</figcaption></figure></div><p class="small-note">两条图带均覆盖 4 μm，使用相同的线性灰度标尺。本示例表示无限延伸的正弦图案，而不是有限裁剪的物体。</p></div></div>
+    <details class="derivation"><summary>查看传递函数，以及它与相干成像的区别</summary><p>对于理想圆形瞳孔，当 0 ≤ ρ &lt; 1 时，H(ρ) = (2/π)[arccos ρ − ρ√(1 − ρ²)]；当 ρ ≥ 1 时，H = 0。其中 ρ = |f|/f<sub>c</sub>。H 为非负实数，因此 MTF = |H| = H。</p><p>对于相干照明，瞳孔滤波的是 <em>复光场</em> ，截止频率为 NA/λ<sub>0</sub>，之后才取强度。比较光场截止频率与强度截止频率时，必须说明物体和照明条件。本实验始终使用非相干发光体。</p></details>
+  </section>
+
+  <section id="check" class="section check-section"><div><p class="section-label">05 / 检查理解</p><h2>用你自己的理解<br>做出预测。</h2><p>打开 Python 实验之前，先尝试作答。每道题都附有解释。</p></div><form id="quiz"><fieldset><legend>1. 固定波长，将 NA 加倍，瑞利间距会…</legend><label><input type="radio" name="q1" value="double"> 增大到两倍</label><label><input type="radio" name="q1" value="half"> 减小到一半</label><label><input type="radio" name="q1" value="same"> 保持不变</label><p id="q1-feedback" class="feedback"></p></fieldset><fieldset><legend>2. 只增大显示缩放，会让两个未被分辨的图样…</legend><label><input type="radio" name="q2" value="information"> 包含新的空间频率信息</label><label><input type="radio" name="q2" value="aperture"> 表现得像使用了更大的光学孔径</label><label><input type="radio" name="q2" value="larger"> 看起来更大，但光学重叠程度不变</label><p id="q2-feedback" class="feedback"></p></fieldset><fieldset><legend>3. 在 H(f) = 0 的位置，将测量频谱除以 H…</legend><label><input type="radio" name="q3" value="restore"> 可以精确恢复原始系数</label><label><input type="radio" name="q3" value="missing"> 无法仅凭这次测量唯一确定缺失的系数</label><label><input type="radio" name="q3" value="noise"> 只要增大显示对比度就能奏效</label><p id="q3-feedback" class="feedback"></p></fieldset><button class="button primary" type="submit">检查答案 <span aria-hidden="true">→</span></button><p id="quiz-status" role="status"></p></form></section>
+
+  <section id="notebook" class="section notebook-section"><div><p class="section-label">06 / 将图像写成代码</p><h2>再运行几个单元格，<br>就能开始下一个实验。</h2><p>独立运行的 Python 实验会重现艾里截面、通过 FFT 从瞳函数构建点扩散函数、验证传递函数，并探索含噪反卷积。</p><div class="notebook-actions"><a class="button primary" id="colab-link" href="https://colab.research.google.com/github/Vandermode/optics-in-5-minutes-course/blob/main/teaching/e03-diffraction/e03_diffraction_limit.ipynb" target="_blank" rel="noopener">在 Colab 中打开 <span aria-hidden="true">↗</span></a><a class="button secondary" href="e03_diffraction_limit.ipynb" download>下载 .ipynb <span aria-hidden="true">↓</span></a><a href="figures.zip" download>已保存的 PNG 图表 ↓</a></div><p class="small-note">Notebook 已在 GitHub 公开。点击 <strong>在 Colab 中打开</strong>，登录 Google 账号，然后选择 <strong>代码执行程序 → 全部运行</strong>。无需 GitHub 账号、克隆仓库、GPU 或付费 Colab 方案。若要保留修改，请将副本保存到自己的云端硬盘。也可以下载 Notebook，在本地 Jupyter 中运行。</p></div><div class="code-preview"><div class="code-top"><span>从孔径到图像</span><span>Python / CPU</span></div><pre><code><span class="code-comment"># An incoherent image is intensity convolution.</span>
+field_psf = np.fft.ifft2(pupil)
+psf = np.abs(field_psf) ** 2
+psf /= psf.sum()
+
+otf = np.fft.fft2(psf)
+image = np.fft.ifft2(
+    np.fft.fft2(object_intensity) * otf
+).real</code></pre><p>Notebook 会明确说明采样、数组排布和 FFT 周期边界的假设。</p></div></section>
+
+  <section id="sources" class="section footnotes"><div><p class="section-label">模型、材料与参考资料</p><h3>了解模型忽略了什么。</h3></div><div><p>这是标量、单色、平移不变模型。浏览器演示不包含像差、矢量偏振效应、离焦、有限尺寸发光体、探测器像素积分或光子噪声。高 NA 下的结果仅用于说明原理；定量显微成像可能需要矢量模型。Python 实验会单独引入加性噪声。</p><p><strong>配套短片：</strong> <a href="#video">观看上方 E03 短片</a> (5:12).</p><ul class="source-list"><li><a href="https://github.com/Vandermode/optics-in-5-minutes-course/tree/main/teaching/e03-diffraction" target="_blank" rel="noopener">课程源代码与教师说明 ↗</a></li><li><a href="https://qiweb.tudelft.nl/aoi/incoherentimaging/incoherentimaging/" target="_blank" rel="noopener">代尔夫特理工大学 · 高级光学成像：非相干成像 ↗</a></li><li><a href="https://www.microscopyu.com/microscopy-basics/numerical-aperture" target="_blank" rel="noopener">Nikon MicroscopyU · 数值孔径与图像分辨率 ↗</a></li></ul><p class="small-note">学习测验在浏览器本地运行，答案不会上传或保存。</p></div></section>
+<!-- course-navigation --><div style="display:flex;justify-content:space-between;gap:20px;max-width:1200px;margin:30px auto;padding:0 24px;font-size:1rem" aria-label="课程顺序"><a href="../e02-lens-fourier/index.zh.html">← E02 · 为什么透镜能做傅里叶变换</a><a href="../e04-coherence/index.zh.html">E04 · 相干性与相机的平均过程 →</a></div></main>
+<footer><a class="footer-brand" href="#">五分钟光学</a><span>03 / 衍射极限</span><a href="#main">返回顶部 ↑</a></footer>
+</body>
+</html>

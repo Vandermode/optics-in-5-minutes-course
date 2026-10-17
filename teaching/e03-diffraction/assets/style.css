@@ -10,7 +10,7 @@
 /* Keep the original lesson readable at the same scale as the course. */
 .control label,.frequency-copy>label{flex-wrap:wrap;row-gap:4px}
 .visual-toolbar,.image-figure figcaption,.plot-heading,.legend,.code-top{flex-wrap:wrap;row-gap:10px}
-.metrics>div,.code-preview{min-width:0}
+.metrics>div,.code-preview,.stripes>figure{min-width:0}
 .metrics strong{overflow-wrap:anywhere}
 .equation{overflow-x:auto}
 .frequency-stats>div{flex-wrap:wrap;gap:4px 12px}

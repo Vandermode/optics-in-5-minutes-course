@@ -144,7 +144,7 @@ try {
   await compactPage.keyboard.press('Escape');
   await compactPage.locator('#chapter-toggle').click();
   await compactPage.locator('.chapter-sidebar a[href="#sources"]').click();
-  await compactPage.waitForFunction(() => document.querySelector('.chapter-sidebar a[aria-current]')?.hash === '#sources');
+  await compactPage.waitForFunction(() => document.querySelector('.chapter-sections a[aria-current]')?.hash === '#sources');
   await compact.close();
   const fallback = await browser.newContext({javaScriptEnabled: false, viewport: {width: 390, height: 900}});
   const page = await fallback.newPage();

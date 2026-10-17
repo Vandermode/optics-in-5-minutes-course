@@ -8,6 +8,7 @@ import nbformat
 from curriculum import MODULES
 from preparation import AUDIENCE, preparation_html, preparation_markdown, refresh_preparation_markdown, home_preparation_html, guide_html
 from motivation import motivation_html, motivation_markdown, refresh_motivation_markdown
+from localization import build_languages
 
 ROOT = Path(__file__).resolve().parents[1]
 VIDEOS = json.loads((ROOT / "videos.json").read_text())
@@ -359,7 +360,8 @@ def main():
     (ROOT/"preparation").mkdir(exist_ok=True)
     (ROOT/"preparation/index.html").write_text(guide_html(CATALOG))
     build_home()
-    print("Built ten-lesson course, nine new pages and instructor packs, and legacy E03 routes.")
+    build_languages(ROOT, CATALOG)
+    print("Built the ten-lesson course in English and Chinese, instructor packs, and legacy E03 routes.")
 
 if __name__=="__main__":
     main()
