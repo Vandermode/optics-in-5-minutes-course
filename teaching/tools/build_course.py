@@ -9,7 +9,7 @@ from curriculum import MODULES
 from preparation import AUDIENCE, preparation_html, preparation_markdown, refresh_preparation_markdown, home_preparation_html, guide_html
 from motivation import motivation_html, motivation_markdown, refresh_motivation_markdown
 from localization import build_languages
-from knowledge import knowledge_map_html
+from knowledge import knowledge_map_html, episode_concepts_html
 
 ROOT = Path(__file__).resolve().parents[1]
 VIDEOS = json.loads((ROOT / "videos.json").read_text())
@@ -40,14 +40,6 @@ def video_section(m):
 <p class="video-caption"><span>{esc(video["duration"])} · {m["id"]} · {esc(m["title"])}</span><a href="https://www.youtube.com/watch?v={video_id}" target="_blank" rel="noopener">Watch on YouTube ↗</a></p>
 </section>'''
 
-def navigation(id):
-    i=next(i for i,m in enumerate(CATALOG) if m["id"]==id)
-    prev=CATALOG[i-1] if i else None
-    following=CATALOG[i+1] if i+1<len(CATALOG) else None
-    a=f'<a href="../{prev["slug"]}/">← {prev["id"]} · {esc(prev["title"])}</a>' if prev else '<a href="../">← Course homepage</a>'
-    b=f'<a href="../{following["slug"]}/">{following["id"]} · {esc(following["title"])} →</a>' if following else '<a href="../">Explore the complete course →</a>'
-    return '<div class="next-prev" aria-label="Course sequence">'+a+b+'</div>'
-
 def control(c, defaults):
     id=c["id"]
     if c["type"]=="select":
@@ -77,15 +69,16 @@ def page(m):
 <html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="description" content="{esc(m["deck"])}"><meta name="theme-color" content="#f5f3ed">
 <title>{m["id"]} · {esc(m["title"])} · Optics in 5 Minutes</title>
-<link rel="icon" href="../e03-diffraction/assets/favicon.svg"><link rel="stylesheet" href="../shared/course.css"><link rel="stylesheet" href="../shared/preparation.css"><link rel="stylesheet" href="../shared/motivation.css"><link rel="stylesheet" href="../shared/reader.css">
-<script type="module" src="../shared/lesson.js"></script><script type="module" src="../shared/reader.js"></script></head><body data-episode="{m['id']}">
+<link rel="icon" href="../e03-diffraction/assets/favicon.svg"><link rel="stylesheet" href="../shared/course.css"><link rel="stylesheet" href="../shared/preparation.css"><link rel="stylesheet" href="../shared/motivation.css"><link rel="stylesheet" href="../shared/reader.css"><link rel="stylesheet" href="../shared/knowledge.css">
+<script type="module" src="../shared/lesson.js"></script><script type="module" src="../shared/reader.js"></script><script type="module" src="../shared/knowledge.js"></script></head><body data-episode="{m['id']}">
 <a class="skip" href="#main">Skip to lesson</a><div class="shell">
 <header class="topbar"><a class="brand" href="../">OPTICS<span>IN 5 MINUTES</span></a>
-<nav aria-label="Lesson navigation"><a href="../">All episodes</a><a href="#idea">The idea</a><a href="#lab">Experiment</a><a href="#notebook">Notebook ↗</a></nav></header>
+<nav aria-label="Lesson navigation"><a href="../">All episodes</a><a href="#knowledge-map">Concept map</a><a href="#idea">The idea</a><a href="#lab">Experiment</a><a href="#notebook">Notebook ↗</a></nav></header>
 <main id="main"><section id="overview" class="hero"><div><p class="eyebrow">{m["id"]} / AN INTERACTIVE OPTICS LESSON</p>
 <h1>{m["headline"]}</h1><p class="lede">{esc(m["deck"])}</p><div class="actions"><a class="button" href="#lab">Try the experiment ↓</a><a href="#video">Watch the film ↓</a></div>
 <p class="meta">12–15-minute lesson · 25–30-minute Python lab<br><a href="#preparation">Prerequisites & recommended learning resources ↓</a></p></div>
 <figure><img src="assets/hero.png" width="1000" height="700" alt="Computed illustration from this lesson’s numerical model."><figcaption>COMPUTED FROM THE LESSON MODEL</figcaption></figure></section>
+    {episode_concepts_html(m["id"])}
     {motivation_html(m["id"])}
     {preparation_html(m["id"], earlier)}
     {video_section(m)}
@@ -114,7 +107,7 @@ def page(m):
 <p><strong>Video companion:</strong> <a href="#video">watch the {m["id"]} film above</a> ({esc(VIDEOS[m["id"]]["duration"])}).</p>
 <ul class="resource-list">{links(m["refs"])}<li><a href="{PUBLIC}/tree/main/teaching/{m["slug"]}" target="_blank" rel="noopener">Lesson and notebook source ↗</a></li></ul>
 <p class="meta">Calculations and concept checks run locally in your browser. Quiz answers are not uploaded or stored.</p></div></section>
-{navigation(m["id"])}</main><footer>OPTICS IN 5 MINUTES · {m["id"]} / {esc(m["title"]).upper()} · <a href="#main">Back to top ↑</a></footer></div>
+{knowledge_map_html(CATALOG, m["id"])}</main><footer>OPTICS IN 5 MINUTES · {m["id"]} / {esc(m["title"]).upper()} · <a href="#main">Back to top ↑</a></footer></div>
 <script id="lesson-config" type="application/json">{config}</script></body></html>'''
 
 def build_notebook(m):
@@ -356,12 +349,22 @@ def main():
     if 'href="../shared/motivation.css"' not in text:
         text=text.replace('<link rel="stylesheet" href="../shared/preparation.css">', '<link rel="stylesheet" href="../shared/preparation.css">\n  <link rel="stylesheet" href="../shared/motivation.css">')
     text=text.replace('Calculus + basic Python</p>', '<a href="#preparation">Prerequisites & recommended learning resources ↓</a></p>')
-    if '<!-- course-navigation -->' not in text:
-        text=text.replace('<nav aria-label="Lesson navigation">','<nav aria-label="Lesson navigation"><a href="../">All episodes</a>')
-        text=text.replace("</main>",'<!-- course-navigation --><div style="display:flex;justify-content:space-between;gap:20px;max-width:1200px;margin:30px auto;padding:0 24px;font-size:1rem"><a href="../e02-lens-fourier/">← E02 · Lens Fourier transforms</a><a href="../e04-coherence/">E04 · Coherence →</a></div></main>')
-        e03.write_text(text)
-    course_nav='<!-- course-navigation -->'+navigation("E03").replace('class="next-prev"', 'style="display:flex;justify-content:space-between;gap:20px;max-width:1200px;margin:30px auto;padding:0 24px;font-size:1rem"')
-    text=re.sub(r'<!-- course-navigation -->.*?</div>(?=</main>)',course_nav,text,flags=re.S)
+    if 'href="../shared/knowledge.css"' not in text:
+        text=text.replace('</head>', '<link rel="stylesheet" href="../shared/knowledge.css"><script type="module" src="../shared/knowledge.js"></script></head>')
+    if '<a href="#knowledge-map">Concept map</a>' not in text:
+        text=text.replace('<nav aria-label="Lesson navigation">', '<nav aria-label="Lesson navigation"><a href="#knowledge-map">Concept map</a>')
+    entry = '<!-- course-concept-entry -->\n' + episode_concepts_html("E03") + '\n<!-- /course-concept-entry -->'
+    if '<!-- course-concept-entry -->' in text:
+        text=re.sub(r'<!-- course-concept-entry -->.*?<!-- /course-concept-entry -->', lambda match: entry, text, flags=re.S)
+    else:
+        text=text.replace('<!-- course-motivation -->', entry + '\n\n<!-- course-motivation -->', 1)
+    # The concept map replaces the old ordered previous/next links.
+    text=re.sub(r'<!-- course-navigation -->.*?</div>(?=</main>)', '', text, flags=re.S)
+    chapter_map = '<!-- course-knowledge -->\n' + knowledge_map_html(CATALOG, "E03") + '\n<!-- /course-knowledge -->'
+    if '<!-- course-knowledge -->' in text:
+        text=re.sub(r'<!-- course-knowledge -->.*?<!-- /course-knowledge -->', lambda match: chapter_map, text, flags=re.S)
+    else:
+        text=text.replace('</main>', chapter_map + '\n</main>', 1)
     e03.write_text(text)
     if 'href="figures.zip"' not in text:
         text=text.replace('</div><p class="small-note">The notebook is publicly', '<a href="figures.zip" download>Saved PNG figures ↓</a></div><p class="small-note">The notebook is publicly')

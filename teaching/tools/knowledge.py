@@ -46,6 +46,12 @@ CONCEPTS = [
          foundations=["derivatives", "complex-matrices", "fourier"], episodes=["E10"]),
 ]
 
+EPISODE_FOCUS = {
+    "E01": "propagation", "E02": "fourier", "E03": "imaging",
+    "E04": "coherence", "E05": "recovery", "E06": "phase",
+    "E07": "periodic", "E08": "modes", "E09": "maxwell", "E10": "adjoint",
+}
+
 # "basis" is directional conceptual support, never an episode completion rule.
 # "related" identifies a shared method, application, or comparison.
 RELATIONS = [
@@ -76,35 +82,61 @@ def esc(value):
     return html.escape(str(value), quote=True)
 
 
-def knowledge_map_html(catalog):
-    episodes = {episode["id"]: episode for episode in catalog}
+def episode_concepts_html(episode):
+    """A short entry point near the chapter opening, using the same map data."""
+    links = ''.join(f'<a href="#concept-{node["id"]}" data-chapter-concept="{node["id"]}">{esc(node["label"])}</a>'
+                    for node in CONCEPTS if episode in node["episodes"])
+    return f'''<div class="chapter-concept-entry">
+<p class="eyebrow">CONCEPTS IN THIS EPISODE</p>
+<nav aria-label="Concepts in this episode">{links}</nav>
+<a class="chapter-map-link" href="#knowledge-map">See this episode in the concept map ↓</a></div>'''
+
+
+def knowledge_map_html(catalog, episode=None):
+    episodes = {entry["id"]: entry for entry in catalog}
     concepts = {concept["id"]: concept for concept in CONCEPTS}
     assert len(concepts) == len(CONCEPTS), "Duplicate concept IDs"
     assert set(episodes) == {episode for concept in CONCEPTS for episode in concept["episodes"]}
+    assert set(EPISODE_FOCUS) == set(episodes)
+    assert all(id in concepts[focus]["episodes"] for id, focus in EPISODE_FOCUS.items())
     assert len({frozenset((a, b)) for a, b, _, _ in RELATIONS}) == len(RELATIONS)
     for a, b, kind, _ in RELATIONS:
         assert a in concepts and b in concepts and a != b
         assert kind in {"basis", "related"}
 
+    prefix = "../" if episode else ""
+    members = {node["id"] for node in CONCEPTS if episode in node["episodes"]}
     regions = []
     for index, title in enumerate(REGIONS):
         nodes = ''.join(
             f'<a class="concept-node" data-concept="{node["id"]}" href="#concept-{node["id"]}" '
-            f'aria-controls="concept-{node["id"]}">{esc(node["label"])}</a>'
+            + ('data-in-episode aria-describedby="chapter-concept-key" ' if node["id"] in members else '')
+            + f'aria-controls="concept-{node["id"]}">{esc(node["label"])}</a>'
             for node in CONCEPTS if node["region"] == index)
         regions.append(f'<section class="concept-region" data-region="{index}" aria-labelledby="region-{index}">'
                        f'<h3 id="region-{index}">{esc(title)}</h3><div class="concept-nodes">{nodes}</div></section>')
 
+    def episode_route(id, concept, via=None, description=None):
+        query = f'?concept={concept}'
+        extra = f' data-via-concept="{via}"' if via else ''
+        reason = (f'<small class="concept-route-via"><span>Via</span> {esc(concepts[via]["label"])}</small>'
+                  f'<small class="concept-route-reason">{esc(description)}</small>') if via else ''
+        return (f'<li><a href="{prefix}{episodes[id]["slug"]}/{query}#idea" data-episode-link="{id}"{extra}>'
+                f'<span class="concept-episode-id">{id}</span><span class="concept-route-copy">'
+                f'<span>{esc(episodes[id]["title"])}</span>{reason}</span>'
+                '<span class="concept-route-arrow" aria-hidden="true">↗</span></a></li>')
+
     panels = []
     for node in CONCEPTS:
-        routes = ''.join(
-            f'<li><a href="{episodes[id]["slug"]}/#idea" data-episode-link="{id}">'
-            f'<span class="concept-episode-id">{id}</span><span>{esc(episodes[id]["title"])}</span>'
-            '<span class="concept-route-arrow" aria-hidden="true">↗</span></a></li>'
-            for id in node["episodes"])
-        foundations = ''.join(f'<li><a href="preparation/#{key}">{esc(TOPICS[key]["title"])}</a></li>'
+        direct = [id for id in node["episodes"] if id != episode]
+        routes = ''.join(episode_route(id, node["id"]) for id in direct)
+        route_heading = "Other episodes with this concept" if episode else "Explore in these episodes"
+        route_section = f'<h4>{route_heading}</h4><ul class="concept-episodes">{routes}</ul>' if routes else ''
+        foundations = ''.join(f'<li><a href="{prefix}preparation/#{key}">{esc(TOPICS[key]["title"])}</a></li>'
                               for key in node["foundations"])
         connections = []
+        bridges = []
+        visited = {episode, *direct}
         for a, b, kind, description in RELATIONS:
             if node["id"] not in (a, b):
                 continue
@@ -114,19 +146,39 @@ def knowledge_map_html(catalog):
             connections.append(f'<li><span class="concept-relation-kind">{role}</span>'
                                f'<a href="#concept-{other}"><span aria-hidden="true">{mark} </span>'
                                f'{esc(concepts[other]["label"])}</a><p>{esc(description)}</p></li>')
+            if episode and len(bridges) < 3:
+                # Offer one chapter per connected idea. Prefer that concept's
+                # main example, and avoid repeating direct routes or this page.
+                candidates = sorted(concepts[other]["episodes"], key=lambda id: EPISODE_FOCUS[id] != other)
+                target = next((id for id in candidates if id not in visited), None)
+                if target:
+                    bridges.append(episode_route(target, other, via=other, description=description))
+                    visited.add(target)
+        if bridges:
+            route_section += ('<h4>Explore through connected ideas</h4>'
+                              f'<ul class="concept-episodes concept-related-episodes">{"".join(bridges)}</ul>')
+        membership = '<p class="concept-membership">In this episode</p>' if node["id"] in members else ''
+        home_link = (f'<a class="concept-home" href="../?concept={node["id"]}#knowledge-map">Explore the full course map ↗</a>') if episode else ''
         panels.append(f'''<article id="concept-{node["id"]}" class="concept-panel" tabindex="-1" aria-labelledby="concept-{node["id"]}-title">
 <p class="eyebrow">SELECTED CONCEPT</p><h3 id="concept-{node["id"]}-title">{esc(node["label"])}</h3>
+{membership}
 <p class="concept-description">{esc(node["description"])}</p>
-<h4>Explore in these episodes</h4><ul class="concept-episodes">{routes}</ul>
+{route_section}
 <details class="concept-context"><summary>Foundations & connections</summary>
 <h4>Refresh the foundations</h4><ul class="concept-foundations">{foundations}</ul>
 <h4>Connected ideas</h4><ul class="concept-connections">{"".join(connections)}</ul></details>
-<a class="concept-back" href="#knowledge-map">↑ Back to the concept map</a></article>''')
+<div class="concept-panel-links"><a class="concept-back" href="#knowledge-map">↑ Back to the concept map</a>{home_link}</div></article>''')
     config = json.dumps([dict(a=a, b=b, kind=kind) for a, b, kind, _ in RELATIONS])
-    return f'''<section id="knowledge-map" class="knowledge-section" aria-labelledby="knowledge-title">
-<div class="knowledge-heading"><div><p class="section-label">EXPLORE BY CONCEPT</p><h2 id="knowledge-title">Find your way through the ideas.</h2></div>
-<p>Choose a concept to see its connections and open a related episode.</p></div>
-<div class="concept-legend"><span><span class="concept-line basis" aria-hidden="true"></span>Understanding foundation</span><span><span class="concept-line related" aria-hidden="true"></span>Cross-topic connection</span></div>
+    heading = 'Keep exploring from this episode.' if episode else 'Find your way through the ideas.'
+    introduction = ('Highlighted concepts appear in this episode. Select any concept to find related episodes.'
+                    if episode else 'Choose a concept to see its connections and open a related episode.')
+    label = f'<span translate="no">{episode} / </span><span>CONNECTED IDEAS</span>' if episode else 'EXPLORE BY CONCEPT'
+    attributes = f' data-current-episode="{episode}" data-default-concept="{EPISODE_FOCUS[episode]}"' if episode else ''
+    membership_key = '<span id="chapter-concept-key"><span class="concept-chapter-key" aria-hidden="true"></span>In this episode</span>' if episode else ''
+    return f'''<section id="knowledge-map" class="knowledge-section{" knowledge-lesson" if episode else ""}" aria-labelledby="knowledge-title"{attributes}>
+<div class="knowledge-heading"><div><p class="section-label">{label}</p><h2 id="knowledge-title">{heading}</h2></div>
+<p>{introduction}</p></div>
+<div class="concept-legend">{membership_key}<span><span class="concept-line basis" aria-hidden="true"></span>Understanding foundation</span><span><span class="concept-line related" aria-hidden="true"></span>Cross-topic connection</span></div>
 <p class="concept-map-note">Connections describe ideas, not a required episode order.</p>
 <noscript><p>Choose a concept to jump to its related episodes. All concepts and links are available below.</p></noscript>
 <div class="knowledge-layout"><div id="concept-graph" class="concept-graph"><svg class="concept-lines" aria-hidden="true"></svg>

@@ -24,7 +24,7 @@ try {
       await page.locator('.reader-ready').waitFor();
       if (entry.id !== 'E03') await page.waitForFunction(() => document.getElementById('status')?.textContent === 'Calculation complete.');
       const nav = page.locator('nav[aria-label="Chapter sections"]');
-      assert.equal(await nav.locator('a').count(), entry.id === 'E03' ? 11 : 10, label + ' section count');
+      assert.equal(await nav.locator('a').count(), entry.id === 'E03' ? 12 : 11, label + ' section count');
       assert.ok(await nav.locator('a').evaluateAll(links => links.every(link => link.hash && document.getElementById(link.hash.slice(1)))), label + ' section anchors');
       assert.equal(await page.locator('.chapter-sidebar').isVisible(), width >= 1200, label + ' navigation mode');
       const used = await page.locator('.glossary-term').evaluateAll(nodes => [...new Set(nodes.map(n => n.dataset.term))]);
