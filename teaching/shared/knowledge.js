@@ -175,8 +175,9 @@ function detour(a, b, width, height, labels) {
   for (const start of ports(a)) for (const end of ports(b)) {
     // Short outward stubs make both endpoints face their own node. Without
     // these, a clear lane can end sideways beside the intended target.
-    const from = {x: start.x + start.dx * 12, y: start.y + start.dy * 12};
-    const to = {x: end.x + end.dx * 12, y: end.y + end.dy * 12};
+    // Four pixels also fit the narrow gaps around multiline chapter labels.
+    const from = {x: start.x + start.dx * 4, y: start.y + start.dy * 4};
+    const to = {x: end.x + end.dx * 4, y: end.y + end.dy * 4};
     consider([start, from, {x: from.x, y: to.y}, to, end]);
     consider([start, from, {x: to.x, y: from.y}, to, end]);
     for (const x of xs) consider([start, from, {x, y: from.y}, {x, y: to.y}, to, end]);
