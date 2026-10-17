@@ -28,7 +28,7 @@ Open http://localhost:8787/e03-diffraction/. Use HTTP because the page imports J
 
 You can also download `e03_diffraction_limit.ipynb` and use **File → Upload notebook** in Colab or open it in local Jupyter. The notebook does not depend on any other repository file.
 
-Public lesson: https://optics-e03-diffraction-lab.w765809530.chatgpt.site/e03-diffraction/
+Public lesson: https://vandermode.github.io/optics-in-5-minutes-course/e03-diffraction/
 
 Public source: https://github.com/Vandermode/optics-in-5-minutes-course
 
