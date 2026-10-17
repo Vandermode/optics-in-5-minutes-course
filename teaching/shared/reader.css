@@ -1,0 +1,80 @@
+/* Reading tools share the chapter's typography; panels never shrink the text. */
+body.reader-ready{--reader-left:0px;--reader-right:0px;padding-left:var(--reader-left);padding-right:var(--reader-right);overflow-anchor:none}
+.reader-ready .shell,.reader-ready>main{container:lesson / inline-size}
+.chapter-sidebar{position:fixed;inset:0 auto 0 0;width:224px;padding:30px 20px;background:#eef0e8;border-right:1px solid #d4d9d0;overflow-y:auto;overscroll-behavior:contain;z-index:20;color:#172f32}
+.reader-kicker{font:700 .8125rem/1.6 Lato,Arial,sans-serif;letter-spacing:.1em;color:#536765;margin:0 0 18px}
+.chapter-sidebar nav{display:flex;flex-direction:column;gap:3px;font-size:1rem;line-height:1.5}
+.chapter-sidebar nav a{display:block;padding:8px 10px;color:#536765;text-decoration:none;border-left:2px solid transparent;border-radius:0 3px 3px 0;overflow-wrap:anywhere}
+.chapter-sidebar nav a:hover{background:#e3e8de;color:#135b60}
+.chapter-sidebar nav a[aria-current]{color:#135b60;background:#e0e8dd;border-left-color:#135b60;font-weight:700}
+.term-hint{font-size:1rem;line-height:1.6;color:#536765;margin:26px 10px 0}
+.term-hint span{text-decoration:underline dotted #135b60;text-underline-offset:4px}
+.chapter-toggle{position:fixed;top:12px;left:16px;z-index:21;border:1px solid #b9c6bd;border-radius:4px;padding:8px 14px;font-size:1rem;line-height:1.5;background:#fffdf8;color:#135b60;box-shadow:0 2px 10px #172f3210}
+.glossary-term{display:inline;font:inherit;color:inherit;border:0;border-radius:0;background:transparent;padding:0;margin:0;text-align:inherit;text-decoration:underline dotted #135b60;text-decoration-thickness:1.5px;text-underline-offset:.2em;cursor:pointer;white-space:normal}
+.glossary-term:hover,.glossary-term[aria-expanded=true]{color:#135b60;background:#e1e9df;text-decoration-style:solid}
+.term-panel{position:fixed;inset:0 0 0 auto;width:352px;max-width:100%;height:100%;height:100dvh;max-height:100dvh;margin:0;padding:26px 26px 32px;border:0;border-left:1px solid #c5d0c5;background:#fffdf8;color:#172f32;box-shadow:-4px 0 20px #172f3209;overflow-y:auto;overscroll-behavior:contain;z-index:30;font:1.125rem/1.7 Lato,Arial,sans-serif}
+.term-panel::backdrop{background:#172f3266}
+.term-panel-top{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:26px}
+.term-panel-top .reader-kicker{margin:0}
+.term-close{flex:none;width:40px;height:40px;border:1px solid #d4d9d0;border-radius:50%;font:26px/1 Lato,Arial,sans-serif;color:#536765;background:transparent}
+.term-close:hover{background:#e8ede6}
+.term-panel h2{font:400 30px/1.2 Georgia,serif;letter-spacing:-.025em;margin:0 0 22px;overflow-wrap:anywhere}
+.term-panel h3{font-size:1rem;font-weight:700;line-height:1.4;margin:28px 0 12px;color:#135b60}
+.term-panel p{margin:0 0 20px}
+.term-math{margin:26px 0;padding:18px 16px;background:#eef1e9;border-left:2px solid #135b60;overflow-wrap:anywhere}
+.term-math #term-formula{font:21px/1.6 Georgia,serif;margin:0 0 14px;white-space:pre-line}
+.term-math #term-notation{font-size:1rem;line-height:1.6;margin:0;color:#536765}
+.term-return{border:0;border-top:1px solid #d4d9d0;background:transparent;color:#135b60;padding:20px 0 0;margin-top:16px;font-size:1rem;text-align:left}
+.chapter-sidebar[hidden],.term-math[hidden]{display:none}
+.reader-ready .skip:focus{z-index:40;top:65px}
+@media(min-width:1200px){
+  body.reader-ready{--reader-left:224px}
+  body.term-panel-open{--reader-right:352px}
+  .chapter-toggle{display:none}
+  .reader-ready .shell{width:min(1240px,calc(100% - 64px))}
+  .reader-ready>.site-header,.reader-ready>main,.reader-ready>footer{padding-left:32px;padding-right:32px}
+  .reader-ready .topbar,.reader-ready>.site-header{height:auto;min-height:104px;flex-wrap:wrap;gap:18px;padding-top:24px;padding-bottom:24px}
+  .reader-ready .topbar nav,.reader-ready>.site-header nav{flex-wrap:wrap;gap:10px 20px}
+}
+@media(max-width:1199px){
+  body.reader-ready{padding-top:58px}
+  .chapter-sidebar{top:64px;left:16px;bottom:auto;width:min(310px,calc(100% - 32px));max-height:calc(100dvh - 80px);border:1px solid #c5d0c5;border-radius:4px;padding:22px 20px;box-shadow:0 8px 30px #172f3220}
+  .reader-ready section{scroll-margin-top:68px}
+}
+/* Respond to the actual space left beside the navigation and explanation. */
+@container lesson (max-width:1050px){
+  .hero{gap:28px}.hero h1{font-size:clamp(38px,5cqw,58px)}
+  .reading,.intro,.interpretation,.footnotes{grid-template-columns:155px minmax(0,1fr);gap:28px}
+  .plots{grid-template-columns:1fr}
+  .metrics{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .lab-layout{grid-template-columns:255px minmax(0,1fr);gap:22px}
+  .lab-grid{grid-template-columns:260px minmax(0,1fr)}
+  .frequency-grid{grid-template-columns:1fr;gap:24px}
+  .comparison{grid-template-columns:1fr}
+  .comparison article+article{border-left:0;padding-left:0;border-top:1px solid #d4d9d0;padding-top:22px}
+  .check-section,.notebook-section{gap:30px}
+}
+@container lesson (max-width:800px){
+  .hero{grid-template-columns:1fr 1fr;gap:24px;padding:45px 0}
+  .hero h1{font-size:40px}.hero-actions{flex-wrap:wrap}
+  .reading,.intro,.interpretation,.footnotes{display:block}
+  .reading>.section-label,.intro>.section-label,.interpretation>.section-label,.footnotes>div:first-child{margin-bottom:22px}
+  .section-heading{display:block}.section-heading>p{max-width:65ch}
+  .motivation{grid-template-columns:1fr;gap:20px;padding:24px}
+  .lab-layout,.lab-grid{display:block}
+  .controls{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:22px;padding:24px;border-right:0;border-bottom:1px solid #d4d9d0;margin-bottom:22px}
+  .control{margin:0;padding:0}
+  .control-buttons,.control-actions,.controls>.status,.controls>.small-status,.controls>.check{grid-column:1/-1}
+  .check-section,.notebook-section{grid-template-columns:1fr;gap:28px}
+  .check-section>div>p:last-child{max-width:65ch}
+  .frequency-grid{padding:24px}
+}
+@container lesson (max-width:540px){
+  .hero{display:block}.hero figure{margin-top:28px}.hero h1{font-size:40px}
+  .controls{grid-template-columns:1fr;gap:24px;padding:20px 16px}
+  .control-buttons,.control-actions,.controls>.status,.controls>.small-status,.controls>.check{grid-column:auto}
+  .metrics>div:last-child{grid-column:1/-1}
+  .stripes{grid-template-columns:1fr}
+  .preparation,.motivation{padding:24px 20px}
+}
+@media print{body.reader-ready{padding:0}.chapter-sidebar,.chapter-toggle,.term-panel{display:none!important}.glossary-term{text-decoration:none}}

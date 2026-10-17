@@ -11,15 +11,17 @@
   <link rel="stylesheet" href="../shared/preparation.css">
   <link rel="stylesheet" href="../shared/motivation.css">
   <script type="module" src="assets/app.js"></script>
+  <link rel="stylesheet" href="../shared/reader.css">
+  <script type="module" src="../shared/reader.js"></script>
 </head>
-<body>
+<body data-episode="E03">
 <a class="skip" href="#main">Skip to lesson</a>
 <header class="site-header">
   <a class="brand" href="#"><svg viewBox="0 0 36 36" aria-hidden="true"><circle cx="18" cy="18" r="16"/><circle cx="18" cy="18" r="10"/><circle cx="18" cy="18" r="3"/></svg><span>OPTICS<span class="brand-sub">IN 5 MINUTES</span></span></a>
   <nav aria-label="Lesson navigation"><a href="../">All episodes</a><a href="#idea">The idea</a><a href="#lab">Explore</a><a href="#frequency-space">Go deeper</a><a href="#notebook">Notebook <span aria-hidden="true">↗</span></a></nav>
 </header>
 <main id="main">
-  <section class="hero" aria-labelledby="title">
+  <section id="overview" class="hero" aria-labelledby="title">
     <div class="hero-copy"><p class="eyebrow"><span class="episode">03</span> COMPUTATIONAL OPTICS / AN INTERACTIVE LESSON</p>
       <h1 id="title">A perfect lens.<br>Still a <em>blurry image.</em></h1>
       <p class="lede">Two points become two overlapping patterns. Find out what makes them distinguishable—and why zooming in is only part of the story.</p>
@@ -94,7 +96,7 @@
     <p class="model-note"><strong>What you are seeing:</strong> a noiseless, in-focus scalar model with a circular, aberration-free pupil. Each single-source PSF is normalized to unit peak, so this compares shape, not light collection or photon counts across NA. Rayleigh is a useful convention, not an abrupt boundary between possible and impossible measurements.</p>
   </section>
 
-  <section class="section interpretation">
+  <section id="explain" class="section interpretation">
     <div class="section-label">03 / NAME THE LIMIT</div>
     <div><h2>One lens. Two different questions.</h2><div class="comparison"><article><span class="tiny-label">TWO POINTS</span><h3>How much do their images overlap?</h3><div class="equation">d<sub>R</sub> ≈ 0.61 λ<sub>0</sub> / NA</div><p>At the Rayleigh separation, the central peak of one Airy pattern lies at the first zero of the other. This convention applies here to two equally bright, mutually incoherent points.</p></article><article><span class="tiny-label">A PERIODIC PATTERN</span><h3>Which frequencies reach the image?</h3><div class="equation">f<sub>c</sub> = 2 NA / λ<sub>0</sub></div><p>The incoherent intensity transfer function reaches zero at this cutoff. Its reciprocal, λ<sub>0</sub>/(2 NA), is a limiting period—not the Rayleigh two-point distance. Contrast is already zero at the cutoff.</p></article></div>
       <details class="derivation"><summary>Where do the Airy pattern and the factor 0.61 come from?</summary><p>For a circular pupil, the peak-normalized intensity PSF is</p><p class="equation">h(r) = [2 J₁(v) / v]², &nbsp; v = 2π NA r / λ<sub>0</sub>.</p><p>J₁ is the first-order Bessel function, and h(0) = 1 by its limit. Its first positive zero is v ≈ 3.831706. Dividing by 2π gives 0.609835. The two-point image is h(√((x − d/2)² + y²)) + h(√((x + d/2)² + y²)).</p></details>
@@ -120,7 +122,7 @@ image = np.fft.ifft2(
     np.fft.fft2(object_intensity) * otf
 ).real</code></pre><p>The notebook makes the sampling, array layout, and periodic FFT boundary assumptions explicit.</p></div></section>
 
-  <section class="section footnotes"><div><p class="section-label">MODEL, MATERIALS & SOURCES</p><h3>Know what the model leaves out.</h3></div><div><p>This is a scalar, monochromatic, shift-invariant model. It omits aberrations, vector polarization effects, defocus, finite emitters, detector pixel integration, and photon noise in the browser demo. High-NA behavior is illustrative; vector models may be needed for quantitative microscopy. The notebook introduces additive noise separately.</p><p><strong>Video companion:</strong> <a href="#video">watch the E03 film above</a> (5:12).</p><ul class="source-list"><li><a href="https://github.com/Vandermode/optics-in-5-minutes-course/tree/main/teaching/e03-diffraction" target="_blank" rel="noopener">Lesson source & instructor notes ↗</a></li><li><a href="https://qiweb.tudelft.nl/aoi/incoherentimaging/incoherentimaging/" target="_blank" rel="noopener">TU Delft · Advanced Optical Imaging: incoherent imaging ↗</a></li><li><a href="https://www.microscopyu.com/microscopy-basics/numerical-aperture" target="_blank" rel="noopener">Nikon MicroscopyU · Numerical aperture and image resolution ↗</a></li></ul><p class="small-note">Learning checks run locally in your browser. No answers are uploaded or stored.</p></div></section>
+  <section id="sources" class="section footnotes"><div><p class="section-label">MODEL, MATERIALS & SOURCES</p><h3>Know what the model leaves out.</h3></div><div><p>This is a scalar, monochromatic, shift-invariant model. It omits aberrations, vector polarization effects, defocus, finite emitters, detector pixel integration, and photon noise in the browser demo. High-NA behavior is illustrative; vector models may be needed for quantitative microscopy. The notebook introduces additive noise separately.</p><p><strong>Video companion:</strong> <a href="#video">watch the E03 film above</a> (5:12).</p><ul class="source-list"><li><a href="https://github.com/Vandermode/optics-in-5-minutes-course/tree/main/teaching/e03-diffraction" target="_blank" rel="noopener">Lesson source & instructor notes ↗</a></li><li><a href="https://qiweb.tudelft.nl/aoi/incoherentimaging/incoherentimaging/" target="_blank" rel="noopener">TU Delft · Advanced Optical Imaging: incoherent imaging ↗</a></li><li><a href="https://www.microscopyu.com/microscopy-basics/numerical-aperture" target="_blank" rel="noopener">Nikon MicroscopyU · Numerical aperture and image resolution ↗</a></li></ul><p class="small-note">Learning checks run locally in your browser. No answers are uploaded or stored.</p></div></section>
 <!-- course-navigation --><div style="display:flex;justify-content:space-between;gap:20px;max-width:1200px;margin:30px auto;padding:0 24px;font-size:1rem" aria-label="Course sequence"><a href="../e02-lens-fourier/">← E02 · Why a lens computes a Fourier transform</a><a href="../e04-coherence/">E04 · Coherence and what a camera averages →</a></div></main>
 <footer><a class="footer-brand" href="#">OPTICS IN 5 MINUTES</a><span>03 / THE DIFFRACTION LIMIT</span><a href="#main">Back to top ↑</a></footer>
 </body>
