@@ -104,6 +104,11 @@ try {
 
     const otherLanguage = language === 'en' ? 'zh' : 'en';
     if (width <= 1100) await page.locator('#concept-coherence .concept-back').click();
+    else await page.locator('header a[href="#knowledge-map"]').click();
+    await page.locator('[data-concept=field]').click();
+    await page.goBack();
+    assert.equal(new URL(page.url()).hash, '#knowledge-map');
+    assert.equal(await page.locator('.concept-node[aria-current]').getAttribute('data-concept'), 'coherence', 'Back to the map restores its earlier selection');
     await page.locator(`header [data-language="${otherLanguage}"]`).click();
     await ready(page, otherLanguage);
     assert.equal(await page.locator('.concept-node[aria-current]').getAttribute('data-concept'), 'coherence', 'Language switch keeps selected concept');

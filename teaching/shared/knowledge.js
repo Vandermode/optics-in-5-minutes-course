@@ -28,6 +28,15 @@ function queryConcept() {
   return nodes.has(id) ? id : null;
 }
 
+function stateConcept() {
+  const id = history.state?.opticsConcept;
+  return nodes.has(id) ? id : null;
+}
+
+function rememberConcept() {
+  history.replaceState({...history.state, opticsConcept: selected}, '', location.href);
+}
+
 function showConcept(id, announce = false) {
   if (!nodes.has(id)) return;
   selected = id;
@@ -46,6 +55,7 @@ function showConcept(id, announce = false) {
   }
   if (layout.size) draw();
   else paintEdges();
+  rememberConcept();
 }
 
 function scrollToPanel(id, force = false) {
@@ -60,7 +70,7 @@ section.addEventListener('click', event => {
   if (event.button !== 0 || event.ctrlKey || event.metaKey || event.altKey || event.shiftKey) return;
   if (event.target.closest('a.concept-back')) {
     event.preventDefault();
-    history.pushState(null, '', '#knowledge-map');
+    history.pushState({...history.state, opticsConcept: selected}, '', '#knowledge-map');
     nodes.get(selected).focus({preventScroll: true});
     section.scrollIntoView({block: 'start', behavior: reducedMotion.matches ? 'auto' : 'smooth'});
     return;
@@ -235,13 +245,14 @@ function draw() {
 }
 
 function restoreFromURL() {
-  const id = hashConcept() || queryConcept() || (!location.hash ? 'fourier' : null);
+  const id = hashConcept() || queryConcept() || stateConcept();
   if (id) showConcept(id);
+  else rememberConcept();
 }
 addEventListener('course:language-change', event => {
   event.detail.url.searchParams.set('concept', selected);
 });
-const initial = hashConcept() || queryConcept();
+const initial = hashConcept() || queryConcept() || stateConcept();
 showConcept(initial || selected);
 section.classList.add('atlas-ready');
 draw();
