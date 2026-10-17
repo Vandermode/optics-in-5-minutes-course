@@ -1802,7 +1802,18 @@
     "Waves & representations": "波与表征",
     "↑ Back to the concept map": "↑ 返回概念图谱",
     "Selected concept: {name}. {count} related episodes.": "已选择：{name}。共有 {count} 个相关章节。",
-    "The course assumes undergraduate calculus, linear algebra, and basic Python. Complex amplitudes and Fourier decomposition connect many topics. Probability, electromagnetic fields, and gradients enter where a lesson needs them.": "本课程需要大学本科层次的微积分、线性代数和基础 Python 知识。复振幅与傅里叶分解联系着多个主题；概率、电磁场与梯度将在需要它们的课程中使用。"
+    "The course assumes undergraduate calculus, linear algebra, and basic Python. Complex amplitudes and Fourier decomposition connect many topics. Probability, electromagnetic fields, and gradients enter where a lesson needs them.": "本课程需要大学本科层次的微积分、线性代数和基础 Python 知识。复振幅与傅里叶分解联系着多个主题；概率、电磁场与梯度将在需要它们的课程中使用。",
+    "CONCEPTS IN THIS EPISODE": "本章涉及的概念",
+    "Concepts in this episode": "本章涉及的概念",
+    "See this episode in the concept map ↓": "在知识图谱中查看本章 ↓",
+    "Other episodes with this concept": "涉及这一概念的其他章节",
+    "Explore through connected ideas": "沿关联概念继续探索",
+    "Via": "经由",
+    "In this episode": "本章涉及",
+    "Explore the full course map ↗": "查看完整课程图谱 ↗",
+    "Keep exploring from this episode.": "从本章出发，继续探索。",
+    "Highlighted concepts appear in this episode. Select any concept to find related episodes.": "标出的概念是本章内容。选择任意概念，探索相关章节。",
+    "CONNECTED IDEAS": "概念之间的联系"
   },
   "termAliases": {
     "phase": [

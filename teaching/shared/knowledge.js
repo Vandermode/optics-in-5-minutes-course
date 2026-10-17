@@ -10,7 +10,8 @@ const edges = JSON.parse(document.getElementById('concept-relations').textConten
 const NS = 'http://www.w3.org/2000/svg';
 const reducedMotion = matchMedia('(prefers-reduced-motion: reduce)');
 const stacked = matchMedia('(max-width: 1100px)');
-let selected = 'fourier', hovered = null, layout = new Map();
+const chapter = Boolean(section.dataset.currentEpisode);
+let selected = section.dataset.defaultConcept || 'fourier', hovered = null, layout = new Map();
 
 function make(tag, attributes = {}) {
   const element = document.createElementNS(NS, tag);
@@ -60,13 +61,13 @@ function showConcept(id, announce = false) {
 
 function scrollToPanel(id, force = false) {
   // Keep the selected concept and its routes together when the two columns stack.
-  if (stacked.matches || force) {
+  if (chapter || stacked.matches || force) {
     panels.get(id).scrollIntoView({block: 'start', behavior: reducedMotion.matches ? 'auto' : 'smooth'});
     panels.get(id).focus({preventScroll: true});
   }
 }
 
-section.addEventListener('click', event => {
+document.addEventListener('click', event => {
   if (event.button !== 0 || event.ctrlKey || event.metaKey || event.altKey || event.shiftKey) return;
   if (event.target.closest('a.concept-back')) {
     event.preventDefault();

@@ -13,7 +13,7 @@ function initializeReader() {
     video: 'The film', idea: 'The idea', lab: 'Experiment',
     explain: episode === 'E03' ? 'Two resolution limits' : 'How it works',
     'frequency-space': 'Frequency space', check: 'Check yourself',
-    notebook: 'Python notebook', sources: 'Model & sources',
+    notebook: 'Python notebook', sources: 'Model & sources', 'knowledge-map': 'Concept map',
   };
   const sections = [...main.querySelectorAll(':scope > section[id]')].filter(s => labels[s.id]);
   const toc = document.createElement('aside');
@@ -172,7 +172,7 @@ function markTerms(main, contexts) {
   const matcher = new RegExp(pattern, 'giu');
   // Annotate prose only. Never change controls, code, equations, quiz choices,
   // links, or elements that the numerical demonstrations update themselves.
-  const excluded = 'a, button, label, summary, form, pre, code, script, style, h1, h2, h3, h4, figcaption, .video-caption, .equation, .inline-equation, .section-label, .eyebrow, .meta, .lesson-meta, .prep-kicker, .motivation-kicker, .controls, .plots, .metrics, .frequency-stats, [aria-live], [role="status"]';
+  const excluded = 'a, button, label, summary, form, pre, code, script, style, h1, h2, h3, h4, figcaption, .video-caption, .equation, .inline-equation, .section-label, .eyebrow, .meta, .lesson-meta, .prep-kicker, .motivation-kicker, .controls, .plots, .metrics, .frequency-stats, .knowledge-section, [aria-live], [role="status"]';
   for (const section of main.querySelectorAll(':scope > section')) {
     const seen = new Set();
     const walker = document.createTreeWalker(section, NodeFilter.SHOW_TEXT, {
