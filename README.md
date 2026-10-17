@@ -4,7 +4,7 @@ Public lessons and runnable notebooks by Vandermode.
 
 [Open the ten-episode course](https://vandermode.github.io/optics-in-5-minutes-course/)
 
-Each module includes an interactive lesson, three concept checks, a standalone CPU notebook with saved figures, worked exercises, and instructor notes with a ten-point rubric. Allow 12–15 minutes for a lesson and 25–30 minutes for its core lab; optional extensions go deeper.
+Each module includes its five-minute film, an interactive lesson, three concept checks, a standalone CPU notebook with saved figures, worked exercises, and instructor notes with a ten-point rubric. Allow 12–15 minutes for a lesson and 25–30 minutes for its core lab; optional extensions go deeper.
 
 | Episode | Interactive lesson | Notebook |
 | --- | --- | --- |
@@ -25,6 +25,6 @@ The notebooks use NumPy, SciPy, and Matplotlib. No repository clone, external da
 
 All ten notebooks passed clean local CPU execution, including optional sections. Live execution and figure display of the nine new notebooks in authenticated Colab remain unverified; the validation record separates these checks.
 
-For local preview, run `python -m http.server 8787 --directory teaching` and open [the local course](http://localhost:8787/). The site is buildless HTML, CSS, JavaScript, and Canvas. The manually dispatched Pages workflow publishes the complete course; CI checks changes without deploying Pages.
+For local preview, run `python -m http.server 8787 --directory teaching` and open [the local course](http://localhost:8787/). The lessons use buildless HTML, CSS, JavaScript, and Canvas; embedded films stream from YouTube. The manually dispatched Pages workflow publishes the complete course; CI checks changes without deploying Pages.
 
 E03’s existing notebook path and legacy root experiment links remain available. The bundled Lato fonts retain their [license](teaching/shared/fonts/LICENSE-Lato.txt).

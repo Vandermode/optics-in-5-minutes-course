@@ -1,6 +1,6 @@
 # Optics in 5 Minutes · Season 1 teaching course
 
-Ten interactive lessons connect wave propagation to adjoint design. Each lesson combines a 12–15-minute explanation and experiment, three concept checks, a standalone 25–30-minute Python lab, optional deeper calculations, and instructor notes with worked reasoning and a ten-point rubric.
+Ten interactive lessons connect wave propagation to adjoint design. Each lesson combines an embedded five-minute film, a 12–15-minute explanation and experiment, three concept checks, a standalone 25–30-minute Python lab, optional deeper calculations, and instructor notes with worked reasoning and a ten-point rubric.
 
 The intended preparation is basic calculus and Python. Complex amplitudes, correlation matrices, and adjoints are introduced where needed. All numerical data are synthetic and seeded. The notebooks use CPU NumPy, SciPy, and Matplotlib; no renderer imports, repository clone, GPU, private data, or credentials are required.
 
@@ -43,7 +43,7 @@ python -m http.server 8787 --bind 127.0.0.1 --directory teaching
 
 Open [the local course](http://127.0.0.1:8787/). In a second terminal, install the QA browser once with `npx --prefix teaching playwright install chromium`, then run `npm run test:browser --prefix teaching`. Set `COURSE_URL` to test another served copy.
 
-The site itself has no build dependency, CDN, or backend: it uses static HTML/CSS, native modules, and Canvas. Heavy Yee and optimization loops run in cancellable workers. `tools/curriculum.py` contains authored content, and `course.json` is the generated navigation manifest. Each episode has a separate physical `model.js`; notebook source is the percent-format `lab.py`. Rebuilding leaves executed outputs intact when cell source is unchanged.
+The lesson code uses static HTML/CSS, native modules, and Canvas, with no build dependency or backend. Embedded films stream from YouTube and include direct viewing links. Heavy Yee and optimization loops run in cancellable workers. `tools/curriculum.py` contains authored content, `videos.json` holds film metadata for the generated lessons, and `course.json` is the generated navigation manifest. Each episode has a separate physical `model.js`; notebook source is the percent-format `lab.py`. Rebuilding leaves executed outputs intact when cell source is unchanged.
 
 `tools/export_course.py <destination>` packages the complete static course, notebook downloads, and figures without development environments or tests. The manual Pages workflow publishes that package only when dispatched. CI independently runs numerical checks, all notebooks, and browser tests; a push does not trigger Pages publication.
 

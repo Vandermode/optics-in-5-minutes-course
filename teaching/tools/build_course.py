@@ -8,6 +8,7 @@ import nbformat
 from curriculum import MODULES
 
 ROOT = Path(__file__).resolve().parents[1]
+VIDEOS = json.loads((ROOT / "videos.json").read_text())
 PUBLIC = "https://github.com/Vandermode/optics-in-5-minutes-course"
 COLAB = "https://colab.research.google.com/github/Vandermode/optics-in-5-minutes-course/blob/main/teaching"
 CATALOG = [dict(id=m["id"],slug=m["slug"],title=m["title"],description=m["deck"],
@@ -23,6 +24,17 @@ def esc(s):
 
 def links(items):
     return "".join(f'<li><a href="{esc(url)}" target="_blank" rel="noopener">{esc(label)} ↗</a></li>' for label,url in items)
+
+def video_section(m):
+    video = VIDEOS[m["id"]]
+    video_id = video["youtubeId"]
+    if not re.fullmatch(r"[A-Za-z0-9_-]{11}", video_id):
+        raise ValueError(f'Invalid YouTube video ID for {m["id"]}')
+    return f'''<section id="video" class="section video-section" aria-labelledby="video-title">
+<div class="section-heading"><div><p class="section-label">{m["id"]} / THE FIVE-MINUTE FILM</p><h2 id="video-title">{esc(m["title"])}</h2></div><p>Watch the story, then use the experiment below to test the ideas yourself.</p></div>
+<div class="video-player"><iframe width="1280" height="720" src="https://www.youtube-nocookie.com/embed/{video_id}?rel=0&amp;playsinline=1&amp;hl=en" title="{esc(video["title"])}" loading="lazy" referrerpolicy="strict-origin-when-cross-origin" allow="autoplay; encrypted-media; picture-in-picture; fullscreen; web-share" allowfullscreen></iframe></div>
+<p class="video-caption"><span>{esc(video["duration"])} · {m["id"]} · {esc(m["title"])}</span><a href="https://www.youtube.com/watch?v={video_id}" target="_blank" rel="noopener">Watch on YouTube ↗</a></p>
+</section>'''
 
 def navigation(id):
     i=next(i for i,m in enumerate(CATALOG) if m["id"]==id)
@@ -66,9 +78,10 @@ def page(m):
 <header class="topbar"><a class="brand" href="../">OPTICS<span>IN 5 MINUTES</span></a>
 <nav aria-label="Lesson navigation"><a href="../">All episodes</a><a href="#idea">The idea</a><a href="#lab">Experiment</a><a href="#notebook">Notebook ↗</a></nav></header>
 <main id="main"><section class="hero"><div><p class="eyebrow">{m["id"]} / AN INTERACTIVE OPTICS LESSON</p>
-<h1>{m["headline"]}</h1><p class="lede">{esc(m["deck"])}</p><div class="actions"><a class="button" href="#lab">Try the experiment ↓</a><a href="#idea">Start with the idea ↗</a></div>
+<h1>{m["headline"]}</h1><p class="lede">{esc(m["deck"])}</p><div class="actions"><a class="button" href="#lab">Try the experiment ↓</a><a href="#video">Watch the film ↓</a></div>
 <p class="meta">12–15-minute lesson · 25–30-minute Python lab<br>Suggested preparation: {requirements} · Calculus + basic Python</p></div>
 <figure><img src="assets/hero.png" width="1000" height="700" alt="Computed illustration from this lesson’s numerical model."><figcaption>COMPUTED FROM THE LESSON MODEL</figcaption></figure></section>
+{video_section(m)}
 <section id="idea" class="section reading"><div class="section-label">01 / BUILD AN INTUITION</div><div><h2>What to notice first.</h2>{m["intro"]}
 <h3>By the end, you can</h3><ol>{goals}</ol><div class="callout"><p class="eyebrow">PREDICT BEFORE YOU CHANGE A CONTROL</p><p>{esc(m["prediction"])}</p></div></div></section>
 <section id="lab" class="section"><div class="section-heading"><div><p class="section-label">02 / TEST YOUR PREDICTION</p><h2>Change one thing.<br>Follow what changes.</h2></div><p>All plotted fields and curves are calculated from the stated model. Keep the other controls fixed while testing a prediction.</p></div>
@@ -91,7 +104,7 @@ def page(m):
 <details><summary>Optional deeper extension</summary><div class="answer"><p>{esc(m["extension"])}</p><p>The notebook marks the extension clearly. Complete the core experiment and its checks first.</p></div></details>
 <p><a href="INSTRUCTOR_NOTES.md">Instructor notes and assessment rubric ↗</a> · <a href="README.md">Model, setup, and reproducibility ↗</a></p></div></section>
 <section class="section reading"><div class="section-label">MODEL & SOURCES</div><div><h2>Know what the model leaves out.</h2><p>{esc(m["limits"])}</p>
-<p>The matching film is a companion; this lesson is usable on its own. Public film links will be added when available.</p>
+<p><strong>Video companion:</strong> <a href="#video">watch the {m["id"]} film above</a> ({esc(VIDEOS[m["id"]]["duration"])}).</p>
 <ul class="resource-list">{links(m["refs"])}<li><a href="{PUBLIC}/tree/main/teaching/{m["slug"]}" target="_blank" rel="noopener">Lesson and notebook source ↗</a></li></ul>
 <p class="meta">Calculations and concept checks run locally in your browser. Quiz answers are not uploaded or stored.</p></div></section>
 {navigation(m["id"])}</main><footer>OPTICS IN 5 MINUTES · {m["id"]} / {esc(m["title"]).upper()} · <a href="#main">Back to top ↑</a></footer></div>
@@ -186,6 +199,8 @@ def docs(m):
 
 ## Use the lesson
 
+Watch the [{m["id"]} film](https://www.youtube.com/watch?v={VIDEOS[m["id"]]["youtubeId"]}) ({VIDEOS[m["id"]]["duration"]}), embedded near the top of the lesson.
+
 Serve the complete teaching/ directory over HTTP. The lesson uses shared local assets and native JavaScript modules. Open this episode's folder in the browser. Its standalone notebook also works directly in Colab or Jupyter; it does not import repository code or require a GPU.
 
 The notebook's core takes about 25–30 minutes to work through, with a separate optional extension. The first code cell installs numerical packages only when missing. Saved outputs, figures/, and figures.zip provide static figure access if a notebook frontend blocks rich output.
@@ -251,9 +266,9 @@ def build_home():
     cards=""
     for m in CATALOG:
         hero="assets/airy-hero.png" if m["id"]=="E03" else "assets/hero.png"
-        cards+=f'<a class="course-card" href="{m["slug"]}/"><img src="{m["slug"]}/{hero}" width="1000" height="700" alt="Computed {esc(m["title"])} illustration." loading="lazy"><span class="eyebrow">{m["id"]} / LESSON + PYTHON LAB</span><h3>{esc(m["title"])}</h3><p>{esc(m["description"])}</p></a>'
+        cards+=f'<a class="course-card" href="{m["slug"]}/"><img src="{m["slug"]}/{hero}" width="1000" height="700" alt="Computed {esc(m["title"])} illustration." loading="lazy"><span class="eyebrow">{m["id"]} / FILM + LESSON + PYTHON LAB</span><h3>{esc(m["title"])}</h3><p>{esc(m["description"])}</p></a>'
     compatibility="""const oldKeys=['na','wavelength','separation','zoom','frequency','rings'];const u=new URL(location.href);if(oldKeys.some(k=>u.searchParams.has(k))||['#idea','#lab','#frequency-space','#notebook','#check','#title','#main'].includes(u.hash))location.replace('./e03-diffraction/'+u.search+u.hash);"""
-    (ROOT/"index.html").write_text(f'''<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Optics in 5 Minutes · The interactive course</title><meta name="description" content="Ten interactive computational-optics lessons with standalone Python labs: from wave propagation to adjoint design."><meta name="theme-color" content="#f5f3ed"><link rel="icon" href="e03-diffraction/assets/favicon.svg"><link rel="stylesheet" href="shared/course.css"><script>{compatibility}</script></head><body><a class="skip" href="#course-main">Skip to course</a><div class="shell"><header class="topbar"><a class="brand" href="./">OPTICS<span>IN 5 MINUTES</span></a><nav><a href="#course">The lessons</a><a href="#approach">How to learn</a><a href="{PUBLIC}">Source ↗</a></nav></header><main id="course-main"><section class="hero"><div><p class="eyebrow">TEN IDEAS / ONE COMPUTATIONAL THREAD</p><h1>Understand the light.<br><em>Then change it.</em></h1><p class="lede">From a spreading wave to an optimized optical device. Predict what will happen, test it in your browser, and build the calculation yourself.</p><div class="actions"><a class="button" href="e01-angular-spectrum/">Start with wave propagation →</a><a href="#course">Choose a lesson ↓</a></div><p class="meta">Calculus + basic Python · Browser experiments · CPU notebooks<br>Ten self-contained lessons, with optional deeper extensions</p></div><figure><img src="e04-coherence/assets/hero.png" width="1000" height="700" alt="Computed speckle field illustrating interference and coherence."><figcaption>ONE FIELD. MANY INTERFERING CONTRIBUTIONS.</figcaption></figure></section><section id="approach" class="section reading"><div class="section-label">A COURSE YOU CAN TEST</div><div><h2>A picture, a prediction, a calculation.</h2><p>Each lesson introduces one physical idea, gives you controls that change the actual model, and connects the result to a few equations. The Python lab then rebuilds the calculation, tests it independently, and asks you to explain what the model leaves out.</p><p>Allow 12–15 minutes for a lesson and 25–30 minutes for its core lab. Begin with E01 and continue in order, or use each page’s preparation links to revisit an unfamiliar idea. The modules work without the companion films.</p><p>Run notebooks in Colab or local Jupyter. They use NumPy, SciPy, and Matplotlib on CPU, with saved figures and no external datasets. Instructor notes provide a 45–50-minute classroom sequence and assessment rubric.</p><p class="pathway">Propagation → Fourier optics → Imaging → Coherence → Phase recovery → Flat optics → Periodicity → Guided modes → Maxwell solvers → Adjoint design</p></div></section><section id="course" class="section"><div class="section-heading"><div><p class="section-label">SEASON 1 / THE TEN IDEAS</p><h2>Choose where to begin.</h2></div><p>Every module includes an experiment, reasoning checks, a standalone notebook, and explicit model assumptions.</p></div><div class="catalog">{cards}</div></section></main><footer>OPTICS IN 5 MINUTES · <a href="{PUBLIC}">Public source and teaching materials ↗</a> · Calculations run locally in your browser.</footer></div></body></html>''')
+    (ROOT/"index.html").write_text(f'''<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Optics in 5 Minutes · The interactive course</title><meta name="description" content="Ten interactive computational-optics lessons with standalone Python labs: from wave propagation to adjoint design."><meta name="theme-color" content="#f5f3ed"><link rel="icon" href="e03-diffraction/assets/favicon.svg"><link rel="stylesheet" href="shared/course.css"><script>{compatibility}</script></head><body><a class="skip" href="#course-main">Skip to course</a><div class="shell"><header class="topbar"><a class="brand" href="./">OPTICS<span>IN 5 MINUTES</span></a><nav><a href="#course">The lessons</a><a href="#approach">How to learn</a><a href="{PUBLIC}">Source ↗</a></nav></header><main id="course-main"><section class="hero"><div><p class="eyebrow">TEN IDEAS / ONE COMPUTATIONAL THREAD</p><h1>Understand the light.<br><em>Then change it.</em></h1><p class="lede">From a spreading wave to an optimized optical device. Predict what will happen, test it in your browser, and build the calculation yourself.</p><div class="actions"><a class="button" href="e01-angular-spectrum/">Start with wave propagation →</a><a href="#course">Choose a lesson ↓</a></div><p class="meta">Five-minute films · Browser experiments · CPU notebooks<br>Ten self-contained lessons, with optional deeper extensions</p></div><figure><img src="e04-coherence/assets/hero.png" width="1000" height="700" alt="Computed speckle field illustrating interference and coherence."><figcaption>ONE FIELD. MANY INTERFERING CONTRIBUTIONS.</figcaption></figure></section><section id="approach" class="section reading"><div class="section-label">A COURSE YOU CAN TEST</div><div><h2>A picture, a prediction, a calculation.</h2><p>Each lesson begins with a five-minute film, gives you controls that change the actual model, and connects the result to a few equations. The Python lab then rebuilds the calculation, tests it independently, and asks you to explain what the model leaves out.</p><p>Allow 12–15 minutes for a lesson and 25–30 minutes for its core lab. Begin with E01 and continue in order, or use each page’s preparation links to revisit an unfamiliar idea. The modules work without the companion films.</p><p>Run notebooks in Colab or local Jupyter. They use NumPy, SciPy, and Matplotlib on CPU, with saved figures and no external datasets. Instructor notes provide a 45–50-minute classroom sequence and assessment rubric.</p><p class="pathway">Propagation → Fourier optics → Imaging → Coherence → Phase recovery → Flat optics → Periodicity → Guided modes → Maxwell solvers → Adjoint design</p></div></section><section id="course" class="section"><div class="section-heading"><div><p class="section-label">SEASON 1 / THE TEN IDEAS</p><h2>Choose where to begin.</h2></div><p>Every module includes its film, an experiment, reasoning checks, a standalone notebook, and explicit model assumptions.</p></div><div class="catalog">{cards}</div></section></main><footer>OPTICS IN 5 MINUTES · <a href="{PUBLIC}">Public source and teaching materials ↗</a> · Calculations run locally in your browser.</footer></div></body></html>''')
 
 def main():
     fonts=ROOT/"shared/fonts";fonts.mkdir(parents=True,exist_ok=True)
