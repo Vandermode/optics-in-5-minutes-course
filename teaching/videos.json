@@ -1,0 +1,47 @@
+{
+  "E01": {
+    "youtubeId": "y5bIpnGhecs",
+    "title": "How Light Spreads | The Angular Spectrum Method in 5 Minutes",
+    "duration": "5:07"
+  },
+  "E02": {
+    "youtubeId": "EapI6kCGKLM",
+    "title": "Why a Lens Computes a Fourier Transform | Optics in 5 Minutes",
+    "duration": "5:13"
+  },
+  "E04": {
+    "youtubeId": "8rnnqnpCpsg",
+    "title": "Why Lasers Speckle and LEDs Do Not | Coherence in 5 Minutes",
+    "duration": "5:02"
+  },
+  "E05": {
+    "youtubeId": "G7s3JcGsoDo",
+    "title": "How to Photograph Phase | Holography and Phase Retrieval in 5 Minutes",
+    "duration": "5:05"
+  },
+  "E06": {
+    "youtubeId": "0rMp3nl57Lg",
+    "title": "How to Flatten a Lens | Flat Optics in 5 Minutes",
+    "duration": "5:15"
+  },
+  "E07": {
+    "youtubeId": "qQ0YwOpt-mA",
+    "title": "How Structure Selects Light | Gratings and Band Gaps in 5 Minutes",
+    "duration": "5:20"
+  },
+  "E08": {
+    "youtubeId": "rPNYODeWrJs",
+    "title": "How to Trap Light | Waveguides and Resonators in 5 Minutes",
+    "duration": "5:07"
+  },
+  "E09": {
+    "youtubeId": "2cyHmzPtHA0",
+    "title": "Simulating Light with Maxwell on a Grid | FDTD in 5 Minutes",
+    "duration": "5:16"
+  },
+  "E10": {
+    "youtubeId": "x9Ys3GWC1Q0",
+    "title": "Designing Light by Running It Backward | The Adjoint Method in 5 Minutes",
+    "duration": "5:15"
+  }
+}

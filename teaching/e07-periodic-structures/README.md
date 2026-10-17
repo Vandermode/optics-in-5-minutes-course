@@ -10,6 +10,8 @@ Use momentum matching to find diffraction directions, then use a period’s tran
 
 ## Use the lesson
 
+Watch the [E07 film](https://www.youtube.com/watch?v=qQ0YwOpt-mA) (5:20), embedded near the top of the lesson.
+
 Serve the complete teaching/ directory over HTTP. The lesson uses shared local assets and native JavaScript modules. Open this episode's folder in the browser. Its standalone notebook also works directly in Colab or Jupyter; it does not import repository code or require a GPU.
 
 The notebook's core takes about 25–30 minutes to work through, with a separate optional extension. The first code cell installs numerical packages only when missing. Saved outputs, figures/, and figures.zip provide static figure access if a notebook frontend blocks rich output.
