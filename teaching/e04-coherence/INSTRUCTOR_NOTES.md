@@ -1,5 +1,15 @@
 # Instructor notes · E04 · Coherence and what a camera averages
 
+<!-- course-motivation:start -->
+## Why learn this?
+
+**Why do fringes disappear when the optics stay put?**
+
+An interference pattern can fade after a change in illumination or exposure even when neither path moves. A rough surface can also produce stable speckle. Interpreting these observations requires knowing which relationships between fields survive the camera's averaging.
+
+**What you gain:** Diagnose changes in fringe visibility, distinguish a static random pattern from lost coherence, and decide when your imaging model should add fields, intensities, or coherent modes.
+<!-- course-motivation:end -->
+
 For learners with undergraduate calculus, linear algebra, and basic Python. Each lesson names the specific ideas it uses and links to focused refreshers. Review unfamiliar topics as needed; the lesson develops the optical method. Use the checklist below before class. During the lesson, give a short notation reminder or point back to a resource when needed, then keep the explanation focused on the current optical question.
 
 <!-- course-preparation:start -->

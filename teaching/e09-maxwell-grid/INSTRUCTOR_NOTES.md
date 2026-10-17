@@ -1,5 +1,15 @@
 # Instructor notes · E09 · Maxwell on a grid
 
+<!-- course-motivation:start -->
+## Why learn this?
+
+**When can you trust a simulated electromagnetic field?**
+
+A device with reflections, interfaces, or wavelength-scale features may need Maxwell's coupled fields rather than a prescribed phase mask. Computing those fields still does not make every plotted ripple physical: the grid, time step, and artificial boundaries can change the result.
+
+**What you gain:** Build a time-domain Maxwell solver and test its stability, propagation error, and boundary reflections before interpreting a simulated device response.
+<!-- course-motivation:end -->
+
 For learners with undergraduate calculus, linear algebra, and basic Python. Each lesson names the specific ideas it uses and links to focused refreshers. Review unfamiliar topics as needed; the lesson develops the optical method. Use the checklist below before class. During the lesson, give a short notation reminder or point back to a resource when needed, then keep the explanation focused on the current optical question.
 
 <!-- course-preparation:start -->

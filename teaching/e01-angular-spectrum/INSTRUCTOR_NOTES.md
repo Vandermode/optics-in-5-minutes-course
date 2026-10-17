@@ -1,5 +1,15 @@
 # Instructor notes · E01 · The angular spectrum method
 
+<!-- course-motivation:start -->
+## Why learn this?
+
+**Where will the light go after this plane?**
+
+You know the field just after a slit or a phase mask, but the detector sits farther away. Predicting its image means following diffraction and phase through space. The same problem appears when refocusing a hologram or checking whether a designed optic produces its intended pattern.
+
+**What you gain:** Build a propagation tool that later lessons reuse, predict how aperture, wavelength, and distance change a field, and recognize when a surprising pattern comes from the numerical grid.
+<!-- course-motivation:end -->
+
 For learners with undergraduate calculus, linear algebra, and basic Python. Each lesson names the specific ideas it uses and links to focused refreshers. Review unfamiliar topics as needed; the lesson develops the optical method. Use the checklist below before class. During the lesson, give a short notation reminder or point back to a resource when needed, then keep the explanation focused on the current optical question.
 
 <!-- course-preparation:start -->

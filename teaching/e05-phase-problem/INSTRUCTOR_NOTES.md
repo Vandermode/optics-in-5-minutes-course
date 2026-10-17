@@ -1,5 +1,15 @@
 # Instructor notes · E05 · Holography and the phase problem
 
+<!-- course-motivation:start -->
+## Why learn this?
+
+**How can you recover what an intensity image hides?**
+
+A transparent sample can change optical thickness while barely changing in-focus brightness. Yet measuring that thickness or numerically refocusing the recorded light requires phase. A single intensity image generally leaves several possible fields consistent with the measurement.
+
+**What you gain:** Use a reference wave to encode phase in measurable fringes, and identify the extra constraints needed for retrieval when no reference is available. Assess what a successful reconstruction actually establishes.
+<!-- course-motivation:end -->
+
 For learners with undergraduate calculus, linear algebra, and basic Python. Each lesson names the specific ideas it uses and links to focused refreshers. Review unfamiliar topics as needed; the lesson develops the optical method. Use the checklist below before class. During the lesson, give a short notation reminder or point back to a resource when needed, then keep the explanation focused on the current optical question.
 
 <!-- course-preparation:start -->

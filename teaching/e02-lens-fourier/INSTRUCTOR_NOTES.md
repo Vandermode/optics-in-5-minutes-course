@@ -1,5 +1,15 @@
 # Instructor notes · E02 · Why a lens computes a Fourier transform
 
+<!-- course-motivation:start -->
+## Why learn this?
+
+**Can you filter an image before the camera sees it?**
+
+Suppose you want to suppress fine texture, emphasize boundaries, or reveal a nearly invisible transparent object. A lens gives you access to the spatial frequencies of the field, so a mask placed between two lenses can change which features reach the camera.
+
+**What you gain:** Choose where to place a filter and predict its effect on amplitude and phase objects, including which image detail the filter removes.
+<!-- course-motivation:end -->
+
 For learners with undergraduate calculus, linear algebra, and basic Python. Each lesson names the specific ideas it uses and links to focused refreshers. Review unfamiliar topics as needed; the lesson develops the optical method. Use the checklist below before class. During the lesson, give a short notation reminder or point back to a resource when needed, then keep the explanation focused on the current optical question.
 
 <!-- course-preparation:start -->

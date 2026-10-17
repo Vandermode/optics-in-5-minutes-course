@@ -1,5 +1,15 @@
 # Instructor notes · E07 · Gratings, Bloch waves, and band gaps
 
+<!-- course-motivation:start -->
+## Why learn this?
+
+**How does repetition select where light can travel?**
+
+Repeated grooves can separate wavelengths into different directions, while repeated layers can form a mirror over a band of wavelengths. Designing either device requires connecting one repeating unit to the waves supported by the whole structure.
+
+**What you gain:** Use period and angle to find propagating diffraction orders, connect a layer stack to its reflection band, and distinguish a prediction of allowed directions from a prediction of how much power enters each direction.
+<!-- course-motivation:end -->
+
 For learners with undergraduate calculus, linear algebra, and basic Python. Each lesson names the specific ideas it uses and links to focused refreshers. Review unfamiliar topics as needed; the lesson develops the optical method. Use the checklist below before class. During the lesson, give a short notation reminder or point back to a resource when needed, then keep the explanation focused on the current optical question.
 
 <!-- course-preparation:start -->

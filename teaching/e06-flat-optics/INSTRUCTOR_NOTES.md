@@ -1,5 +1,15 @@
 # Instructor notes · E06 · Flat optics and wrapped phase
 
+<!-- course-motivation:start -->
+## Why learn this?
+
+**How much of a lens's thickness is doing useful work?**
+
+A compact optical system needs a shallow focusing element. Removing material changes the phase delay, but at one wavelength a full phase turn can be removed without changing the thin-element transmission. Fabrication steps and a change of colour then test how far that shortcut remains useful.
+
+**What you gain:** Turn a desired phase into a height profile, estimate the cost of using only a few height levels, and judge the wavelength range and model assumptions behind a flat-optic design.
+<!-- course-motivation:end -->
+
 For learners with undergraduate calculus, linear algebra, and basic Python. Each lesson names the specific ideas it uses and links to focused refreshers. Review unfamiliar topics as needed; the lesson develops the optical method. Use the checklist below before class. During the lesson, give a short notation reminder or point back to a resource when needed, then keep the explanation focused on the current optical question.
 
 <!-- course-preparation:start -->

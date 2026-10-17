@@ -1,5 +1,15 @@
 # Instructor notes · E10 · Designing light with gradients
 
+<!-- course-motivation:start -->
+## Why learn this?
+
+**How do you improve a design with thousands of controls?**
+
+You want a phase mask to produce a chosen intensity pattern, but each pixel is a design variable. Perturbing every pixel separately makes each optimization step expensive. You need the sensitivity of one objective to all those variables at once.
+
+**What you gain:** Compute and verify a gradient with an adjoint calculation, use it to improve the pattern, and assess the resulting design without assuming that a lower error proves a global optimum.
+<!-- course-motivation:end -->
+
 For learners with undergraduate calculus, linear algebra, and basic Python. Each lesson names the specific ideas it uses and links to focused refreshers. Review unfamiliar topics as needed; the lesson develops the optical method. Use the checklist below before class. During the lesson, give a short notation reminder or point back to a resource when needed, then keep the explanation focused on the current optical question.
 
 <!-- course-preparation:start -->
