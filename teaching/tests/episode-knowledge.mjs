@@ -27,14 +27,14 @@ async function context(options = {}) {
   });
   await ctx.route('https://www.youtube-nocookie.com/embed/**', route => route.fulfill({status: 200, body: ''}));
   ctx.on('page', page => {
-    page.on('pageerror', error => errors.push(error.message));
+    page.on('pageerror', error => errors.push(error.stack || error.message));
     page.on('console', message => {if (message.type() === 'error') errors.push(message.text());});
   });
   return ctx;
 }
 
 async function ready(page, episode, language) {
-  await page.waitForFunction(({episode, language}) => document.documentElement.lang === (language === 'zh' ? 'zh-CN' : 'en')
+  await page.waitForFunction(({episode, language}) => document.body && document.documentElement.lang === (language === 'zh' ? 'zh-CN' : 'en')
     && (document.body.dataset.episode || null) === episode, {episode, language});
   await page.locator('.knowledge-ready').waitFor();
   if (episode) await page.locator('.reader-ready').waitFor();
