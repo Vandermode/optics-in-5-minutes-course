@@ -2,16 +2,28 @@
 <html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="description" content="Use momentum matching to find diffraction directions, then use a period’s transfer matrix to explain why a stack can reject a band of frequencies."><meta name="theme-color" content="#f5f3ed">
 <title>E07 · Gratings, Bloch waves, and band gaps · Optics in 5 Minutes</title>
-<link rel="icon" href="../e03-diffraction/assets/favicon.svg"><link rel="stylesheet" href="../shared/course.css">
+<link rel="icon" href="../e03-diffraction/assets/favicon.svg"><link rel="stylesheet" href="../shared/course.css"><link rel="stylesheet" href="../shared/preparation.css">
 <script type="module" src="../shared/lesson.js"></script></head><body>
 <a class="skip" href="#main">Skip to lesson</a><div class="shell">
 <header class="topbar"><a class="brand" href="../">OPTICS<span>IN 5 MINUTES</span></a>
 <nav aria-label="Lesson navigation"><a href="../">All episodes</a><a href="#idea">The idea</a><a href="#lab">Experiment</a><a href="#notebook">Notebook ↗</a></nav></header>
 <main id="main"><section class="hero"><div><p class="eyebrow">E07 / AN INTERACTIVE OPTICS LESSON</p>
 <h1>Repeat a structure.<br><em>Change the allowed waves.</em></h1><p class="lede">Use momentum matching to find diffraction directions, then use a period’s transfer matrix to explain why a stack can reject a band of frequencies.</p><div class="actions"><a class="button" href="#lab">Try the experiment ↓</a><a href="#video">Watch the film ↓</a></div>
-<p class="meta">12–15-minute lesson · 25–30-minute Python lab<br>Suggested preparation: <a href="../e01-angular-spectrum/">E01</a>, <a href="../e06-flat-optics/">E06</a> · Calculus + basic Python</p></div>
+<p class="meta">12–15-minute lesson · 25–30-minute Python lab<br><a href="#preparation">Prerequisites & recommended learning resources ↓</a></p></div>
 <figure><img src="assets/hero.png" width="1000" height="700" alt="Computed illustration from this lesson’s numerical model."><figcaption>COMPUTED FROM THE LESSON MODEL</figcaption></figure></section>
-<section id="video" class="section video-section" aria-labelledby="video-title">
+    <section id="preparation" class="preparation" aria-labelledby="preparation-title">
+<p class="prep-kicker">BEFORE E07 / PREREQUISITES</p>
+<h2 id="preparation-title">Check your starting point.</h2>
+<p class="prep-earlier">Useful earlier lessons: <a href="../e01-angular-spectrum/">E01</a>, <a href="../e06-flat-optics/">E06</a></p>
+<ul class="prep-checklist"><li><strong>Complex amplitudes and phase.</strong> Track phase gained over one period and distinguish a phase factor from attenuation.<span class="prep-use">Used here: Bloch factors describe how a field repeats through a structure.</span></li><li><strong>Matrices, eigenvectors, and modes.</strong> Multiply 2 × 2 matrices and interpret their eigenvalues.<span class="prep-use">Used here: A period&#x27;s transfer matrix determines its propagating and decaying solutions.</span></li></ul>
+<details class="prep-refreshers"><summary>Need a refresher? Open the recommended reading.</summary>
+<p>Use the indicated sections for an unfamiliar idea, then return to this lesson.</p>
+<ul class="prep-resources"><li><a href="https://ocw.mit.edu/courses/18-03sc-differential-equations-fall-2011/pages/unit-i-first-order-differential-equations/complex-arithmetic-and-exponentials/" target="_blank" rel="noopener">MIT OCW · Complex Arithmetic and Exponentials ↗</a><p>Read the notes on Euler&#x27;s formula, polar form, multiplication, and complex conjugation. The differential-equation applications can wait.</p></li><li><a href="https://ocw.mit.edu/courses/18-06sc-linear-algebra-fall-2011/pages/least-squares-determinants-and-eigenvalues/eigenvalues-and-eigenvectors/" target="_blank" rel="noopener">MIT OCW · Eigenvalues and Eigenvectors ↗</a><p>Start with the lecture summary and one 2 × 2 worked problem. Focus on Av = λv and what changes when a matrix is applied repeatedly.</p></li></ul><p class="prep-extra">For the RCWA extension, review Fourier harmonics and basis truncation; the notebook introduces boundary matching and efficiencies.</p><ul class="prep-resources"><li><a href="https://qiweb.tudelft.nl/aoi/fourieranalysis/fourieranalysis/" target="_blank" rel="noopener">TU Delft · Fourier analysis ↗</a><p>Use §4.1 for the transform pair, then §4.2.1–4.2.4 for linearity, scaling, shifts, and convolution. Consult §4.2.7 for two successive transforms.</p></li></ul></details>
+<p class="prep-lab"><strong>For the notebook:</strong> Work with complex matrices and inspect convergence as the number of retained harmonics changes.<br><a href="https://numpy.org/doc/stable/user/absolute_beginners.html" target="_blank" rel="noopener">NumPy · The absolute basics for beginners ↗</a></p>
+<p class="prep-new"><strong>Developed in this lesson:</strong> Connect grating directions, Bloch propagation, and band gaps; calculate diffraction efficiencies in the extension.</p>
+<a class="prep-all" href="../preparation/">Browse all prerequisites and learning resources →</a>
+</section>
+    <section id="video" class="section video-section" aria-labelledby="video-title">
 <div class="section-heading"><div><p class="section-label">E07 / THE FIVE-MINUTE FILM</p><h2 id="video-title">Gratings, Bloch waves, and band gaps</h2></div><p>Watch the story, then use the experiment below to test the ideas yourself.</p></div>
 <div class="video-player"><iframe width="1280" height="720" src="https://www.youtube-nocookie.com/embed/qQ0YwOpt-mA?rel=0&amp;playsinline=1&amp;hl=en" title="How Structure Selects Light | Gratings and Band Gaps in 5 Minutes" loading="lazy" referrerpolicy="strict-origin-when-cross-origin" allow="autoplay; encrypted-media; picture-in-picture; fullscreen; web-share" allowfullscreen></iframe></div>
 <p class="video-caption"><span>5:20 · E07 · Gratings, Bloch waves, and band gaps</span><a href="https://www.youtube.com/watch?v=qQ0YwOpt-mA" target="_blank" rel="noopener">Watch on YouTube ↗</a></p>

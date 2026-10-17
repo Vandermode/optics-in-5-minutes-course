@@ -2,16 +2,28 @@
 <html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="description" content="Find the field shapes that can travel unchanged, combine them to transfer power between guides, and sum repeated round trips to build a resonance."><meta name="theme-color" content="#f5f3ed">
 <title>E08 · Waveguides, modes, and resonators · Optics in 5 Minutes</title>
-<link rel="icon" href="../e03-diffraction/assets/favicon.svg"><link rel="stylesheet" href="../shared/course.css">
+<link rel="icon" href="../e03-diffraction/assets/favicon.svg"><link rel="stylesheet" href="../shared/course.css"><link rel="stylesheet" href="../shared/preparation.css">
 <script type="module" src="../shared/lesson.js"></script></head><body>
 <a class="skip" href="#main">Skip to lesson</a><div class="shell">
 <header class="topbar"><a class="brand" href="../">OPTICS<span>IN 5 MINUTES</span></a>
 <nav aria-label="Lesson navigation"><a href="../">All episodes</a><a href="#idea">The idea</a><a href="#lab">Experiment</a><a href="#notebook">Notebook ↗</a></nav></header>
 <main id="main"><section class="hero"><div><p class="eyebrow">E08 / AN INTERACTIVE OPTICS LESSON</p>
 <h1>A boundary confines light.<br><em>Phase chooses the modes.</em></h1><p class="lede">Find the field shapes that can travel unchanged, combine them to transfer power between guides, and sum repeated round trips to build a resonance.</p><div class="actions"><a class="button" href="#lab">Try the experiment ↓</a><a href="#video">Watch the film ↓</a></div>
-<p class="meta">12–15-minute lesson · 25–30-minute Python lab<br>Suggested preparation: <a href="../e01-angular-spectrum/">E01</a>, <a href="../e07-periodic-structures/">E07</a> · Calculus + basic Python</p></div>
+<p class="meta">12–15-minute lesson · 25–30-minute Python lab<br><a href="#preparation">Prerequisites & recommended learning resources ↓</a></p></div>
 <figure><img src="assets/hero.png" width="1000" height="700" alt="Computed illustration from this lesson’s numerical model."><figcaption>COMPUTED FROM THE LESSON MODEL</figcaption></figure></section>
-<section id="video" class="section video-section" aria-labelledby="video-title">
+    <section id="preparation" class="preparation" aria-labelledby="preparation-title">
+<p class="prep-kicker">BEFORE E08 / PREREQUISITES</p>
+<h2 id="preparation-title">Check your starting point.</h2>
+<p class="prep-earlier">Useful earlier lessons: <a href="../e01-angular-spectrum/">E01</a>, <a href="../e07-periodic-structures/">E07</a></p>
+<ul class="prep-checklist"><li><strong>Matrices, eigenvectors, and modes.</strong> Recognize an eigenfunction as a shape preserved by a linear operator.<span class="prep-use">Used here: A guided mode retains its transverse profile as it propagates.</span></li><li><strong>Complex amplitudes and phase.</strong> Add complex amplitudes with different accumulated phases.<span class="prep-use">Used here: Interference between modes controls power transfer in a coupler.</span></li><li><strong>Geometric series.</strong> Sum a geometric series and check its convergence condition.<span class="prep-use">Used here: Repeated round trips build the ring&#x27;s resonant response.</span></li></ul>
+<details class="prep-refreshers"><summary>Need a refresher? Open the recommended reading.</summary>
+<p>Use the indicated sections for an unfamiliar idea, then return to this lesson.</p>
+<ul class="prep-resources"><li><a href="https://ocw.mit.edu/courses/18-06sc-linear-algebra-fall-2011/pages/least-squares-determinants-and-eigenvalues/eigenvalues-and-eigenvectors/" target="_blank" rel="noopener">MIT OCW · Eigenvalues and Eigenvectors ↗</a><p>Start with the lecture summary and one 2 × 2 worked problem. Focus on Av = λv and what changes when a matrix is applied repeatedly.</p></li><li><a href="https://ocw.mit.edu/courses/18-03sc-differential-equations-fall-2011/pages/unit-i-first-order-differential-equations/complex-arithmetic-and-exponentials/" target="_blank" rel="noopener">MIT OCW · Complex Arithmetic and Exponentials ↗</a><p>Read the notes on Euler&#x27;s formula, polar form, multiplication, and complex conjugation. The differential-equation applications can wait.</p></li><li><a href="https://openstax.org/books/calculus-volume-2/pages/5-2-infinite-series" target="_blank" rel="noopener">OpenStax · Calculus Volume 2, §5.2 ↗</a><p>Read the Geometric Series subsection: partial sums, the sum 1/(1−r), and the condition |r| &lt; 1. Other series tests are not needed.</p></li></ul></details>
+<p class="prep-lab"><strong>For the notebook:</strong> Read eigenvalues and eigenvectors returned by a matrix solver, and plot parameter sweeps.<br><a href="https://numpy.org/doc/stable/user/absolute_beginners.html" target="_blank" rel="noopener">NumPy · The absolute basics for beginners ↗</a></p>
+<p class="prep-new"><strong>Developed in this lesson:</strong> Calculate slab modes, directional coupling, and ring resonances as three related experiments.</p>
+<a class="prep-all" href="../preparation/">Browse all prerequisites and learning resources →</a>
+</section>
+    <section id="video" class="section video-section" aria-labelledby="video-title">
 <div class="section-heading"><div><p class="section-label">E08 / THE FIVE-MINUTE FILM</p><h2 id="video-title">Waveguides, modes, and resonators</h2></div><p>Watch the story, then use the experiment below to test the ideas yourself.</p></div>
 <div class="video-player"><iframe width="1280" height="720" src="https://www.youtube-nocookie.com/embed/rPNYODeWrJs?rel=0&amp;playsinline=1&amp;hl=en" title="How to Trap Light | Waveguides and Resonators in 5 Minutes" loading="lazy" referrerpolicy="strict-origin-when-cross-origin" allow="autoplay; encrypted-media; picture-in-picture; fullscreen; web-share" allowfullscreen></iframe></div>
 <p class="video-caption"><span>5:07 · E08 · Waveguides, modes, and resonators</span><a href="https://www.youtube.com/watch?v=rPNYODeWrJs" target="_blank" rel="noopener">Watch on YouTube ↗</a></p>

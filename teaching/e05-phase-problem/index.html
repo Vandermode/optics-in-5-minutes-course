@@ -2,16 +2,28 @@
 <html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="description" content="Turn a phase difference into measurable fringes, recover a complex field from a sideband, and learn what iterative constraints can—and cannot—determine."><meta name="theme-color" content="#f5f3ed">
 <title>E05 · Holography and the phase problem · Optics in 5 Minutes</title>
-<link rel="icon" href="../e03-diffraction/assets/favicon.svg"><link rel="stylesheet" href="../shared/course.css">
+<link rel="icon" href="../e03-diffraction/assets/favicon.svg"><link rel="stylesheet" href="../shared/course.css"><link rel="stylesheet" href="../shared/preparation.css">
 <script type="module" src="../shared/lesson.js"></script></head><body>
 <a class="skip" href="#main">Skip to lesson</a><div class="shell">
 <header class="topbar"><a class="brand" href="../">OPTICS<span>IN 5 MINUTES</span></a>
 <nav aria-label="Lesson navigation"><a href="../">All episodes</a><a href="#idea">The idea</a><a href="#lab">Experiment</a><a href="#notebook">Notebook ↗</a></nav></header>
 <main id="main"><section class="hero"><div><p class="eyebrow">E05 / AN INTERACTIVE OPTICS LESSON</p>
 <h1>A camera loses phase.<br><em>A reference leaves clues.</em></h1><p class="lede">Turn a phase difference into measurable fringes, recover a complex field from a sideband, and learn what iterative constraints can—and cannot—determine.</p><div class="actions"><a class="button" href="#lab">Try the experiment ↓</a><a href="#video">Watch the film ↓</a></div>
-<p class="meta">12–15-minute lesson · 25–30-minute Python lab<br>Suggested preparation: <a href="../e01-angular-spectrum/">E01</a>, <a href="../e02-lens-fourier/">E02</a>, <a href="../e04-coherence/">E04</a> · Calculus + basic Python</p></div>
+<p class="meta">12–15-minute lesson · 25–30-minute Python lab<br><a href="#preparation">Prerequisites & recommended learning resources ↓</a></p></div>
 <figure><img src="assets/hero.png" width="1000" height="700" alt="Computed illustration from this lesson’s numerical model."><figcaption>COMPUTED FROM THE LESSON MODEL</figcaption></figure></section>
-<section id="video" class="section video-section" aria-labelledby="video-title">
+    <section id="preparation" class="preparation" aria-labelledby="preparation-title">
+<p class="prep-kicker">BEFORE E05 / PREREQUISITES</p>
+<h2 id="preparation-title">Check your starting point.</h2>
+<p class="prep-earlier">Useful earlier lessons: <a href="../e01-angular-spectrum/">E01</a>, <a href="../e02-lens-fourier/">E02</a>, <a href="../e04-coherence/">E04</a></p>
+<ul class="prep-checklist"><li><strong>Complex amplitudes and phase.</strong> Expand interference between a signal and a known reference field.<span class="prep-use">Used here: The cross terms carry relative phase into a measured intensity.</span></li><li><strong>Fourier transforms and convolution.</strong> Recognize that a linear phase ramp shifts a Fourier spectrum.<span class="prep-use">Used here: An off-axis reference separates the hologram&#x27;s sidebands.</span></li></ul>
+<details class="prep-refreshers"><summary>Need a refresher? Open the recommended reading.</summary>
+<p>Use the indicated sections for an unfamiliar idea, then return to this lesson.</p>
+<ul class="prep-resources"><li><a href="https://ocw.mit.edu/courses/18-03sc-differential-equations-fall-2011/pages/unit-i-first-order-differential-equations/complex-arithmetic-and-exponentials/" target="_blank" rel="noopener">MIT OCW · Complex Arithmetic and Exponentials ↗</a><p>Read the notes on Euler&#x27;s formula, polar form, multiplication, and complex conjugation. The differential-equation applications can wait.</p></li><li><a href="https://qiweb.tudelft.nl/aoi/fourieranalysis/fourieranalysis/" target="_blank" rel="noopener">TU Delft · Fourier analysis ↗</a><p>Use §4.1 for the transform pair, then §4.2.1–4.2.4 for linearity, scaling, shifts, and convolution. Consult §4.2.7 for two successive transforms.</p></li></ul></details>
+<p class="prep-lab"><strong>For the notebook:</strong> Select a Fourier sideband and alternate between complex amplitude and phase arrays.<br><a href="https://numpy.org/doc/stable/user/absolute_beginners.html" target="_blank" rel="noopener">NumPy · The absolute basics for beginners ↗</a> · <a href="https://numpy.org/doc/stable/reference/routines.fft.html" target="_blank" rel="noopener">NumPy · Discrete Fourier Transform ↗</a></p>
+<p class="prep-new"><strong>Developed in this lesson:</strong> Recover a field with a reference and compare that route with reconstruction from intensity constraints.</p>
+<a class="prep-all" href="../preparation/">Browse all prerequisites and learning resources →</a>
+</section>
+    <section id="video" class="section video-section" aria-labelledby="video-title">
 <div class="section-heading"><div><p class="section-label">E05 / THE FIVE-MINUTE FILM</p><h2 id="video-title">Holography and the phase problem</h2></div><p>Watch the story, then use the experiment below to test the ideas yourself.</p></div>
 <div class="video-player"><iframe width="1280" height="720" src="https://www.youtube-nocookie.com/embed/G7s3JcGsoDo?rel=0&amp;playsinline=1&amp;hl=en" title="How to Photograph Phase | Holography and Phase Retrieval in 5 Minutes" loading="lazy" referrerpolicy="strict-origin-when-cross-origin" allow="autoplay; encrypted-media; picture-in-picture; fullscreen; web-share" allowfullscreen></iframe></div>
 <p class="video-caption"><span>5:05 · E05 · Holography and the phase problem</span><a href="https://www.youtube.com/watch?v=G7s3JcGsoDo" target="_blank" rel="noopener">Watch on YouTube ↗</a></p>

@@ -1,0 +1,27 @@
+/* Scoped so the original E03 design and the shared lesson layout can use it. */
+.preparation{padding:32px 36px;margin:0 0 44px;border:1px solid #d4d9d0;border-left:3px solid #135b60;background:#f0f2ea;color:#172f32;scroll-margin-top:24px}
+.preparation .prep-kicker{font-size:11px;font-weight:700;letter-spacing:.13em;color:#135b60;margin:0 0 10px}
+.preparation-e03{max-width:1200px;width:calc(100% - 80px);margin-left:auto;margin-right:auto}
+.preparation h2{font-family:Georgia,'Times New Roman',serif;font-size:29px;font-weight:400;line-height:1.2;margin:0 0 16px}
+.preparation p{font-size:14px;line-height:1.6;margin:12px 0}
+.preparation .prep-earlier{font-size:13px;color:#536765}
+.prep-checklist{padding-left:21px;margin:18px 0 20px}
+.prep-checklist li{font-size:15px;line-height:1.55;margin:14px 0}
+.prep-use{display:block;font-size:13px;line-height:1.55;color:#536765;margin:5px 0 0}
+.preparation .prep-refreshers{padding:16px 0;border-top:1px solid #d4d9d0;border-bottom:1px solid #d4d9d0}
+.prep-refreshers summary{font-size:14px;line-height:1.5;font-weight:700;cursor:pointer;color:#135b60}
+.prep-resources{list-style:none;padding:0;margin:16px 0}
+.prep-resources li{margin:17px 0;font-size:14px;line-height:1.5}
+.prep-resources p{font-size:13px;line-height:1.55;color:#536765;margin:7px 0 0}
+.preparation .prep-lab{margin-top:18px;font-size:13px}
+.preparation .prep-new{font-size:14px}
+.prep-all{font-size:13px}
+.prep-guide-intro{max-width:850px;padding:64px 0 42px}
+.prep-guide-intro h1{font-family:Georgia,'Times New Roman',serif;font-size:clamp(35px,4vw,52px);line-height:1.12;font-weight:400;letter-spacing:-.03em}
+.prep-topic-nav{font-size:14px;line-height:2.2;margin-top:28px}
+.prep-topic-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:22px}
+.prep-topic{padding:26px 28px;border:1px solid #d4d9d0;background:#fffdf8;scroll-margin-top:24px}
+.prep-topic h2{font-family:Georgia,'Times New Roman',serif;font-weight:400;font-size:25px;line-height:1.2;margin:0 0 16px}
+.prep-topic>p{font-size:14px;line-height:1.6}
+.prep-topic a,.preparation a{overflow-wrap:anywhere}
+@media(max-width:700px){.preparation{padding:24px 20px;margin-bottom:30px}.preparation-e03{width:calc(100% - 40px)}.preparation h2{font-size:27px}.prep-checklist li{font-size:14px}.prep-topic-grid{grid-template-columns:1fr}.prep-guide-intro{padding:40px 0 26px}.prep-topic{padding:23px}}

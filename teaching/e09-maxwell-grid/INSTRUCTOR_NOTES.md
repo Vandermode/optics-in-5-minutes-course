@@ -1,6 +1,22 @@
 # Instructor notes · E09 · Maxwell on a grid
 
-For learners with basic calculus and Python. Explain complex arrows and any needed matrix notation locally; do not assume a previous electromagnetics course.
+For learners with undergraduate calculus, linear algebra, and basic Python. Each lesson names the specific ideas it uses and links to focused refreshers. Review unfamiliar topics as needed; the lesson develops the optical method. Use the checklist below before class. During the lesson, give a short notation reminder or point back to a resource when needed, then keep the explanation focused on the current optical question.
+
+<!-- course-preparation:start -->
+## Before this lesson
+
+Use these focused refreshers if an idea is unfamiliar; you do not need to complete each linked course.
+
+- **Coupled electric and magnetic fields:** Recognize the coupling between changing electric and magnetic fields. Used here: The solver advances both fields in alternating updates. [Review: OpenStax · University Physics Volume 2, §16.1](https://openstax.org/books/university-physics-volume-2/pages/16-1-maxwells-equations-and-electromagnetic-waves). Read Maxwell's Equations and the discussion connecting changing electric and magnetic fields. Concentrate on Faraday's and Ampère–Maxwell's laws.
+- **Derivatives on a sampled grid:** Approximate a derivative with neighboring samples and read partial derivatives as local rates of change. Used here: The Yee grid replaces spatial and temporal derivatives by staggered differences. [Review: MIT OCW · Lecture 10: Finite Differences in Time](https://ocw.mit.edu/courses/18-085-computational-science-and-engineering-i-fall-2008/resources/lecture-10-finite-differences-in-time/). Focus on replacing a derivative by a difference quotient and taking successive Euler steps. The stability discussion gives useful context for E09.
+
+**Python preparation:** Use neighboring array slices and a time loop; distinguish field samples, probes, and recorded traces.
+- [NumPy · The absolute basics for beginners](https://numpy.org/doc/stable/user/absolute_beginners.html) — Use the sections on array shape, indexing and slicing, basic operations, and broadcasting. Practice changing one parameter and rerunning a cell.
+
+**Developed here:** Construct a Yee update, test its time-step limit, and measure boundary reflections and PML performance.
+
+[All prerequisites and learning resources](https://vandermode.github.io/optics-in-5-minutes-course/preparation/)
+<!-- course-preparation:end -->
 
 ## Outcomes
 
