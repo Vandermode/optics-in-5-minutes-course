@@ -114,9 +114,12 @@ try {
         // background inertness and keep the same explanation available.
         await trigger.click();
         await page.setViewportSize({width: 1440, height: 1000});
+        // Media-query change callbacks run after the viewport resize.
+        await page.waitForFunction(() => !document.getElementById('term-panel').matches(':modal'), null, {timeout: 5000});
         assert.equal(await panel.evaluate(el => el.matches(':modal')), false);
         assert.equal(await page.locator('.chapter-sidebar').isVisible(), true);
         await page.setViewportSize({width: 320, height: 1000});
+        await page.waitForFunction(() => document.getElementById('term-panel').matches(':modal'), null, {timeout: 5000});
         assert.equal(await panel.evaluate(el => el.matches(':modal')), true);
         await panel.locator('.term-return').click();
         await page.locator('#chapter-toggle').click();
