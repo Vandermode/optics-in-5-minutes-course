@@ -285,7 +285,7 @@ def refresh_preparation_markdown(text, episode, heading="Before this lesson"):
 def home_preparation_html():
     return '''<section id="preparation" class="section reading"><div class="section-label">PREREQUISITES & LEARNING RESOURCES</div><div>
 <h2>Bring the foundations.<br>Follow the connections.</h2>
-<p>The course assumes undergraduate calculus, linear algebra, and basic Python. Complex amplitudes and Fourier decomposition are useful from E01. Probability, electromagnetic fields, and gradients enter where a lesson needs them.</p>
+<p>The course assumes undergraduate calculus, linear algebra, and basic Python. Complex amplitudes and Fourier decomposition connect many topics. Probability, electromagnetic fields, and gradients enter where a lesson needs them.</p>
 <p>Each lesson lists the specific skills it uses, explains where they enter, and points to selected readings or lectures. Check the lesson you want to take; review only the unfamiliar topics.</p>
 <p><a class="button secondary" href="preparation/">Find a prerequisite or refresher →</a></p>
 </div></section>'''
