@@ -30,6 +30,8 @@ You can also download `e03_diffraction_limit.ipynb` and use **File → Upload no
 
 Public lesson: https://vandermode.github.io/optics-in-5-minutes-course/e03-diffraction/
 
+Video companion: [Why Even a Perfect Lens Blurs](https://www.youtube.com/watch?v=1UCPEtZJJzw) (5:11), embedded near the top of the lesson. The film plays on demand in a responsive YouTube player, with a direct viewing link as a fallback.
+
 Public source: https://github.com/Vandermode/optics-in-5-minutes-course
 
 The notebook requires NumPy, SciPy and Matplotlib, which are normally present in Colab. Its first cell installs only missing packages. All seven code cells have been executed in both local Jupyter and a live Google Colab CPU runtime (latest Colab recheck: 2026-10-17; Python 3.13.16, NumPy 2.1.3, SciPy 1.16.3, Matplotlib 3.10.0). The numerical checks passed. All four figures were produced in local Jupyter. In live Colab, the inversion figure displayed correctly, but the Airy, MTF, and FFT figures still encountered rich-output loading failures after reloading, rerunning, and trying a fresh tab. Full live figure-display verification therefore remains incomplete. Exporting the executed notebook from that Colab session also timed out; the public notebook download remains available. If Colab reports that output JavaScript could not load, try reloading and checking the session; [Colab's FAQ](https://research.google.com/colaboratory/faq.html) also documents a targeted third-party-cookie exception for `googleusercontent.com`.

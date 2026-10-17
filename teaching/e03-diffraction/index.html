@@ -21,10 +21,18 @@
     <div class="hero-copy"><p class="eyebrow"><span class="episode">03</span> COMPUTATIONAL OPTICS / AN INTERACTIVE LESSON</p>
       <h1 id="title">A perfect lens.<br>Still a <em>blurry image.</em></h1>
       <p class="lede">Two points become two overlapping patterns. Find out what makes them distinguishable—and why zooming in is only part of the story.</p>
-      <div class="hero-actions"><a class="button primary" href="#lab">Try the experiment <span aria-hidden="true">↓</span></a><a class="text-link" href="#idea">Start with the idea <span aria-hidden="true">↗</span></a></div>
+      <div class="hero-actions"><a class="button primary" href="#lab">Try the experiment <span aria-hidden="true">↓</span></a><a class="text-link" href="#video">Watch the film <span aria-hidden="true">↓</span></a></div>
       <p class="lesson-meta">12-minute lesson <span>·</span> 25-minute Python lab <span>·</span> Calculus + basic Python</p>
     </div>
     <figure class="hero-figure"><img src="assets/airy-hero.png" width="1000" height="700" alt="Computed intensity patterns of two incoherent point sources, overlapping into a luminous pair with faint diffraction rings."><figcaption><span>WHAT A PERFECT LENS SEES</span><span>Two points. One finite aperture.</span></figcaption></figure>
+  </section>
+
+  <section id="video" class="section video-section" aria-labelledby="video-title">
+    <div class="section-heading"><div><p class="section-label">E03 / THE FIVE-MINUTE FILM</p><h2 id="video-title">Why even a perfect lens blurs.</h2></div><p>Watch the story, then use the experiment below to change the aperture, wavelength, and point separation.</p></div>
+    <div class="video-player">
+      <iframe width="1280" height="720" src="https://www.youtube-nocookie.com/embed/1UCPEtZJJzw?rel=0&amp;playsinline=1&amp;hl=en" title="Why Even a Perfect Lens Blurs | The Diffraction Limit in 5 Minutes" loading="lazy" referrerpolicy="strict-origin-when-cross-origin" allow="autoplay; encrypted-media; picture-in-picture; fullscreen; web-share" allowfullscreen></iframe>
+    </div>
+    <p class="video-caption"><span>5:11 · E03 · The diffraction limit</span><a href="https://www.youtube.com/watch?v=1UCPEtZJJzw" target="_blank" rel="noopener">Watch on YouTube <span aria-hidden="true">↗</span></a></p>
   </section>
 
   <section id="idea" class="section intro">
@@ -86,7 +94,7 @@ image = np.fft.ifft2(
     np.fft.fft2(object_intensity) * otf
 ).real</code></pre><p>The notebook makes the sampling, array layout, and periodic FFT boundary assumptions explicit.</p></div></section>
 
-  <section class="section footnotes"><div><p class="section-label">MODEL, MATERIALS & SOURCES</p><h3>Know what the model leaves out.</h3></div><div><p>This is a scalar, monochromatic, shift-invariant model. It omits aberrations, vector polarization effects, defocus, finite emitters, detector pixel integration, and photon noise in the browser demo. High-NA behavior is illustrative; vector models may be needed for quantitative microscopy. The notebook introduces additive noise separately.</p><p><strong>Video companion:</strong> the E03 film covers these ideas in five minutes. A public video link will be added after release; this lesson is complete without it.</p><ul class="source-list"><li><a href="https://github.com/Vandermode/optics-in-5-minutes-course/tree/main/teaching/e03-diffraction" target="_blank" rel="noopener">Lesson source & instructor notes ↗</a></li><li><a href="https://qiweb.tudelft.nl/aoi/incoherentimaging/incoherentimaging/" target="_blank" rel="noopener">TU Delft · Advanced Optical Imaging: incoherent imaging ↗</a></li><li><a href="https://www.microscopyu.com/microscopy-basics/numerical-aperture" target="_blank" rel="noopener">Nikon MicroscopyU · Numerical aperture and image resolution ↗</a></li></ul><p class="small-note">Learning checks run locally in your browser. No answers are uploaded or stored.</p></div></section>
+  <section class="section footnotes"><div><p class="section-label">MODEL, MATERIALS & SOURCES</p><h3>Know what the model leaves out.</h3></div><div><p>This is a scalar, monochromatic, shift-invariant model. It omits aberrations, vector polarization effects, defocus, finite emitters, detector pixel integration, and photon noise in the browser demo. High-NA behavior is illustrative; vector models may be needed for quantitative microscopy. The notebook introduces additive noise separately.</p><p><strong>Video companion:</strong> <a href="#video">watch the E03 film above</a> (5:11).</p><ul class="source-list"><li><a href="https://github.com/Vandermode/optics-in-5-minutes-course/tree/main/teaching/e03-diffraction" target="_blank" rel="noopener">Lesson source & instructor notes ↗</a></li><li><a href="https://qiweb.tudelft.nl/aoi/incoherentimaging/incoherentimaging/" target="_blank" rel="noopener">TU Delft · Advanced Optical Imaging: incoherent imaging ↗</a></li><li><a href="https://www.microscopyu.com/microscopy-basics/numerical-aperture" target="_blank" rel="noopener">Nikon MicroscopyU · Numerical aperture and image resolution ↗</a></li></ul><p class="small-note">Learning checks run locally in your browser. No answers are uploaded or stored.</p></div></section>
 <!-- course-navigation --><div style="display:flex;justify-content:space-between;gap:20px;max-width:1200px;margin:30px auto;padding:0 24px;font-size:14px" aria-label="Course sequence"><a href="../e02-lens-fourier/">← E02 · Why a lens computes a Fourier transform</a><a href="../e04-coherence/">E04 · Coherence and what a camera averages →</a></div></main>
 <footer><a class="footer-brand" href="#">OPTICS IN 5 MINUTES</a><span>03 / THE DIFFRACTION LIMIT</span><a href="#main">Back to top ↑</a></footer>
 </body>
