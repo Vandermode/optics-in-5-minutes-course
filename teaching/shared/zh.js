@@ -2039,8 +2039,7 @@ export const termAliases = {
   "objective": [
     "目标函数",
     "损失函数",
-    "损失",
-    "目标"
+    "损失"
   ],
   "gradient": [
     "相位导数",
