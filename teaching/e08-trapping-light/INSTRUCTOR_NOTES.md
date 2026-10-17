@@ -1,6 +1,23 @@
 # Instructor notes · E08 · Waveguides, modes, and resonators
 
-For learners with basic calculus and Python. Explain complex arrows and any needed matrix notation locally; do not assume a previous electromagnetics course.
+For learners with undergraduate calculus, linear algebra, and basic Python. Each lesson names the specific ideas it uses and links to focused refreshers. Review unfamiliar topics as needed; the lesson develops the optical method. Use the checklist below before class. During the lesson, give a short notation reminder or point back to a resource when needed, then keep the explanation focused on the current optical question.
+
+<!-- course-preparation:start -->
+## Before this lesson
+
+Use these focused refreshers if an idea is unfamiliar; you do not need to complete each linked course.
+
+- **Matrices, eigenvectors, and modes:** Recognize an eigenfunction as a shape preserved by a linear operator. Used here: A guided mode retains its transverse profile as it propagates. [Review: MIT OCW · Eigenvalues and Eigenvectors](https://ocw.mit.edu/courses/18-06sc-linear-algebra-fall-2011/pages/least-squares-determinants-and-eigenvalues/eigenvalues-and-eigenvectors/). Start with the lecture summary and one 2 × 2 worked problem. Focus on Av = λv and what changes when a matrix is applied repeatedly.
+- **Complex amplitudes and phase:** Add complex amplitudes with different accumulated phases. Used here: Interference between modes controls power transfer in a coupler. [Review: MIT OCW · Complex Arithmetic and Exponentials](https://ocw.mit.edu/courses/18-03sc-differential-equations-fall-2011/pages/unit-i-first-order-differential-equations/complex-arithmetic-and-exponentials/). Read the notes on Euler's formula, polar form, multiplication, and complex conjugation. The differential-equation applications can wait.
+- **Geometric series:** Sum a geometric series and check its convergence condition. Used here: Repeated round trips build the ring's resonant response. [Review: OpenStax · Calculus Volume 2, §5.2](https://openstax.org/books/calculus-volume-2/pages/5-2-infinite-series). Read the Geometric Series subsection: partial sums, the sum 1/(1−r), and the condition |r| < 1. Other series tests are not needed.
+
+**Python preparation:** Read eigenvalues and eigenvectors returned by a matrix solver, and plot parameter sweeps.
+- [NumPy · The absolute basics for beginners](https://numpy.org/doc/stable/user/absolute_beginners.html) — Use the sections on array shape, indexing and slicing, basic operations, and broadcasting. Practice changing one parameter and rerunning a cell.
+
+**Developed here:** Calculate slab modes, directional coupling, and ring resonances as three related experiments.
+
+[All prerequisites and learning resources](https://vandermode.github.io/optics-in-5-minutes-course/preparation/)
+<!-- course-preparation:end -->
 
 ## Outcomes
 

@@ -4,6 +4,8 @@ Public lessons and runnable notebooks by Vandermode.
 
 [Open the ten-episode course](https://vandermode.github.io/optics-in-5-minutes-course/)
 
+The course assumes undergraduate calculus, linear algebra, and basic Python. Each lesson gives a specific prerequisite checklist, explains where each skill is used, and links to selected chapters or lectures for review. Browse the [prerequisites and learning resources](https://vandermode.github.io/optics-in-5-minutes-course/preparation/) to refresh unfamiliar topics as needed.
+
 Each module includes its five-minute film, an interactive lesson, three concept checks, a standalone CPU notebook with saved figures, worked exercises, and instructor notes with a ten-point rubric. Allow 12–15 minutes for a lesson and 25–30 minutes for its core lab; optional extensions go deeper.
 
 | Episode | Interactive lesson | Notebook |

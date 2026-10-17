@@ -8,6 +8,7 @@
   <title>The Diffraction Limit · Optics in 5 Minutes</title>
   <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
   <link rel="stylesheet" href="assets/style.css">
+  <link rel="stylesheet" href="../shared/preparation.css">
   <script type="module" src="assets/app.js"></script>
 </head>
 <body>
@@ -22,10 +23,25 @@
       <h1 id="title">A perfect lens.<br>Still a <em>blurry image.</em></h1>
       <p class="lede">Two points become two overlapping patterns. Find out what makes them distinguishable—and why zooming in is only part of the story.</p>
       <div class="hero-actions"><a class="button primary" href="#lab">Try the experiment <span aria-hidden="true">↓</span></a><a class="text-link" href="#video">Watch the film <span aria-hidden="true">↓</span></a></div>
-      <p class="lesson-meta">12-minute lesson <span>·</span> 25-minute Python lab <span>·</span> Calculus + basic Python</p>
+      <p class="lesson-meta">12-minute lesson <span>·</span> 25-minute Python lab <span>·</span> <a href="#preparation">Prerequisites & recommended learning resources ↓</a></p>
     </div>
     <figure class="hero-figure"><img src="assets/airy-hero.png" width="1000" height="700" alt="Computed intensity patterns of two incoherent point sources, overlapping into a luminous pair with faint diffraction rings."><figcaption><span>WHAT A PERFECT LENS SEES</span><span>Two points. One finite aperture.</span></figcaption></figure>
   </section>
+
+<!-- course-preparation -->
+<section id="preparation" class="preparation preparation-e03" aria-labelledby="preparation-title">
+<p class="prep-kicker">BEFORE E03 / PREREQUISITES</p>
+<h2 id="preparation-title">Check your starting point.</h2>
+<p class="prep-earlier">Useful earlier lessons: <a href="../e01-angular-spectrum/">E01</a>, <a href="../e02-lens-fourier/">E02</a></p>
+<ul class="prep-checklist"><li><strong>Complex amplitudes and phase.</strong> Distinguish a complex field u from its intensity |u|².<span class="prep-use">Used here: The pupil determines a field response; incoherent imaging uses an intensity PSF.</span></li><li><strong>Fourier transforms and convolution.</strong> Read convolution as a sum of shifted responses and as multiplication in frequency space.<span class="prep-use">Used here: This connects the point spread function to the image transfer function.</span></li></ul>
+<details class="prep-refreshers"><summary>Need a refresher? Open the recommended reading.</summary>
+<p>Use the indicated sections for an unfamiliar idea, then return to this lesson.</p>
+<ul class="prep-resources"><li><a href="https://ocw.mit.edu/courses/18-03sc-differential-equations-fall-2011/pages/unit-i-first-order-differential-equations/complex-arithmetic-and-exponentials/" target="_blank" rel="noopener">MIT OCW · Complex Arithmetic and Exponentials ↗</a><p>Read the notes on Euler&#x27;s formula, polar form, multiplication, and complex conjugation. The differential-equation applications can wait.</p></li><li><a href="https://qiweb.tudelft.nl/aoi/fourieranalysis/fourieranalysis/" target="_blank" rel="noopener">TU Delft · Fourier analysis ↗</a><p>Use §4.1 for the transform pair, then §4.2.1–4.2.4 for linearity, scaling, shifts, and convolution. Consult §4.2.7 for two successive transforms.</p></li></ul></details>
+<p class="prep-lab"><strong>For the notebook:</strong> Use 2D arrays and FFTs; compare curves with the same units and normalization.<br><a href="https://numpy.org/doc/stable/user/absolute_beginners.html" target="_blank" rel="noopener">NumPy · The absolute basics for beginners ↗</a> · <a href="https://numpy.org/doc/stable/reference/routines.fft.html" target="_blank" rel="noopener">NumPy · Discrete Fourier Transform ↗</a></p>
+<p class="prep-new"><strong>Developed in this lesson:</strong> Distinguish a two-point resolution criterion from a spatial-frequency cutoff. The Airy pattern and NA are introduced here.</p>
+<a class="prep-all" href="../preparation/">Browse all prerequisites and learning resources →</a>
+</section>
+<!-- /course-preparation -->
 
   <section id="video" class="section video-section" aria-labelledby="video-title">
     <div class="section-heading"><div><p class="section-label">E03 / THE FIVE-MINUTE FILM</p><h2 id="video-title">Why even a perfect lens blurs.</h2></div><p>Watch the story, then use the experiment below to change the aperture, wavelength, and point separation.</p></div>

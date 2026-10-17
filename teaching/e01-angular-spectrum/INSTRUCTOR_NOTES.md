@@ -1,6 +1,24 @@
 # Instructor notes · E01 · The angular spectrum method
 
-For learners with basic calculus and Python. Explain complex arrows and any needed matrix notation locally; do not assume a previous electromagnetics course.
+For learners with undergraduate calculus, linear algebra, and basic Python. Each lesson names the specific ideas it uses and links to focused refreshers. Review unfamiliar topics as needed; the lesson develops the optical method. Use the checklist below before class. During the lesson, give a short notation reminder or point back to a resource when needed, then keep the explanation focused on the current optical question.
+
+<!-- course-preparation:start -->
+## Before this lesson
+
+Use these focused refreshers if an idea is unfamiliar; you do not need to complete each linked course.
+
+- **Complex amplitudes and phase:** Read a wave as A exp(iφ) and intensity as |u|². Used here: The propagation factor changes each component's phase and, for evanescent components, its amplitude. [Review: MIT OCW · Complex Arithmetic and Exponentials](https://ocw.mit.edu/courses/18-03sc-differential-equations-fall-2011/pages/unit-i-first-order-differential-equations/complex-arithmetic-and-exponentials/). Read the notes on Euler's formula, polar form, multiplication, and complex conjugation. The differential-equation applications can wait.
+- **Fourier transforms and convolution:** Interpret a Fourier transform as a change from position to spatial-frequency components. Used here: Each component represents one transverse wavevector. [Review: TU Delft · Fourier analysis](https://qiweb.tudelft.nl/aoi/fourieranalysis/fourieranalysis/). Use §4.1 for the transform pair, then §4.2.1–4.2.4 for linearity, scaling, shifts, and convolution. Consult §4.2.7 for two successive transforms.
+- **Matrices, eigenvectors, and modes:** Recognize a basis expansion and Av = λv. Used here: The film describes plane waves as eigenfunctions of free-space propagation. [Review: MIT OCW · Eigenvalues and Eigenvectors](https://ocw.mit.edu/courses/18-06sc-linear-algebra-fall-2011/pages/least-squares-determinants-and-eigenvalues/eigenvalues-and-eigenvectors/). Start with the lecture summary and one 2 × 2 worked problem. Focus on Av = λv and what changes when a matrix is applied repeatedly.
+
+**Python preparation:** Use complex arrays and FFT frequency bins; keep physical sample spacing separate from array indices.
+- [NumPy · The absolute basics for beginners](https://numpy.org/doc/stable/user/absolute_beginners.html) — Use the sections on array shape, indexing and slicing, basic operations, and broadcasting. Practice changing one parameter and rerunning a cell.
+- [NumPy · Discrete Fourier Transform](https://numpy.org/doc/stable/reference/routines.fft.html) — Read Implementation details and Normalization; look up fftfreq, fftshift, and ifftshift as they appear in the notebook.
+
+**Developed here:** Build the angular-spectrum propagator and test its sampling and propagation limits.
+
+[All prerequisites and learning resources](https://vandermode.github.io/optics-in-5-minutes-course/preparation/)
+<!-- course-preparation:end -->
 
 ## Outcomes
 

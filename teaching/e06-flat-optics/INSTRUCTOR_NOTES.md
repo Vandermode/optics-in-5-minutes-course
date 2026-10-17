@@ -1,6 +1,23 @@
 # Instructor notes · E06 · Flat optics and wrapped phase
 
-For learners with basic calculus and Python. Explain complex arrows and any needed matrix notation locally; do not assume a previous electromagnetics course.
+For learners with undergraduate calculus, linear algebra, and basic Python. Each lesson names the specific ideas it uses and links to focused refreshers. Review unfamiliar topics as needed; the lesson develops the optical method. Use the checklist below before class. During the lesson, give a short notation reminder or point back to a resource when needed, then keep the explanation focused on the current optical question.
+
+<!-- course-preparation:start -->
+## Before this lesson
+
+Use these focused refreshers if an idea is unfamiliar; you do not need to complete each linked course.
+
+- **Complex amplitudes and phase:** Use exp(i(φ + 2π)) = exp(iφ) and distinguish phase from physical path length. Used here: A phase wrap preserves the complex transmission at the design wavelength. [Review: MIT OCW · Complex Arithmetic and Exponentials](https://ocw.mit.edu/courses/18-03sc-differential-equations-fall-2011/pages/unit-i-first-order-differential-equations/complex-arithmetic-and-exponentials/). Read the notes on Euler's formula, polar form, multiplication, and complex conjugation. The differential-equation applications can wait.
+- **A lens as a phase element:** Read a thin optical element as multiplication by a spatially varying phase. Used here: The lesson converts a focusing phase profile into a physical height profile. [Review: TU Delft · Coherent optical imaging](https://qiweb.tudelft.nl/aoi/coherentimaging/coherentimaging/). In §7.1, find the thin-lens transmission t_lens and the field immediately after the lens. Focus on multiplication by a position-dependent phase.
+
+**Python preparation:** Apply modulo and quantization to arrays, then compare wavelengths using consistent length units.
+- [NumPy · The absolute basics for beginners](https://numpy.org/doc/stable/user/absolute_beginners.html) — Use the sections on array shape, indexing and slicing, basic operations, and broadcasting. Practice changing one parameter and rerunning a cell.
+- [NumPy · Discrete Fourier Transform](https://numpy.org/doc/stable/reference/routines.fft.html) — Read Implementation details and Normalization; look up fftfreq, fftshift, and ifftshift as they appear in the notebook.
+
+**Developed here:** Test wrapped phase, fabrication levels, and chromatic mismatch in a flat optic.
+
+[All prerequisites and learning resources](https://vandermode.github.io/optics-in-5-minutes-course/preparation/)
+<!-- course-preparation:end -->
 
 ## Outcomes
 

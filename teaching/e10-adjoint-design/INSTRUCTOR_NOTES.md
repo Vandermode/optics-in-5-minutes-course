@@ -1,6 +1,24 @@
 # Instructor notes · E10 · Designing light with gradients
 
-For learners with basic calculus and Python. Explain complex arrows and any needed matrix notation locally; do not assume a previous electromagnetics course.
+For learners with undergraduate calculus, linear algebra, and basic Python. Each lesson names the specific ideas it uses and links to focused refreshers. Review unfamiliar topics as needed; the lesson develops the optical method. Use the checklist below before class. During the lesson, give a short notation reminder or point back to a resource when needed, then keep the explanation focused on the current optical question.
+
+<!-- course-preparation:start -->
+## Before this lesson
+
+Use these focused refreshers if an idea is unfamiliar; you do not need to complete each linked course.
+
+- **Chain rule and gradients:** Apply the multivariable chain rule to one scalar objective. Used here: The gradient measures how each phase pixel changes the image mismatch. [Review: MIT OCW · Chain Rule, Gradient and Directional Derivatives](https://ocw.mit.edu/courses/18-02sc-multivariable-calculus-fall-2010/pages/2.-partial-derivatives/part-b-chain-rule-gradient-and-directional-derivatives/). Use Sessions 32 and 34 for the multivariable chain rule, Session 35 for the gradient, and Session 38 for directional derivatives.
+- **Complex inner products:** Use a complex inner product and conjugate transpose. Used here: Moving a linear operator across that inner product produces the adjoint operation. [Review: MIT OCW · Lecture 26: Complex matrices; fast Fourier transform](https://ocw.mit.edu/courses/18-06-linear-algebra-spring-2010/resources/lecture-26-complex-matrices-fast-fourier-transform/). Focus on complex vectors, conjugate transpose, Hermitian matrices, and unitary matrices. The FFT algorithm at the end is optional here.
+- **Fourier transforms and convolution:** Follow a complex field through a forward and inverse Fourier transform. Used here: The core design example uses a unitary Fourier propagation model. [Review: TU Delft · Fourier analysis](https://qiweb.tudelft.nl/aoi/fourieranalysis/fourieranalysis/). Use §4.1 for the transform pair, then §4.2.1–4.2.4 for linearity, scaling, shifts, and convolution. Consult §4.2.7 for two successive transforms.
+
+**Python preparation:** Use complex arrays and compare an analytic derivative with a finite-difference perturbation.
+- [NumPy · The absolute basics for beginners](https://numpy.org/doc/stable/user/absolute_beginners.html) — Use the sections on array shape, indexing and slicing, basic operations, and broadcasting. Practice changing one parameter and rerunning a cell.
+- [NumPy · Discrete Fourier Transform](https://numpy.org/doc/stable/reference/routines.fft.html) — Read Implementation details and Normalization; look up fftfreq, fftshift, and ifftshift as they appear in the notebook.
+
+**Developed here:** Derive, check, and use an adjoint phase gradient. Prior knowledge of adjoint optimization is not required.
+
+[All prerequisites and learning resources](https://vandermode.github.io/optics-in-5-minutes-course/preparation/)
+<!-- course-preparation:end -->
 
 ## Outcomes
 

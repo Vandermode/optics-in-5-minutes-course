@@ -1,6 +1,26 @@
 # Instructor notes · E04 · Coherence and what a camera averages
 
-For learners with basic calculus and Python. Explain complex arrows and any needed matrix notation locally; do not assume a previous electromagnetics course.
+For learners with undergraduate calculus, linear algebra, and basic Python. Each lesson names the specific ideas it uses and links to focused refreshers. Review unfamiliar topics as needed; the lesson develops the optical method. Use the checklist below before class. During the lesson, give a short notation reminder or point back to a resource when needed, then keep the explanation focused on the current optical question.
+
+<!-- course-preparation:start -->
+## Before this lesson
+
+Use these focused refreshers if an idea is unfamiliar; you do not need to complete each linked course.
+
+- **Complex amplitudes and phase:** Expand |u₁ + u₂|² and recognize complex-conjugate cross terms. Used here: The camera averages these interference terms during an exposure. [Review: MIT OCW · Complex Arithmetic and Exponentials](https://ocw.mit.edu/courses/18-03sc-differential-equations-fall-2011/pages/unit-i-first-order-differential-equations/complex-arithmetic-and-exponentials/). Read the notes on Euler's formula, polar form, multiplication, and complex conjugation. The differential-equation applications can wait.
+- **Averages, variance, and correlation:** Distinguish averaging a product from multiplying averages, and independent from repeated samples. Used here: These distinctions govern fringe visibility and speckle contrast. [Review: MIT OCW · Probability readings, Classes 4, 6, and 7](https://ocw.mit.edu/courses/18-05-introduction-to-probability-and-statistics-spring-2022/pages/classes-reading-and-in-class-materials/). Read Class 4b on expectation, Class 6a on expectation and variance, and Class 7b on covariance and correlation. R exercises are not needed.
+
+For the coherent-mode section and notebook extension, review eigenvectors and Hermitian matrices.
+- [MIT OCW · Eigenvalues and Eigenvectors](https://ocw.mit.edu/courses/18-06sc-linear-algebra-fall-2011/pages/least-squares-determinants-and-eigenvalues/eigenvalues-and-eigenvectors/) — Start with the lecture summary and one 2 × 2 worked problem. Focus on Av = λv and what changes when a matrix is applied repeatedly.
+- [MIT OCW · Lecture 26: Complex matrices; fast Fourier transform](https://ocw.mit.edu/courses/18-06-linear-algebra-spring-2010/resources/lecture-26-complex-matrices-fast-fourier-transform/) — Focus on complex vectors, conjugate transpose, Hermitian matrices, and unitary matrices. The FFT algorithm at the end is optional here.
+
+**Python preparation:** Average arrays over a realization axis and compare standard deviation with mean intensity.
+- [NumPy · The absolute basics for beginners](https://numpy.org/doc/stable/user/absolute_beginners.html) — Use the sections on array shape, indexing and slicing, basic operations, and broadcasting. Practice changing one parameter and rerunning a cell.
+
+**Developed here:** Connect detector averaging to temporal coherence, spatial coherence, and speckle; then represent correlations with coherent modes.
+
+[All prerequisites and learning resources](https://vandermode.github.io/optics-in-5-minutes-course/preparation/)
+<!-- course-preparation:end -->
 
 ## Outcomes
 
