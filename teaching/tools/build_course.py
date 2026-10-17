@@ -75,12 +75,12 @@ def page(m):
 <html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="description" content="{esc(m["deck"])}"><meta name="theme-color" content="#f5f3ed">
 <title>{m["id"]} · {esc(m["title"])} · Optics in 5 Minutes</title>
-<link rel="icon" href="../e03-diffraction/assets/favicon.svg"><link rel="stylesheet" href="../shared/course.css"><link rel="stylesheet" href="../shared/preparation.css"><link rel="stylesheet" href="../shared/motivation.css">
-<script type="module" src="../shared/lesson.js"></script></head><body>
+<link rel="icon" href="../e03-diffraction/assets/favicon.svg"><link rel="stylesheet" href="../shared/course.css"><link rel="stylesheet" href="../shared/preparation.css"><link rel="stylesheet" href="../shared/motivation.css"><link rel="stylesheet" href="../shared/reader.css">
+<script type="module" src="../shared/lesson.js"></script><script type="module" src="../shared/reader.js"></script></head><body data-episode="{m['id']}">
 <a class="skip" href="#main">Skip to lesson</a><div class="shell">
 <header class="topbar"><a class="brand" href="../">OPTICS<span>IN 5 MINUTES</span></a>
 <nav aria-label="Lesson navigation"><a href="../">All episodes</a><a href="#idea">The idea</a><a href="#lab">Experiment</a><a href="#notebook">Notebook ↗</a></nav></header>
-<main id="main"><section class="hero"><div><p class="eyebrow">{m["id"]} / AN INTERACTIVE OPTICS LESSON</p>
+<main id="main"><section id="overview" class="hero"><div><p class="eyebrow">{m["id"]} / AN INTERACTIVE OPTICS LESSON</p>
 <h1>{m["headline"]}</h1><p class="lede">{esc(m["deck"])}</p><div class="actions"><a class="button" href="#lab">Try the experiment ↓</a><a href="#video">Watch the film ↓</a></div>
 <p class="meta">12–15-minute lesson · 25–30-minute Python lab<br><a href="#preparation">Prerequisites & recommended learning resources ↓</a></p></div>
 <figure><img src="assets/hero.png" width="1000" height="700" alt="Computed illustration from this lesson’s numerical model."><figcaption>COMPUTED FROM THE LESSON MODEL</figcaption></figure></section>
@@ -108,7 +108,7 @@ def page(m):
 <h3>A short lab report</h3><ol>{tasks}</ol><details><summary>Compare your reasoning</summary><div class="answer">{answers}</div></details>
 <details><summary>Optional deeper extension</summary><div class="answer"><p>{esc(m["extension"])}</p><p>The notebook marks the extension clearly. Complete the core experiment and its checks first.</p></div></details>
 <p><a href="INSTRUCTOR_NOTES.md">Instructor notes and assessment rubric ↗</a> · <a href="README.md">Model, setup, and reproducibility ↗</a></p></div></section>
-<section class="section reading"><div class="section-label">MODEL & SOURCES</div><div><h2>Know what the model leaves out.</h2><p>{esc(m["limits"])}</p>
+<section id="sources" class="section reading"><div class="section-label">MODEL & SOURCES</div><div><h2>Know what the model leaves out.</h2><p>{esc(m["limits"])}</p>
 <p><strong>Video companion:</strong> <a href="#video">watch the {m["id"]} film above</a> ({esc(VIDEOS[m["id"]]["duration"])}).</p>
 <ul class="resource-list">{links(m["refs"])}<li><a href="{PUBLIC}/tree/main/teaching/{m["slug"]}" target="_blank" rel="noopener">Lesson and notebook source ↗</a></li></ul>
 <p class="meta">Calculations and concept checks run locally in your browser. Quiz answers are not uploaded or stored.</p></div></section>
@@ -309,6 +309,12 @@ def main():
         docs(m)
     e03=ROOT/"e03-diffraction/index.html"
     text=e03.read_text()
+    if 'href="../shared/reader.css"' not in text:
+        text=text.replace('</head>', '  <link rel="stylesheet" href="../shared/reader.css">\n  <script type="module" src="../shared/reader.js"></script>\n</head>')
+    text=text.replace('<body>', '<body data-episode="E03">')
+    text=text.replace('<section class="hero"', '<section id="overview" class="hero"')
+    text=text.replace('<section class="section interpretation">', '<section id="explain" class="section interpretation">')
+    text=text.replace('<section class="section footnotes">', '<section id="sources" class="section footnotes">')
     preparation = ('<!-- course-preparation -->\n'
                    + preparation_html("E03", 'Useful earlier lessons: <a href="../e01-angular-spectrum/">E01</a>, <a href="../e02-lens-fourier/">E02</a>').replace('class="preparation"', 'class="preparation preparation-e03"')
                    + '\n<!-- /course-preparation -->')
