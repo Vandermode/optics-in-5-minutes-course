@@ -16,11 +16,11 @@ for (const key of Object.keys(defaults)) {
 if (url.searchParams.get('rings') === '0') $('rings').checked = false;
 
 function surface(id, height) {
-  const canvas = $(id), width = Math.max(220, canvas.clientWidth), dpr = Math.min(window.devicePixelRatio || 1, 2);
+  const canvas = $(id), width = Math.max(1, canvas.clientWidth), dpr = Math.min(window.devicePixelRatio || 1, 2);
   canvas.style.height = height + 'px';
   canvas.width = Math.round(width * dpr); canvas.height = Math.round(height * dpr);
   const ctx = canvas.getContext('2d');
-  ctx.scale(dpr, dpr); ctx.font = '10px Lato, Arial, sans-serif';
+  ctx.scale(dpr, dpr); ctx.font = '14px Lato, Arial, sans-serif';
   return {canvas,ctx,w:width,h:height};
 }
 const palette = [[5,19,26],[15,61,74],[40,114,120],[110,177,163],[223,229,188],[255,249,222]];
@@ -53,17 +53,21 @@ function drawImage() {
   $('image-canvas').setAttribute('aria-label','Computed intensity of two sources '+state.separation+' nm apart at NA '+state.na.toFixed(2)+' and wavelength '+state.wavelength+' nm. '+criterion(state.separation/rayleighNm(state.na,state.wavelength))+'.');
 }
 function axes(s, xmin, xmax, ymax, xlabel, ylabel) {
-  const box={left:46,right:s.w-14,top:18,bottom:s.h-38};
+  const box={left:64,right:s.w-20,top:24,bottom:s.h-60};
   const X=v=>box.left+(v-xmin)/(xmax-xmin)*(box.right-box.left);
   const Y=v=>box.bottom-v/ymax*(box.bottom-box.top);
   s.ctx.fillStyle='#fdfcf7';s.ctx.fillRect(0,0,s.w,s.h);s.ctx.lineWidth=1;
   for(let i=0;i<=4;i++){
     const y=ymax*i/4;s.ctx.strokeStyle='#e1e5dc';s.ctx.beginPath();s.ctx.moveTo(box.left,Y(y));s.ctx.lineTo(box.right,Y(y));s.ctx.stroke();
     s.ctx.fillStyle='#536765';s.ctx.textAlign='right';s.ctx.fillText(y.toFixed(ymax===1?2:1),box.left-8,Y(y)+3);
-    const x=xmin+(xmax-xmin)*i/4;s.ctx.textAlign='center';s.ctx.fillText(x.toFixed(1),X(x),box.bottom+16);
   }
-  s.ctx.fillStyle='#536765';s.ctx.textAlign='center';s.ctx.fillText(xlabel,(box.left+box.right)/2,s.h-5);
-  s.ctx.save();s.ctx.translate(11,(box.top+box.bottom)/2);s.ctx.rotate(-Math.PI/2);s.ctx.fillText(ylabel,0,0);s.ctx.restore();
+  const tickCount=box.right-box.left<280?3:5;
+  s.ctx.textAlign='center';
+  for(let i=0;i<tickCount;i++){
+    const x=xmin+(xmax-xmin)*i/(tickCount-1);s.ctx.fillText(x.toFixed(1),X(x),box.bottom+22);
+  }
+  s.ctx.fillStyle='#536765';s.ctx.fillText(xlabel,s.w/2,s.h-12);
+  s.ctx.save();s.ctx.translate(16,(box.top+box.bottom)/2);s.ctx.rotate(-Math.PI/2);s.ctx.fillText(ylabel,0,0);s.ctx.restore();
   return {X,Y,...box};
 }
 function line(ctx, a, xs, fn, color, width=2, dash=[]) {
@@ -73,7 +77,7 @@ function line(ctx, a, xs, fn, color, width=2, dash=[]) {
   ctx.stroke();ctx.restore();
 }
 function drawProfile() {
-  const s=surface('profile-canvas',215), span=2.5/state.zoom;
+  const s=surface('profile-canvas',260), span=2.5/state.zoom;
   const a=axes(s,-span,span,2,'Object-space position x (μm)','Relative intensity');
   const xs=Array.from({length:700},(_,i)=>-span+2*span*i/699);
   line(s.ctx,a,xs,x=>psf(x+state.separation/2000,state.na,state.wavelength/1000),'#237c8c',1.7,[5,3]);
@@ -84,11 +88,11 @@ function drawProfile() {
   }
 }
 function drawMtf() {
-  const s=surface('mtf-canvas',240), a=axes(s,0,1.3,1,'Spatial frequency / cutoff','Contrast transmitted');
+  const s=surface('mtf-canvas',280), a=axes(s,0,1.3,1,'Spatial frequency / cutoff','Contrast transmitted');
   const xs=Array.from({length:450},(_,i)=>1.3*i/449);
   line(s.ctx,a,xs,mtf,'#135b60',2.8);
   s.ctx.setLineDash([4,4]);s.ctx.strokeStyle='#b36e42';s.ctx.beginPath();s.ctx.moveTo(a.X(1),a.top);s.ctx.lineTo(a.X(1),a.bottom);s.ctx.stroke();s.ctx.setLineDash([]);
-  s.ctx.fillStyle='#92572f';s.ctx.textAlign='center';s.ctx.fillText('cutoff',a.X(1),12);
+  s.ctx.fillStyle='#92572f';s.ctx.textAlign='center';s.ctx.fillText('cutoff',a.X(1),16);
   s.ctx.fillStyle='#172f32';s.ctx.beginPath();s.ctx.arc(a.X(state.frequency),a.Y(mtf(state.frequency)),4,0,2*Math.PI);s.ctx.fill();
   const f=state.frequency*cutoff(state.na,state.wavelength), H=mtf(state.frequency);
   for(const [id,modulation] of [['object-stripes',.8],['image-stripes',.8*H]]){

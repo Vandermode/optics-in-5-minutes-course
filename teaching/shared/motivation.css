@@ -1,8 +1,8 @@
 /* A short opening problem, shared with the original E03 page. */
 .motivation{display:grid;grid-template-columns:minmax(0,.85fr) minmax(0,1.15fr);gap:32px;padding:32px 36px;margin:0 0 28px;border-left:3px solid #c17443;background:#f1eadf;color:#172f32;scroll-margin-top:24px}
-.motivation-e03{max-width:1200px;width:calc(100% - 80px);margin-left:auto;margin-right:auto}
-.motivation .motivation-kicker{font-size:11px;font-weight:700;letter-spacing:.13em;color:#135b60;margin:0 0 12px}
+.motivation-e03{max-width:1200px;width:100%;margin-left:auto;margin-right:auto}
+.motivation .motivation-kicker{font-size:.8125rem;font-weight:700;letter-spacing:.13em;color:#135b60;margin:0 0 12px}
 .motivation h2{font-family:Georgia,'Times New Roman',serif;font-size:30px;font-weight:400;line-height:1.2;letter-spacing:-.02em;margin:0}
-.motivation-copy p{font-size:15px;line-height:1.65;margin:0 0 16px}
+.motivation-copy p{font-size:1.125rem;line-height:1.7;margin:0 0 16px}
 .motivation-copy p:last-child{margin-bottom:0}
-@media(max-width:700px){.motivation{grid-template-columns:1fr;gap:20px;padding:24px 20px;margin-bottom:24px}.motivation-e03{width:calc(100% - 40px)}.motivation h2{font-size:27px}.motivation-copy p{font-size:14px}}
+@media(max-width:850px){.motivation{grid-template-columns:1fr;gap:20px;padding:24px 20px;margin-bottom:24px}.motivation-e03{width:100%}.motivation h2{font-size:27px}.motivation-copy p{font-size:1.125rem}}
