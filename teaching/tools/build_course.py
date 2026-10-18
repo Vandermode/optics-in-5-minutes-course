@@ -16,12 +16,26 @@ ROOT = Path(__file__).resolve().parents[1]
 VIDEOS = json.loads((ROOT / "videos.json").read_text())
 PUBLIC = "https://github.com/Vandermode/optics-in-5-minutes-course"
 COLAB = "https://colab.research.google.com/github/Vandermode/optics-in-5-minutes-course/blob/main/teaching"
+EPISODE_KEYWORDS = {
+    "E01": ["Plane waves", "Angular spectrum", "Spatial frequency", "FFT", "Evanescent waves"],
+    "E02": ["Fourier transform", "4f system", "Spatial filtering", "Phase contrast"],
+    "E03": ["Point spread function", "Numerical aperture", "Optical transfer function", "Diffraction limit", "Deconvolution"],
+    "E04": ["Temporal coherence", "Spatial coherence", "Spectral bandwidth", "Coherence length", "Speckle"],
+    "E05": ["Interference", "Off-axis holography", "Phase retrieval", "Gerchberg–Saxton"],
+    "E06": ["Phase wrapping", "Diffractive optics", "Phase quantization", "Chromatic aberration", "Thin-element approximation"],
+    "E07": ["Diffraction orders", "Bloch waves", "Photonic band gaps", "Bragg reflection", "RCWA"],
+    "E08": ["Waveguide modes", "Evanescent coupling", "Ring resonators", "Quality factor", "Critical coupling"],
+    "E09": ["FDTD", "Yee grid", "CFL condition", "Numerical dispersion", "PML"],
+    "E10": ["Inverse design", "Adjoint method", "Gradients", "Automatic differentiation", "Fabrication constraints"],
+}
 CATALOG = [dict(id=m["id"],slug=m["slug"],title=m["title"],description=m["deck"],
                 prerequisites=m["prerequisites"],notebook=m["slug"].replace("-","_")+".ipynb") for m in MODULES]
 CATALOG.append(dict(id="E03",slug="e03-diffraction",title="The diffraction limit",
                     description="Explore point spread functions, numerical aperture, and the spatial frequencies an image can carry.",
                     prerequisites=["E01","E02"],notebook="e03_diffraction_limit.ipynb"))
 CATALOG.sort(key=lambda m:m["id"])
+for entry in CATALOG:
+    entry["keywords"] = EPISODE_KEYWORDS[entry["id"]]
 BY_ID = {m["id"]:m for m in CATALOG}
 
 def esc(s):
@@ -288,7 +302,8 @@ def build_home():
     cards=""
     for m in CATALOG:
         hero="assets/airy-hero.png" if m["id"]=="E03" else "assets/hero.png"
-        cards+=f'<a class="course-card" href="{m["slug"]}/"><img src="{m["slug"]}/{hero}" width="1000" height="700" alt="Computed {esc(m["title"])} illustration." loading="lazy"><span class="eyebrow">{m["id"]} / FILM + LESSON + PYTHON LAB</span><h3>{esc(m["title"])}</h3><p>{esc(m["description"])}</p></a>'
+        keywords="".join(f'<li>{esc(keyword)}</li>' for keyword in m["keywords"])
+        cards+=f'<a class="course-card" href="{m["slug"]}/"><img src="{m["slug"]}/{hero}" width="1000" height="700" alt="Computed {esc(m["title"])} illustration." loading="lazy"><span class="eyebrow">{m["id"]} / FILM + LESSON + PYTHON LAB</span><h3>{esc(m["title"])}</h3><p>{esc(m["description"])}</p><div class="course-keywords"><span class="course-keywords-label" id="{m["id"].lower()}-keywords">Key concepts</span><ul aria-labelledby="{m["id"].lower()}-keywords">{keywords}</ul></div></a>'
     compatibility="""const oldKeys=['na','wavelength','separation','zoom','frequency','rings'];const u=new URL(location.href);if(oldKeys.some(k=>u.searchParams.has(k))||['#idea','#lab','#frequency-space','#notebook','#check','#title','#main'].includes(u.hash))location.replace('./e03-diffraction/'+u.search+u.hash);"""
     (ROOT/"index.html").write_text(f'''<!doctype html>
 <html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">

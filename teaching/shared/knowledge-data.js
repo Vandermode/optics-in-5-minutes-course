@@ -193,7 +193,14 @@ export const knowledge = {
       "title": "The angular spectrum method",
       "description": "Follow a slit field into space by changing the representation: separate its directions, advance their phases, and add them back.",
       "prerequisites": [],
-      "notebook": "e01_angular_spectrum.ipynb"
+      "notebook": "e01_angular_spectrum.ipynb",
+      "keywords": [
+        "Plane waves",
+        "Angular spectrum",
+        "Spatial frequency",
+        "FFT",
+        "Evanescent waves"
+      ]
     },
     {
       "id": "E02",
@@ -203,7 +210,13 @@ export const knowledge = {
       "prerequisites": [
         "E01"
       ],
-      "notebook": "e02_lens_fourier.ipynb"
+      "notebook": "e02_lens_fourier.ipynb",
+      "keywords": [
+        "Fourier transform",
+        "4f system",
+        "Spatial filtering",
+        "Phase contrast"
+      ]
     },
     {
       "id": "E03",
@@ -214,7 +227,14 @@ export const knowledge = {
         "E01",
         "E02"
       ],
-      "notebook": "e03_diffraction_limit.ipynb"
+      "notebook": "e03_diffraction_limit.ipynb",
+      "keywords": [
+        "Point spread function",
+        "Numerical aperture",
+        "Optical transfer function",
+        "Diffraction limit",
+        "Deconvolution"
+      ]
     },
     {
       "id": "E04",
@@ -225,7 +245,14 @@ export const knowledge = {
         "E01",
         "E03"
       ],
-      "notebook": "e04_coherence.ipynb"
+      "notebook": "e04_coherence.ipynb",
+      "keywords": [
+        "Temporal coherence",
+        "Spatial coherence",
+        "Spectral bandwidth",
+        "Coherence length",
+        "Speckle"
+      ]
     },
     {
       "id": "E05",
@@ -237,7 +264,13 @@ export const knowledge = {
         "E02",
         "E04"
       ],
-      "notebook": "e05_phase_problem.ipynb"
+      "notebook": "e05_phase_problem.ipynb",
+      "keywords": [
+        "Interference",
+        "Off-axis holography",
+        "Phase retrieval",
+        "Gerchberg–Saxton"
+      ]
     },
     {
       "id": "E06",
@@ -248,7 +281,14 @@ export const knowledge = {
         "E01",
         "E02"
       ],
-      "notebook": "e06_flat_optics.ipynb"
+      "notebook": "e06_flat_optics.ipynb",
+      "keywords": [
+        "Phase wrapping",
+        "Diffractive optics",
+        "Phase quantization",
+        "Chromatic aberration",
+        "Thin-element approximation"
+      ]
     },
     {
       "id": "E07",
@@ -259,7 +299,14 @@ export const knowledge = {
         "E01",
         "E06"
       ],
-      "notebook": "e07_periodic_structures.ipynb"
+      "notebook": "e07_periodic_structures.ipynb",
+      "keywords": [
+        "Diffraction orders",
+        "Bloch waves",
+        "Photonic band gaps",
+        "Bragg reflection",
+        "RCWA"
+      ]
     },
     {
       "id": "E08",
@@ -270,7 +317,14 @@ export const knowledge = {
         "E01",
         "E07"
       ],
-      "notebook": "e08_trapping_light.ipynb"
+      "notebook": "e08_trapping_light.ipynb",
+      "keywords": [
+        "Waveguide modes",
+        "Evanescent coupling",
+        "Ring resonators",
+        "Quality factor",
+        "Critical coupling"
+      ]
     },
     {
       "id": "E09",
@@ -281,7 +335,14 @@ export const knowledge = {
         "E01",
         "E07"
       ],
-      "notebook": "e09_maxwell_grid.ipynb"
+      "notebook": "e09_maxwell_grid.ipynb",
+      "keywords": [
+        "FDTD",
+        "Yee grid",
+        "CFL condition",
+        "Numerical dispersion",
+        "PML"
+      ]
     },
     {
       "id": "E10",
@@ -293,7 +354,14 @@ export const knowledge = {
         "E05",
         "E09"
       ],
-      "notebook": "e10_adjoint_design.ipynb"
+      "notebook": "e10_adjoint_design.ipynb",
+      "keywords": [
+        "Inverse design",
+        "Adjoint method",
+        "Gradients",
+        "Automatic differentiation",
+        "Fabrication constraints"
+      ]
     }
   ],
   "focus": {

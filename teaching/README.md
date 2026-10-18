@@ -6,6 +6,8 @@ The website opens in English on a first visit. Use **English / 中文** in the h
 
 The homepage starts with a concept map. Twelve concept groups connect the ten episodes across four themes; selecting a concept highlights its relationships and opens the relevant lesson links. Solid arrows show conceptual foundations, and dashed connections show shared methods or applications. These are not episode completion requirements. Expand “Foundations & connections” to find focused refreshers and explanations of each relationship. Concept links support browser history and direct URLs, and language switching preserves the selection. The episode index remains available below the map.
 
+Each episode card lists four or five key concepts beneath its introduction, in English or Chinese, so learners can scan the topics before opening a lesson.
+
 Every lesson and notebook opens with a concrete optical problem, why it matters, and what studying the topic enables you to do. This motivation comes before the prerequisite checklist.
 
 Each lesson page has a navigation sidebar for its own sections, with the current section highlighted as you read. Terms marked with a dotted underline open an explanation in the selected language with a concise definition, its role in that chapter, and a formula where helpful. The explanation can be closed with its close button or Escape. On narrow screens, the section list expands from “On this page” and explanations open in a modal side panel.
