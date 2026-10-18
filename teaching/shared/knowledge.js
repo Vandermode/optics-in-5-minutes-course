@@ -111,7 +111,7 @@ document.addEventListener('click', event => {
     section.scrollIntoView({block: 'start', behavior: reducedMotion.matches ? 'auto' : 'smooth'});
     return;
   }
-  const link = event.target.closest('a[href^="#concept-"]');
+  const link = event.target.closest('a[href^="#concept-"], a[data-term-concept]');
   if (!link) return;
   const id = link.hash.slice('#concept-'.length);
   if (!nodes.has(id)) return;

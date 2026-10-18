@@ -99,7 +99,7 @@ try {
       // Following a local relationship keeps the reader in the same chapter;
       // browser Back returns to the preceding definition without reloading.
       const id = Object.keys(contexts)[0];
-      await page.locator(`.glossary-term[data-term="${id}"]`).first().click();
+      await (await triggerFor(page, id)).click();
       const neighbor = relatedTerms(id, episode)[0];
       await panel.locator('[data-open-term]').first().click();
       assert.equal(await panel.getAttribute('data-term'), neighbor);
@@ -160,6 +160,15 @@ try {
     await page.locator('#concept-imaging [data-specific-term="psf"]').click(); await ready(page);
     assert.equal(await panel.getAttribute('data-term'), 'psf');
     assert.equal(await page.locator('body').getAttribute('data-episode'), 'E03');
+    // Core links also work as ordinary links in a new tab, without reopening
+    // the source term over the requested map.
+    const core = await panel.locator('[data-term-concept]').first().getAttribute('href');
+    assert.equal(new URL(core).searchParams.get('term'), null);
+    const tab = await ctx.newPage();
+    await tab.goto(core); await ready(tab);
+    assert.equal(await tab.locator('#term-panel').isVisible(), false);
+    assert.equal(await tab.locator('[data-concept][aria-current]').getAttribute('data-concept'), 'imaging');
+    await tab.close();
     await panel.locator('[data-open-term="pupil"]').click();
     await panel.locator('[data-term-episode="E02"]').click(); await ready(page);
     assert.equal(await page.locator('body').getAttribute('data-episode'), 'E02');

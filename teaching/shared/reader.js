@@ -91,7 +91,10 @@ function initializeReader() {
     label.textContent = t('Core concepts'); parents.append(label);
     for (const concept of termConcepts[id]) {
       const link = document.createElement('a');
-      link.href = `#concept-${concept}`;
+      const url = localTermURL(null);
+      url.searchParams.set('concept', concept);
+      url.hash = `concept-${concept}`;
+      link.href = url.href;
       link.dataset.termConcept = concept;
       link.textContent = t(concepts[concept].label);
       parents.append(link);
