@@ -9,7 +9,7 @@ from curriculum import MODULES
 from preparation import AUDIENCE, preparation_html, preparation_markdown, refresh_preparation_markdown, home_preparation_html, guide_html
 from motivation import motivation_html, motivation_markdown, refresh_motivation_markdown
 from localization import build_languages
-from knowledge import knowledge_map_html, episode_concepts_html
+from knowledge import knowledge_map_html, episode_concepts_html, write_knowledge_data
 
 ROOT = Path(__file__).resolve().parents[1]
 VIDEOS = json.loads((ROOT / "videos.json").read_text())
@@ -318,6 +318,7 @@ def main():
         if name.endswith(".txt"):
             (fonts/name).write_text("\n".join(line.rstrip() for line in (fonts/name).read_text().splitlines())+"\n")
     (ROOT/"course.json").write_text(json.dumps(CATALOG,indent=2,ensure_ascii=False)+"\n")
+    write_knowledge_data(ROOT, CATALOG)
     for m in MODULES:
         path=ROOT/m["slug"];path.mkdir(exist_ok=True)
         (path/"index.html").write_text(page(m))

@@ -1,4 +1,6 @@
-import {t} from './language.js';
+import {t, language} from './language.js';
+import {terms, lessonTerms} from './glossary.js';
+import {conceptTerms, preferredEpisode, termURL} from './term-network.js';
 
 const section = document.getElementById('knowledge-map');
 const graph = document.getElementById('concept-graph');
@@ -12,6 +14,39 @@ const reducedMotion = matchMedia('(prefers-reduced-motion: reduce)');
 const stacked = matchMedia('(max-width: 1100px)');
 const chapter = Boolean(section.dataset.currentEpisode);
 let selected = section.dataset.defaultConcept || 'fourier', hovered = null, layout = new Map();
+section.querySelector('.concept-depth-note').hidden = false;
+
+// The overview stays small. A reader explicitly expands one concept's terms;
+// none of the detailed vocabulary becomes another node in the overview graph.
+for (const [id, panel] of panels) {
+  const episode = section.dataset.currentEpisode;
+  const details = document.createElement('details');
+  details.className = 'concept-term-layer';
+  const summary = document.createElement('summary');
+  summary.textContent = t('Explore specific terms ({count})', {count: conceptTerms[id].length});
+  const hint = document.createElement('p');
+  hint.textContent = t('Open a term to see its explanation and nearby ideas.');
+  const list = document.createElement('ul');
+  const ids = [...conceptTerms[id]].sort((a, b) => Number(Boolean(lessonTerms[episode]?.[b])) - Number(Boolean(lessonTerms[episode]?.[a])));
+  for (const term of ids) {
+    const inChapter = Boolean(lessonTerms[episode]?.[term]);
+    const target = inChapter ? episode : preferredEpisode(term, id);
+    const item = document.createElement('li'), link = document.createElement('a');
+    link.href = termURL(term, target, language, id).href;
+    link.dataset.specificTerm = term;
+    const name = document.createElement('span'), location = document.createElement('small');
+    name.textContent = t(terms[term].name);
+    location.textContent = inChapter ? t('In this episode') : target;
+    if (inChapter) {
+      link.dataset.openTerm = term;
+      link.setAttribute('aria-haspopup', 'dialog');
+      link.setAttribute('aria-controls', 'term-panel');
+    }
+    link.append(name, location); item.append(link); list.append(item);
+  }
+  details.append(summary, hint, list);
+  panel.querySelector('.concept-context').before(details);
+}
 
 function make(tag, attributes = {}) {
   const element = document.createElementNS(NS, tag);

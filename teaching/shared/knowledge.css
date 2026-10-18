@@ -14,6 +14,14 @@
 .concept-line.basis::after{position:absolute;right:0;top:-4px;content:'';width:6px;height:6px;border-top:1.5px solid var(--teal);border-right:1.5px solid var(--teal);transform:rotate(45deg)}
 .concept-line.related{border-top-style:dashed}
 .concept-map-note{font-size:.9375rem;line-height:1.6;color:var(--muted);margin:7px 0 20px}
+.concept-depth-note{font-size:1rem;line-height:1.6;color:var(--muted);margin:0 0 22px}
+.concept-term-layer{border:1px solid var(--line);border-radius:4px;padding:0 14px;margin:22px 0;background:#f5f6ef}
+.concept-term-layer summary{font-size:1rem;line-height:1.5;padding:14px 0;color:var(--teal);cursor:pointer}
+.concept-term-layer>p{font-size:1rem;line-height:1.6;color:var(--muted);margin:0 0 12px}
+.concept-term-layer ul{list-style:none;margin:0 0 12px;padding:0;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,220px),1fr));gap:0 20px}
+.concept-term-layer a{display:flex;flex-direction:column;align-items:start;gap:4px;padding:10px 0;border-top:1px solid var(--line);font-size:1rem;line-height:1.5;text-decoration:none;overflow-wrap:anywhere}
+.concept-term-layer a:hover>span{text-decoration:underline;text-underline-offset:3px}
+.concept-term-layer small{font-size:.875rem;line-height:1.4;color:var(--muted)}
 .knowledge-layout{display:grid;grid-template-columns:minmax(0,1fr) 340px;gap:28px;align-items:start}
 .concept-graph{position:relative;min-width:0}
 .concept-lines{display:none;position:absolute;inset:0;width:100%;height:100%;overflow:visible;pointer-events:none}
