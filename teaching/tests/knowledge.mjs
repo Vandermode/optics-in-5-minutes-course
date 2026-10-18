@@ -71,7 +71,7 @@ try {
     assert.equal(await page.locator('.concept-node[aria-current]').getAttribute('data-concept'), 'adjoint');
     await page.goForward();
     assert.equal(await page.locator('.concept-node[aria-current]').getAttribute('data-concept'), 'field');
-    await page.locator('#concept-field summary').click();
+    await page.locator('#concept-field .concept-context summary').click();
     await page.locator('#concept-field .concept-connections a[href="#concept-coherence"]').click();
     assert.equal(await page.locator('.concept-node[aria-current]').getAttribute('data-concept'), 'coherence');
 

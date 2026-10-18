@@ -1813,7 +1813,17 @@
     "Explore the full course map ↗": "查看完整课程图谱 ↗",
     "Keep exploring from this episode.": "从本章出发，继续探索。",
     "Highlighted concepts appear in this episode. Select any concept to find related episodes.": "标出的概念是本章内容。选择任意概念，探索相关章节。",
-    "CONNECTED IDEAS": "概念之间的联系"
+    "CONNECTED IDEAS": "概念之间的联系",
+    "Start with a core concept. Expand its specific terms when you want more detail.": "先选择核心概念，需要深入时再展开具体术语。",
+    "Explore specific terms ({count})": "展开具体术语（{count}）",
+    "Open a term to see its explanation and nearby ideas.": "打开术语，查看解释及与它直接关联的概念。",
+    "Core concepts": "所属核心概念",
+    "Connected terms": "关联术语",
+    "Follow one connection at a time.": "每次沿一条关联继续探索。",
+    "Read this term in context": "到章节中理解这个术语",
+    "More connections ({count})": "更多关联（{count}）",
+    "More episodes ({count})": "更多章节（{count}）",
+    "Find in this chapter →": "在本章正文中定位 →"
   },
   "termAliases": {
     "phase": [
