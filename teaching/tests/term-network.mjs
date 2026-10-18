@@ -170,8 +170,8 @@ try {
     assert.equal(await tab.locator('[data-concept][aria-current]').getAttribute('data-concept'), 'imaging');
     await tab.close();
     await panel.locator('[data-open-term="pupil"]').click();
-    await panel.locator('[data-term-episode="E02"]').click(); await ready(page);
-    assert.equal(await page.locator('body').getAttribute('data-episode'), 'E02');
+    await panel.locator('[data-term-episode="E04"]').click(); await ready(page);
+    assert.equal(await page.locator('body').getAttribute('data-episode'), 'E04');
     assert.equal(await panel.getAttribute('data-term'), 'pupil');
     await page.goBack(); await ready(page);
     assert.equal(await panel.getAttribute('data-term'), 'pupil');
