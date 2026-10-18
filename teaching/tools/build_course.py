@@ -10,6 +10,7 @@ from preparation import AUDIENCE, preparation_html, preparation_markdown, refres
 from motivation import motivation_html, motivation_markdown, refresh_motivation_markdown
 from localization import build_languages
 from knowledge import knowledge_map_html, episode_concepts_html, write_knowledge_data
+from video_logic import video_logic_html
 
 ROOT = Path(__file__).resolve().parents[1]
 VIDEOS = json.loads((ROOT / "videos.json").read_text())
@@ -38,7 +39,7 @@ def video_section(m):
 <div class="section-heading"><div><p class="section-label">{m["id"]} / THE FIVE-MINUTE FILM</p><h2 id="video-title">{esc(m["title"])}</h2></div><p>Watch the story, then use the experiment below to test the ideas yourself.</p></div>
 <div class="video-player"><iframe width="1280" height="720" src="https://www.youtube-nocookie.com/embed/{video_id}?rel=0&amp;playsinline=1&amp;hl=en" title="{esc(video["title"])}" loading="lazy" referrerpolicy="strict-origin-when-cross-origin" allow="autoplay; encrypted-media; picture-in-picture; fullscreen; web-share" allowfullscreen></iframe></div>
 <p class="video-caption"><span>{esc(video["duration"])} · {m["id"]} · {esc(m["title"])}</span><a href="https://www.youtube.com/watch?v={video_id}" target="_blank" rel="noopener">Watch on YouTube ↗</a></p>
-</section>'''
+</section>\n{video_logic_html(m["id"], video_id)}'''
 
 def control(c, defaults):
     id=c["id"]
@@ -70,6 +71,7 @@ def page(m):
 <meta name="description" content="{esc(m["deck"])}"><meta name="theme-color" content="#f5f3ed">
 <title>{m["id"]} · {esc(m["title"])} · Optics in 5 Minutes</title>
 <link rel="icon" href="../e03-diffraction/assets/favicon.svg"><link rel="stylesheet" href="../shared/course.css"><link rel="stylesheet" href="../shared/preparation.css"><link rel="stylesheet" href="../shared/motivation.css"><link rel="stylesheet" href="../shared/reader.css"><link rel="stylesheet" href="../shared/knowledge.css">
+<link rel="stylesheet" href="../shared/video-guide.css"><script type="module" src="../shared/video-guide.js"></script>
 <script type="module" src="../shared/lesson.js"></script><script type="module" src="../shared/reader.js"></script><script type="module" src="../shared/knowledge.js"></script></head><body data-episode="{m['id']}">
 <a class="skip" href="#main">Skip to lesson</a><div class="shell">
 <header class="topbar"><a class="brand" href="../">OPTICS<span>IN 5 MINUTES</span></a>
@@ -326,6 +328,13 @@ def main():
         docs(m)
     e03=ROOT/"e03-diffraction/index.html"
     text=e03.read_text()
+    if 'href="../shared/video-guide.css"' not in text:
+        text=text.replace('</head>', '<link rel="stylesheet" href="../shared/video-guide.css"><script type="module" src="../shared/video-guide.js"></script></head>')
+    guide = '<!-- course-video-guide -->\n' + video_logic_html("E03", VIDEOS["E03"]["youtubeId"]) + '\n<!-- /course-video-guide -->'
+    if '<!-- course-video-guide -->' in text:
+        text=re.sub(r'<!-- course-video-guide -->.*?<!-- /course-video-guide -->', lambda match: guide, text, flags=re.S)
+    else:
+        text=text.replace('  <section id="idea"', guide+'\n\n  <section id="idea"', 1)
     if 'href="../shared/reader.css"' not in text:
         text=text.replace('</head>', '  <link rel="stylesheet" href="../shared/reader.css">\n  <script type="module" src="../shared/reader.js"></script>\n</head>')
     text=text.replace('<body>', '<body data-episode="E03">')

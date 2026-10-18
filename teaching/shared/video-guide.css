@@ -1,0 +1,48 @@
+/* A compact argument outline, with longer explanations opened on demand. */
+.video-guide h2{font:400 clamp(29px,3vw,36px)/1.2 Georgia,serif;letter-spacing:-.025em;margin:10px 0 20px}
+.video-guide h3{font-size:1.35rem;line-height:1.35;margin:34px 0 20px}
+.video-guide h4{font-size:1.125rem;line-height:1.5;margin:0 0 7px}
+.video-guide p{font-size:1.125rem;line-height:1.75;margin:0 0 18px;max-width:78ch}
+.video-guide .video-guide-question{font-size:1.375rem;line-height:1.5;color:#135b60;max-width:58ch}
+.video-guide .video-guide-intro{color:#536765}
+.video-flow{list-style:none;margin:0;padding:0;max-width:1000px}
+.video-flow>li{display:grid;grid-template-columns:75px minmax(0,1fr);gap:20px;padding:0 0 26px;position:relative}
+.video-flow>li::before{content:'';position:absolute;left:32px;top:42px;bottom:7px;border-left:1px solid #b5c4bc}
+.video-flow>li:last-child::before{display:none}
+.video-time{display:inline-flex;align-items:center;gap:6px;width:fit-content;align-self:start;min-height:38px;padding:4px 10px;border:1px solid #b9cac1;border-radius:4px;color:#135b60;text-decoration:none;font-size:1rem;line-height:1.6;font-variant-numeric:tabular-nums;background:#edf0e7}
+.video-time:hover{background:#dde8de;text-decoration:underline}
+.video-flow p{margin:0 0 9px}
+.video-bridge-link{display:inline-block;font-size:1rem;line-height:1.6;color:#135b60}
+.video-explanations{max-width:1000px}
+.video-bridge{border-top:1px solid #c8d3c9;padding:19px 0;scroll-margin-top:30px}
+.video-bridge:last-child{border-bottom:1px solid #c8d3c9}
+.video-bridge>summary{cursor:pointer;font-size:1.125rem;font-weight:700;line-height:1.55;padding-right:6px}
+.video-bridge[open]>summary{color:#135b60;margin-bottom:20px}
+.video-bridge-body{padding-left:22px;border-left:2px solid #c9d5c9;min-width:0}
+.video-bridge-body .video-replay{margin-bottom:22px}
+.video-guide .equation{white-space:nowrap;overflow-x:auto;max-width:100%;margin:22px 0;padding:16px 18px;font:1.25rem/1.8 Georgia,serif;background:#e9eee7;border-left:3px solid #135b60;color:#172f32}
+.video-guide-sources{margin:30px 0 22px;font-size:1rem}
+.video-guide-sources ul{padding-left:22px}
+.video-guide .video-guide-next{margin:30px 0 0}
+.video-seek-status{font-size:1rem;color:#135b60;margin:12px 0}
+.coherence-demo{background:#edf0e7;padding:24px;margin:28px 0 8px;border:1px solid #c7d3c6;border-radius:4px;min-width:0}
+.coherence-demo h4{margin:0 0 12px}
+.coherence-controls{display:grid;grid-template-columns:1fr 1fr;gap:24px;margin:24px 0}
+.coherence-controls label{display:block;font-size:1rem;font-weight:700;line-height:1.5}
+.coherence-controls output{display:block;font-size:1rem;color:#135b60;margin:6px 0}
+.coherence-controls input{width:100%;accent-color:#135b60;margin:7px 0}
+.coherence-plots{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:20px}
+.coherence-plots figure{margin:0;padding:16px 12px;background:#fffdf8;border:1px solid #d4d9d0;min-width:0}
+.coherence-plots canvas{width:100%;height:216px;display:block}
+.coherence-plots figcaption,.coherence-demo .coherence-convention{font-size:1rem;line-height:1.65;color:#536765;margin:10px 0 0}
+.coherence-demo .coherence-axis{font-size:1rem;line-height:1.5;text-align:center;margin:7px 0}
+.coherence-values{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:15px;margin:24px 0 0}
+.coherence-values dt{font-size:1rem;line-height:1.5;color:#536765}
+.coherence-values dd{margin:6px 0 0;font-size:1.375rem;font-weight:700;line-height:1.35;color:#135b60}
+.video-guide [hidden]{display:none!important}
+@container lesson (max-width:850px){.coherence-plots{grid-template-columns:1fr}.coherence-values{grid-template-columns:1fr 1fr}}
+@container lesson (max-width:540px){.video-flow>li{grid-template-columns:60px minmax(0,1fr);gap:12px}.video-flow>li::before{left:28px}.video-bridge-body{padding-left:12px}.coherence-demo{padding:18px 12px}.coherence-controls,.coherence-values{grid-template-columns:1fr;gap:20px}}
+/* Also retain a readable static/no-JavaScript layout without the reader container. */
+@media(max-width:800px){.coherence-plots{grid-template-columns:1fr}.coherence-values{grid-template-columns:1fr 1fr}}
+@media(max-width:540px){.video-flow>li{grid-template-columns:60px minmax(0,1fr);gap:12px}.video-flow>li::before{left:28px}.video-bridge-body{padding-left:12px}.coherence-demo{padding:18px 12px}.coherence-controls,.coherence-values{grid-template-columns:1fr;gap:20px}}
+@media print{.video-time{background:none}.coherence-interactive{break-inside:avoid}}

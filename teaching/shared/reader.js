@@ -11,7 +11,7 @@ function initializeReader() {
   const wide = matchMedia('(min-width: 1200px)');
   const labels = {
     overview: 'Overview', motivation: 'Why learn this?', preparation: 'Before you start',
-    video: 'The film', idea: 'The idea', lab: 'Experiment',
+    video: 'The film', 'video-guide': 'Video logic', idea: 'The idea', lab: 'Experiment',
     explain: episode === 'E03' ? 'Two resolution limits' : 'How it works',
     'frequency-space': 'Frequency space', check: 'Check yourself',
     notebook: 'Python notebook', sources: 'Model & sources', 'knowledge-map': 'Concept map',
