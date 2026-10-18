@@ -1,7 +1,7 @@
 // Definitions use the same scalar models and conventions as the lesson text.
 // Each chapter supplies its own explanation of why a shared term matters there.
-const term = (name, aliases, definition, formula = '', notation = '') =>
-  ({name, aliases, definition, formula, notation});
+const term = (name, aliases, definition, formula = '', notation = '', episodes = []) =>
+  ({name, aliases, definition, formula, notation, episodes});
 
 export const terms = {
   phase: term('Optical phase', ['phase', 'phases', 'relative phase'],
@@ -193,6 +193,45 @@ export const terms = {
     'An optimization problem whose landscape can contain competing local solutions. A method that lowers the objective at each step does not by itself establish a globally best result.'),
   lineSearch: term('Backtracking line search', ['backtracking descent', 'line search', 'backtracking'],
     'Trying a step along a descent direction, then reducing its size until an acceptance condition is met. Each trial may require another forward evaluation of the objective.'),
+  // These topics are also taught in the films, diagrams, or optional material.
+  // Their episode links do not require an exact marked occurrence in the prose.
+  spatialFiltering: term('Spatial filtering', ['spatial filtering', 'spatial filter'],
+    'Changing selected spatial-frequency components of a field. In a coherent 4f system, a mask in the shared Fourier plane controls their amplitudes or phases before the field is transformed back; intensity is formed afterwards.',
+    'U_out = ℱ⁻¹{H(fₓ, fᵧ) ℱ[U_in]}', 'H is a field transfer mask. This expression uses aligned input and output coordinates; a physical 4f relay also reverses the image coordinates.', ['E02', 'E03']),
+  phaseContrast: term('Phase contrast', ['phase contrast', 'phase-contrast', 'phase disk'],
+    'Converting optical phase variations into visible intensity differences by changing a reference component relative to scattered light. A Fourier-plane phase disk is one example; the resulting contrast depends on the illumination and object model.', '', '', ['E02']),
+  diffractionLimit: term('Diffraction limit', ['diffraction limit', 'diffraction-limited'],
+    'A finite aperture transmits a limited range of spatial frequencies, so even an ideal imaging system blurs point objects. The cutoff depends on coherent versus incoherent illumination; a two-point separation rule such as Rayleigh answers a more specific imaging question.',
+    'f_c = NA/λ₀ (coherent);   f_c = 2 NA/λ₀ (incoherent)', 'Ideal scalar, shift-invariant imaging with a clear circular pupil. λ₀ is the vacuum wavelength and frequencies refer to object space. The Rayleigh distance is 0.61 λ₀/NA.', ['E03']),
+  interference: term('Interference', ['interference', 'interfere'],
+    'The dependence of combined intensity on the relative phases of fields. The fields add before detection; the measured cross terms depend on polarization and on the spatial and temporal averaging performed by the detector.', '', '', ['E02', 'E04', 'E05', 'E08']),
+  spectralBandwidth: term('Spectral bandwidth', ['spectral bandwidth', 'source bandwidth', 'spectral width', 'bandwidth'],
+    'The width of a spectrum in frequency or wavelength. Its numerical value needs a specified measure, such as full width at half maximum (FWHM) or standard deviation; frequency and wavelength widths use different axes.',
+    'Δν ≈ (c₀/λ₀²) Δλ', 'Narrowband conversion around vacuum wavelength λ₀. Coherence calculations use the power spectrum per unit frequency; bandwidth alone does not specify its shape.', ['E04', 'E09']),
+  coherenceLength: term('Coherence length', ['coherence length', 'coherence-length'],
+    'The optical path-difference scale over which a field stays correlated with a delayed copy of itself. A broad continuous spectrum usually loses interference visibility over a shorter delay. A precise length must specify the spectrum and a visibility-width criterion.',
+    'ℓ_c = c₀ τ_c;   ℓ_c ∼ c₀/Δν ∼ λ₀²/Δλ', 'Vacuum delay convention and a narrow wavelength band. The ∼ expressions give scales, not a universal prefactor; a line comb can have coherence revivals.', ['E04']),
+  diffractiveOptics: term('Diffractive optics', ['diffractive optics', 'diffractive lens', 'diffractive element'],
+    'Optical elements that redirect or shape light through diffraction from a patterned phase or amplitude. A wrapped-phase lens and a grating are examples. Efficiency and wavelength response depend on the profile, and subwavelength structures may require a full electromagnetic model.', '', '', ['E06', 'E07']),
+  chromaticAberration: term('Chromatic aberration', ['chromatic aberration', 'chromatic mismatch', 'chromatic'],
+    'A change in an optical image or focus with wavelength, such as different colours focusing at different distances. It can arise from material dispersion or diffractive geometry; a wrapped diffractive lens can be chromatic even in a constant-index model.',
+    'f(λ) ≈ f₀ λ₀/λ', 'Paraxial estimate for a fixed diffractive lens in its design order. It is not a law for every lens, and the power entering that order also varies with wavelength.', ['E06']),
+  braggReflection: term('Bragg reflection', ['Bragg reflection', 'Bragg mirror', 'Bragg resonance'],
+    'Strong reflection when waves scattered by repeated interfaces add with a matching phase. Near a Bragg condition, index contrast couples counterpropagating waves and can open a stop band. A finite stack’s reflectance also depends on its length and boundaries.', '', '', ['E07']),
+  evanescentCoupling: term('Evanescent coupling', ['evanescent coupling', 'directional coupling', 'coupled guides'],
+    'Power transfer between nearby optical structures through overlapping evanescent field tails. For two identical coupled guides, the symmetric and antisymmetric supermodes acquire different phases; their beating moves power between the guides.',
+    'L_transfer = π / |β₊ − β₋|', 'First full transfer for an ideal symmetric, phase-matched, lossless two-mode coupler. Detuning, unequal guides, or loss can prevent complete transfer.', ['E08']),
+  qualityFactor: term('Quality factor', ['quality factor', 'Q factor', 'loaded Q'],
+    'A measure of how slowly a resonance loses stored energy relative to its oscillation rate. Higher loaded Q corresponds to a longer energy lifetime and a narrower isolated resonance. Loaded Q includes internal loss and escape through coupling ports.',
+    'Q = ω₀ τ_energy ≈ ω₀/Δω', 'Energy decays as exp(−t/τ_energy); Δω is the power linewidth (FWHM) of an isolated Lorentzian resonance. The amplitude lifetime is 2τ_energy.', ['E08']),
+  inverseDesign: term('Inverse design', ['inverse design'],
+    'Choosing a desired optical response and searching for structural parameters that produce it. The result depends on the objective, physical model, constraints, and operating conditions; a low optimization loss alone does not establish a unique or experimentally robust design.', '', '', ['E10']),
+  adjointMethod: term('Adjoint method', ['adjoint method', 'adjoint calculation', 'adjoint solve'],
+    'Computing derivatives of a scalar objective with respect to many design parameters using a forward field problem and an adjoint sensitivity problem. For one linear field problem and one scalar objective, the number of large field solves need not grow with the number of parameters.', '', '', ['E10']),
+  automaticDifferentiation: term('Automatic differentiation', ['automatic differentiation', 'autodiff'],
+    'Applying the chain rule to the elementary operations of an implemented computation. It differentiates that discrete program, including FFT normalization; it does not automatically verify the physical model or make nondifferentiable choices differentiable.', '', '', ['E10']),
+  fabricationConstraints: term('Fabrication constraints', ['fabrication constraints', 'fabrication projection', 'minimum feature size'],
+    'Restrictions that make a design compatible with fabrication, such as allowed materials, discrete phase levels, or minimum feature sizes. They can enter the parameterization or optimization. The final geometry must still be simulated and evaluated again.', '', '', ['E06', 'E10']),
 };
 
 export const lessonTerms = {

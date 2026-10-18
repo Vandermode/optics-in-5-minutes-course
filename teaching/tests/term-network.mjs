@@ -153,11 +153,14 @@ try {
   for (const lang of ['en', 'zh']) {
     const {ctx, page} = await context(390, lang);
     const panel = page.locator('#term-panel');
-    // The homepage's collapsed detail layer leads to a chapter and its term.
+    // The homepage's detail layer explains a term before offering its chapters.
     await page.goto(new URL(`index${lang === 'zh' ? '.zh' : ''}.html#concept-imaging`, base).href);
     await page.locator('.knowledge-ready').waitFor();
     await page.locator('#concept-imaging .concept-term-layer summary').click();
-    await page.locator('#concept-imaging [data-specific-term="psf"]').click(); await ready(page);
+    await page.locator('#concept-imaging [data-specific-term="psf"]').click();
+    assert.equal(await panel.getAttribute('data-term'), 'psf');
+    assert.equal(await page.locator('body').getAttribute('data-episode'), null);
+    await panel.locator('[data-term-episode="E03"]').click(); await ready(page);
     assert.equal(await panel.getAttribute('data-term'), 'psf');
     assert.equal(await page.locator('body').getAttribute('data-episode'), 'E03');
     // Core links also work as ordinary links in a new tab, without reopening

@@ -5,17 +5,17 @@ import {knowledge} from './knowledge-data.js';
 // prerequisite tree; keep detailed terms out of the twelve-node overview.
 export const conceptTerms = {
   field: ['complexField', 'amplitude', 'phase', 'monochromatic'],
-  fourier: ['fourier', 'spatialFrequency', 'planeWave', 'fft', 'fourF', 'convolution', 'unitary'],
+  fourier: ['fourier', 'spatialFrequency', 'planeWave', 'fft', 'fourF', 'convolution', 'unitary', 'spatialFiltering'],
   propagation: ['angularSpectrum', 'planeWave', 'helmholtz', 'evanescent', 'fresnel', 'monochromatic', 'snell', 'refractiveIndex'],
-  coherence: ['coherent', 'crossTerm', 'visibility', 'temporalCoherence', 'spatialCoherence', 'speckle', 'mutualIntensity', 'coherentModes', 'hermitian', 'positiveSemidefinite'],
-  imaging: ['pupil', 'psf', 'airy', 'na', 'rayleigh', 'otf', 'mtf', 'cutoff', 'convolution', 'coherent', 'phaseObject', 'deconvolution'],
+  coherence: ['coherent', 'crossTerm', 'visibility', 'temporalCoherence', 'spatialCoherence', 'speckle', 'mutualIntensity', 'coherentModes', 'hermitian', 'positiveSemidefinite', 'interference', 'spectralBandwidth', 'coherenceLength'],
+  imaging: ['pupil', 'psf', 'airy', 'na', 'rayleigh', 'otf', 'mtf', 'cutoff', 'convolution', 'coherent', 'phaseObject', 'deconvolution', 'spatialFiltering', 'phaseContrast', 'diffractionLimit', 'chromaticAberration'],
   recovery: ['holography', 'carrier', 'sideband', 'phaseRetrieval', 'gerchberg', 'nonconvex'],
-  phase: ['phase', 'thinElement', 'phaseWrapping', 'kinoform', 'quantization', 'dispersion', 'phaseObject', 'diffractionOrder', 'refractiveIndex'],
-  periodic: ['diffractionOrder', 'bloch', 'bandGap', 'transferMatrix', 'rcwa', 'te', 'permittivity', 'snell', 'evanescent'],
-  modes: ['eigenproblem', 'hermitian', 'totalInternalReflection', 'cladding', 'guidedMode', 'propagationConstant', 'effectiveIndex', 'supermode', 'resonator', 'criticalCoupling', 'coherentModes', 'bloch'],
+  phase: ['phase', 'thinElement', 'phaseWrapping', 'kinoform', 'quantization', 'dispersion', 'phaseObject', 'diffractionOrder', 'refractiveIndex', 'diffractiveOptics', 'chromaticAberration', 'fabricationConstraints'],
+  periodic: ['diffractionOrder', 'bloch', 'bandGap', 'transferMatrix', 'rcwa', 'te', 'permittivity', 'snell', 'evanescent', 'diffractiveOptics', 'braggReflection'],
+  modes: ['eigenproblem', 'hermitian', 'totalInternalReflection', 'cladding', 'guidedMode', 'propagationConstant', 'effectiveIndex', 'supermode', 'resonator', 'criticalCoupling', 'coherentModes', 'bloch', 'evanescentCoupling', 'qualityFactor'],
   sampling: ['nyquist', 'padding', 'fft', 'courant', 'numericalDispersion', 'finiteDifference'],
   maxwell: ['maxwell', 'permittivity', 'fdtd', 'yee', 'courant', 'numericalDispersion', 'pml', 'cpml', 'impedance', 'te', 'helmholtz'],
-  adjoint: ['objective', 'gradient', 'adjoint', 'finiteDifference', 'unitary', 'nonconvex', 'lineSearch', 'pupil', 'quantization'],
+  adjoint: ['objective', 'gradient', 'adjoint', 'finiteDifference', 'unitary', 'nonconvex', 'lineSearch', 'pupil', 'quantization', 'inverseDesign', 'adjointMethod', 'automaticDifferentiation', 'fabricationConstraints'],
 };
 
 // Directly connected terms are curated separately from category membership.
@@ -65,6 +65,21 @@ export const termRelations = [
   ['objective', 'gradient'], ['objective', 'nonconvex'], ['gradient', 'adjoint'],
   ['gradient', 'finiteDifference'], ['gradient', 'lineSearch'], ['adjoint', 'unitary'],
   ['adjoint', 'evanescent'], ['lineSearch', 'nonconvex'],
+  ['spatialFiltering', 'fourF'], ['spatialFiltering', 'pupil'], ['spatialFiltering', 'fourier'], ['spatialFiltering', 'otf'],
+  ['phaseContrast', 'phaseObject'], ['phaseContrast', 'fourF'], ['phaseContrast', 'interference'],
+  ['diffractionLimit', 'na'], ['diffractionLimit', 'psf'], ['diffractionLimit', 'cutoff'], ['diffractionLimit', 'rayleigh'],
+  ['interference', 'phase'], ['interference', 'crossTerm'], ['interference', 'coherent'], ['interference', 'holography'],
+  ['spectralBandwidth', 'temporalCoherence'], ['spectralBandwidth', 'coherenceLength'], ['spectralBandwidth', 'fourier'],
+  ['coherenceLength', 'temporalCoherence'], ['coherenceLength', 'fourier'],
+  ['diffractiveOptics', 'phaseWrapping'], ['diffractiveOptics', 'kinoform'], ['diffractiveOptics', 'diffractionOrder'], ['diffractiveOptics', 'thinElement'],
+  ['chromaticAberration', 'diffractiveOptics'], ['chromaticAberration', 'dispersion'], ['chromaticAberration', 'phaseWrapping'],
+  ['braggReflection', 'bloch'], ['braggReflection', 'bandGap'], ['braggReflection', 'transferMatrix'],
+  ['evanescentCoupling', 'evanescent'], ['evanescentCoupling', 'guidedMode'], ['evanescentCoupling', 'supermode'], ['evanescentCoupling', 'criticalCoupling'],
+  ['qualityFactor', 'resonator'], ['qualityFactor', 'criticalCoupling'], ['qualityFactor', 'spectralBandwidth'],
+  ['inverseDesign', 'objective'], ['inverseDesign', 'gradient'], ['inverseDesign', 'adjointMethod'], ['inverseDesign', 'fabricationConstraints'],
+  ['adjointMethod', 'adjoint'], ['adjointMethod', 'gradient'], ['adjointMethod', 'finiteDifference'], ['adjointMethod', 'automaticDifferentiation'],
+  ['automaticDifferentiation', 'gradient'], ['automaticDifferentiation', 'finiteDifference'],
+  ['fabricationConstraints', 'quantization'], ['fabricationConstraints', 'thinElement'],
 ];
 
 export const concepts = Object.fromEntries(knowledge.concepts.map(node => [node.id, node]));
@@ -73,7 +88,7 @@ export const termConcepts = Object.fromEntries(Object.keys(terms).map(id =>
   [id, Object.keys(conceptTerms).filter(concept => conceptTerms[concept].includes(id))]));
 
 export function episodesForTerm(id) {
-  return Object.keys(lessonTerms).filter(episode => Object.hasOwn(lessonTerms[episode], id));
+  return Object.keys(episodes).filter(episode => Object.hasOwn(lessonTerms[episode] || {}, id) || terms[id]?.episodes.includes(episode));
 }
 
 export function relatedTerms(id, episode) {
@@ -97,6 +112,6 @@ export function termURL(id, episode, language, concept = preferredConcept(id, ep
   const url = new URL(`../${episodes[episode].slug}/${language === 'zh' ? 'index.zh.html' : 'index.html'}`, import.meta.url);
   url.searchParams.set('concept', concept);
   url.searchParams.set('term', id);
-  url.hash = 'idea';
+  url.hash = Object.hasOwn(lessonTerms[episode] || {}, id) ? 'idea' : 'video-guide';
   return url;
 }

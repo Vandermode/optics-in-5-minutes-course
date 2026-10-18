@@ -5,10 +5,13 @@
 @media(max-width:650px){body{font-size:1.125rem}.shell{width:calc(100% - 32px)}.topbar{padding:22px 0;align-items:start}.topbar nav{display:grid;grid-template-columns:1fr 1fr;gap:6px 12px;font-size:1rem}.brand{font-size:1rem}.brand span{font-size:.75rem}.hero{display:block;padding:45px 0 35px}.hero figure{margin-top:30px}.hero h1{font-family:Georgia,'Times New Roman',serif;font-size:42px}.lede{font-size:1.375rem}.section{padding:40px 0}.reading{display:block}.reading .section-label{margin-bottom:20px}.reading h2,.section-heading h2{font-family:Georgia,'Times New Roman',serif;font-weight:400;font-size:29px}.section-heading{display:block}.lab-layout{display:block}.controls{margin-bottom:20px;display:grid;grid-template-columns:1fr 1fr;gap:12px 20px;padding:20px 16px}.control{margin:0}.control label{display:block}.control output{display:block}.control-buttons,.controls .status{grid-column:1/-1}.metrics{grid-template-columns:1fr 1fr}.metric strong{font-size:1.375rem}.catalog{grid-template-columns:1fr;gap:25px}.course-card{display:grid;grid-template-columns:100px 1fr;column-gap:20px}.course-card img{grid-row:1/5;height:125px}.course-card h3{font-size:21px}.course-card .eyebrow{margin-top:0}.course-card p{font-size:1.0625rem}.next-prev{font-size:1rem}.equation{font-size:19px;padding:14px}.code{font-size:1rem}}
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
 
+.episode-card{min-width:0}
 .course-keywords{margin-top:16px}
 .course-keywords-label{display:block;font-size:1rem;font-weight:700;color:var(--muted);margin-bottom:8px}
 .course-keywords ul{display:flex;flex-wrap:wrap;gap:6px;margin:0;padding:0;list-style:none}
-.course-keywords li{max-width:100%;padding:3px 9px;border:1px solid #c5d3c7;border-radius:3px;background:#e8ede6;color:var(--teal);font-size:1rem;line-height:1.45;overflow-wrap:anywhere}
+.course-keywords li{max-width:100%}
+.course-keywords a{display:block;padding:5px 9px;border:1px solid #c5d3c7;border-radius:3px;background:#e8ede6;color:var(--teal);font-size:1rem;line-height:1.45;overflow-wrap:anywhere;text-decoration:none}
+.course-keywords a:hover,.course-keywords a[aria-expanded=true]{background:#dce7dc;border-color:var(--teal);text-decoration:underline}
 @media(max-width:650px){.course-card img{grid-row:1/4}.course-keywords{grid-column:1/-1}}
 
 /* Let larger type wrap or stack instead of shrinking on narrow screens. */
