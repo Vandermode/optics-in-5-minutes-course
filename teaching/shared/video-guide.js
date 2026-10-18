@@ -69,7 +69,11 @@ function initializeGuide() {
     if (selectedTime !== null) url.searchParams.set('videoAt', selectedTime);
     // Preserve a directly linked explanation when the reader is still in this section.
     const target = document.getElementById(location.hash.slice(1));
-    if (url.hash === '#video-guide' && target && guide.contains(target)) url.hash = location.hash;
+    if (url.hash === '#video-guide' && target && guide.contains(target)) {
+      const detail = target.closest('.video-bridge');
+      // A stale fragment must not reopen an explanation the reader just closed.
+      if (!detail || detail.open) url.hash = location.hash;
+    }
     if (demo) {
       url.searchParams.set('guideWidth', document.getElementById('spectrum-width').value);
       url.searchParams.set('guidePath', document.getElementById('spectrum-path').value);

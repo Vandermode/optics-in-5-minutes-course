@@ -120,6 +120,16 @@ try {
     await page.locator('.video-guide-ready').waitFor();
     assert.equal(await page.locator('#spectrum-width').inputValue(), '15');
     assert.equal(await page.locator('#spectrum-path').inputValue(), '10');
+    await page.locator('#guide-spectrum > summary').click();
+    assert.equal(await page.locator('#guide-spectrum').getAttribute('open'), null);
+    await page.locator(`.chapter-sidebar [data-language="${language}"]`).click();
+    await page.locator('.video-guide-ready').waitFor();
+    assert.equal(await page.locator('#guide-spectrum').getAttribute('open'), null, 'a closed linked explanation stays closed after language change');
+    await page.reload();
+    await page.locator('.video-guide-ready').waitFor();
+    assert.equal(await page.locator('#guide-spectrum').getAttribute('open'), null, 'closed state survives reload');
+    assert.equal(await page.locator('#spectrum-width').inputValue(), '15');
+    assert.equal(await page.locator('#spectrum-path').inputValue(), '10');
     await ctx.close();
   }
 
