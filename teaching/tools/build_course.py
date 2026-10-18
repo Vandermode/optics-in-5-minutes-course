@@ -28,6 +28,18 @@ EPISODE_KEYWORDS = {
     "E09": ["FDTD", "Yee grid", "CFL condition", "Numerical dispersion", "PML"],
     "E10": ["Inverse design", "Adjoint method", "Gradients", "Automatic differentiation", "Fabrication constraints"],
 }
+KEYWORD_TERMS = {
+    "Plane waves": "planeWave", "Angular spectrum": "angularSpectrum", "Spatial frequency": "spatialFrequency", "FFT": "fft", "Evanescent waves": "evanescent",
+    "Fourier transform": "fourier", "4f system": "fourF", "Spatial filtering": "spatialFiltering", "Phase contrast": "phaseContrast",
+    "Point spread function": "psf", "Numerical aperture": "na", "Optical transfer function": "otf", "Diffraction limit": "diffractionLimit", "Deconvolution": "deconvolution",
+    "Temporal coherence": "temporalCoherence", "Spatial coherence": "spatialCoherence", "Spectral bandwidth": "spectralBandwidth", "Coherence length": "coherenceLength", "Speckle": "speckle",
+    "Interference": "interference", "Off-axis holography": "holography", "Phase retrieval": "phaseRetrieval", "Gerchberg–Saxton": "gerchberg",
+    "Phase wrapping": "phaseWrapping", "Diffractive optics": "diffractiveOptics", "Phase quantization": "quantization", "Chromatic aberration": "chromaticAberration", "Thin-element approximation": "thinElement",
+    "Diffraction orders": "diffractionOrder", "Bloch waves": "bloch", "Photonic band gaps": "bandGap", "Bragg reflection": "braggReflection", "RCWA": "rcwa",
+    "Waveguide modes": "guidedMode", "Evanescent coupling": "evanescentCoupling", "Ring resonators": "resonator", "Quality factor": "qualityFactor", "Critical coupling": "criticalCoupling",
+    "FDTD": "fdtd", "Yee grid": "yee", "CFL condition": "courant", "Numerical dispersion": "numericalDispersion", "PML": "pml",
+    "Inverse design": "inverseDesign", "Adjoint method": "adjointMethod", "Gradients": "gradient", "Automatic differentiation": "automaticDifferentiation", "Fabrication constraints": "fabricationConstraints",
+}
 CATALOG = [dict(id=m["id"],slug=m["slug"],title=m["title"],description=m["deck"],
                 prerequisites=m["prerequisites"],notebook=m["slug"].replace("-","_")+".ipynb") for m in MODULES]
 CATALOG.append(dict(id="E03",slug="e03-diffraction",title="The diffraction limit",
@@ -36,6 +48,7 @@ CATALOG.append(dict(id="E03",slug="e03-diffraction",title="The diffraction limit
 CATALOG.sort(key=lambda m:m["id"])
 for entry in CATALOG:
     entry["keywords"] = EPISODE_KEYWORDS[entry["id"]]
+    entry["keywordTerms"] = {keyword: KEYWORD_TERMS[keyword] for keyword in entry["keywords"]}
 BY_ID = {m["id"]:m for m in CATALOG}
 
 def esc(s):
@@ -302,16 +315,16 @@ def build_home():
     cards=""
     for m in CATALOG:
         hero="assets/airy-hero.png" if m["id"]=="E03" else "assets/hero.png"
-        keywords="".join(f'<li>{esc(keyword)}</li>' for keyword in m["keywords"])
-        cards+=f'<a class="course-card" href="{m["slug"]}/"><img src="{m["slug"]}/{hero}" width="1000" height="700" alt="Computed {esc(m["title"])} illustration." loading="lazy"><span class="eyebrow">{m["id"]} / FILM + LESSON + PYTHON LAB</span><h3>{esc(m["title"])}</h3><p>{esc(m["description"])}</p><div class="course-keywords"><span class="course-keywords-label" id="{m["id"].lower()}-keywords">Key concepts</span><ul aria-labelledby="{m["id"].lower()}-keywords">{keywords}</ul></div></a>'
+        keywords="".join(f'<li><a class="course-keyword" href="{m["slug"]}/index.html?term={m["keywordTerms"][keyword]}#video-guide" data-open-term="{m["keywordTerms"][keyword]}">{esc(keyword)}</a></li>' for keyword in m["keywords"])
+        cards+=f'<article class="episode-card" data-episode-card="{m["id"]}"><a class="course-card" href="{m["slug"]}/"><img src="{m["slug"]}/{hero}" width="1000" height="700" alt="Computed {esc(m["title"])} illustration." loading="lazy"><span class="eyebrow">{m["id"]} / FILM + LESSON + PYTHON LAB</span><h3>{esc(m["title"])}</h3><p>{esc(m["description"])}</p></a><div class="course-keywords"><span class="course-keywords-label" id="{m["id"].lower()}-keywords">Key concepts</span><ul aria-labelledby="{m["id"].lower()}-keywords">{keywords}</ul></div></article>'
     compatibility="""const oldKeys=['na','wavelength','separation','zoom','frequency','rings'];const u=new URL(location.href);if(oldKeys.some(k=>u.searchParams.has(k))||['#idea','#lab','#frequency-space','#notebook','#check','#title','#main'].includes(u.hash))location.replace('./e03-diffraction/'+u.search+u.hash);"""
     (ROOT/"index.html").write_text(f'''<!doctype html>
 <html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Optics in 5 Minutes · The interactive course</title>
 <meta name="description" content="Explore a connected map of optical concepts and choose from ten interactive lessons with independent Python labs.">
 <meta name="theme-color" content="#f5f3ed"><link rel="icon" href="e03-diffraction/assets/favicon.svg">
-<link rel="stylesheet" href="shared/course.css"><link rel="stylesheet" href="shared/knowledge.css">
-<script>{compatibility}</script><script type="module" src="shared/knowledge.js"></script></head>
+<link rel="stylesheet" href="shared/course.css"><link rel="stylesheet" href="shared/knowledge.css"><link rel="stylesheet" href="shared/reader.css">
+<script>{compatibility}</script><script type="module" src="shared/home-terms.js"></script><script type="module" src="shared/knowledge.js"></script></head>
 <body><a class="skip" href="#course-main">Skip to course</a><div class="shell">
 <header class="topbar"><a class="brand" href="./">OPTICS<span>IN 5 MINUTES</span></a>
 <nav aria-label="Course navigation"><a href="#knowledge-map">Concept map</a><a href="#course">All episodes</a><a href="#approach">How to learn</a><a href="preparation/">Prerequisites</a></nav></header>

@@ -1857,7 +1857,32 @@
     "Adjoint method": "伴随法",
     "Gradients": "梯度",
     "Automatic differentiation": "自动微分",
-    "Fabrication constraints": "制造约束"
+    "Fabrication constraints": "制造约束",
+    "Changing selected spatial-frequency components of a field. In a coherent 4f system, a mask in the shared Fourier plane controls their amplitudes or phases before the field is transformed back; intensity is formed afterwards.": "改变光场中特定空间频率的分量。在相干 4f 系统中，共用傅里叶面上的掩模先控制这些分量的振幅或相位，再将光场变换回去；强度是在这之后计算的。",
+    "H is a field transfer mask. This expression uses aligned input and output coordinates; a physical 4f relay also reverses the image coordinates.": "H 是光场的传递掩模。此式采用对齐的输入与输出坐标；实际 4f 中继还会使像的坐标反转。",
+    "Converting optical phase variations into visible intensity differences by changing a reference component relative to scattered light. A Fourier-plane phase disk is one example; the resulting contrast depends on the illumination and object model.": "通过改变参考分量相对于散射光的状态，将光学相位变化转成可见的强度差异。傅里叶面相位圆盘就是一种实现；实际对比度取决于照明与物体模型。",
+    "A finite aperture transmits a limited range of spatial frequencies, so even an ideal imaging system blurs point objects. The cutoff depends on coherent versus incoherent illumination; a two-point separation rule such as Rayleigh answers a more specific imaging question.": "有限孔径只能传递有限范围的空间频率，因此理想成像系统也会把点物体成像为有限光斑。截止频率取决于相干或非相干照明；瑞利判据等双点分离规则回答的是更具体的成像问题。",
+    "Ideal scalar, shift-invariant imaging with a clear circular pupil. λ₀ is the vacuum wavelength and frequencies refer to object space. The Rayleigh distance is 0.61 λ₀/NA.": "理想标量、平移不变成像模型，采用无遮挡圆形瞳孔。λ₀ 是真空波长，频率以物方坐标计。瑞利间距为 0.61 λ₀/NA。",
+    "f_c = NA/λ₀ (coherent);   f_c = 2 NA/λ₀ (incoherent)": "f_c = NA/λ₀（相干）； f_c = 2 NA/λ₀（非相干）",
+    "The dependence of combined intensity on the relative phases of fields. The fields add before detection; the measured cross terms depend on polarization and on the spatial and temporal averaging performed by the detector.": "叠加后的强度依赖各光场之间的相对相位。光场先相加，再被探测；测得的交叉项取决于偏振，以及探测器进行的空间和时间平均。",
+    "The width of a spectrum in frequency or wavelength. Its numerical value needs a specified measure, such as full width at half maximum (FWHM) or standard deviation; frequency and wavelength widths use different axes.": "光谱在频率轴或波长轴上的宽度。数值必须附带宽度定义，例如半高全宽（FWHM）或标准差；频率带宽和波长带宽对应不同的横轴。",
+    "Narrowband conversion around vacuum wavelength λ₀. Coherence calculations use the power spectrum per unit frequency; bandwidth alone does not specify its shape.": "这是中心真空波长 λ₀ 附近的窄带换算。相干性计算使用单位频率的功率谱；仅有带宽不能确定光谱形状。",
+    "The optical path-difference scale over which a field stays correlated with a delayed copy of itself. A broad continuous spectrum usually loses interference visibility over a shorter delay. A precise length must specify the spectrum and a visibility-width criterion.": "光场与自身延迟副本保持关联的光程差尺度。较宽的连续光谱通常会在较短延迟下失去干涉可见度。若要给出精确长度，必须说明光谱形状与可见度宽度的判据。",
+    "Vacuum delay convention and a narrow wavelength band. The ∼ expressions give scales, not a universal prefactor; a line comb can have coherence revivals.": "采用真空延迟约定和窄波长带近似。∼ 给出的是尺度关系，没有通用的固定系数；梳状线谱可能出现相干复现。",
+    "Optical elements that redirect or shape light through diffraction from a patterned phase or amplitude. A wrapped-phase lens and a grating are examples. Efficiency and wavelength response depend on the profile, and subwavelength structures may require a full electromagnetic model.": "利用图案化相位或振幅所产生的衍射来改变光的方向或形状的光学元件，例如包裹相位透镜和光栅。效率与波长响应取决于轮廓；亚波长结构可能需要完整的电磁模型。",
+    "A change in an optical image or focus with wavelength, such as different colours focusing at different distances. It can arise from material dispersion or diffractive geometry; a wrapped diffractive lens can be chromatic even in a constant-index model.": "光学图像或焦点随波长发生变化，例如不同颜色在不同距离聚焦。它既可能来自材料色散，也可能来自衍射几何；即使折射率固定，包裹相位的衍射透镜也可能有色差。",
+    "Paraxial estimate for a fixed diffractive lens in its design order. It is not a law for every lens, and the power entering that order also varies with wavelength.": "这是固定衍射透镜在设计衍射级次中的近轴估计，不适用于所有透镜；进入该级次的功率也随波长变化。",
+    "Strong reflection when waves scattered by repeated interfaces add with a matching phase. Near a Bragg condition, index contrast couples counterpropagating waves and can open a stop band. A finite stack’s reflectance also depends on its length and boundaries.": "重复界面散射出的波满足相位匹配并相加时形成的强反射。在布拉格条件附近，折射率反差耦合反向传播波，可能打开禁带；有限堆栈的反射率还取决于长度与边界。",
+    "Power transfer between nearby optical structures through overlapping evanescent field tails. For two identical coupled guides, the symmetric and antisymmetric supermodes acquire different phases; their beating moves power between the guides.": "相邻光学结构通过相互重叠的倏逝场尾部传递功率。对于两个相同的耦合波导，对称和反对称超模积累不同相位；二者的拍频使功率在波导之间转移。",
+    "First full transfer for an ideal symmetric, phase-matched, lossless two-mode coupler. Detuning, unequal guides, or loss can prevent complete transfer.": "对应理想对称、相位匹配、无损双模耦合器的首次完全转移。失谐、波导不对称或损耗可能使功率无法完全转移。",
+    "A measure of how slowly a resonance loses stored energy relative to its oscillation rate. Higher loaded Q corresponds to a longer energy lifetime and a narrower isolated resonance. Loaded Q includes internal loss and escape through coupling ports.": "衡量共振的储能衰减相对于振荡速度有多慢。较高的加载 Q 对应更长的能量寿命，以及更窄的孤立共振。加载 Q 同时计入内部损耗和经耦合端口逸出的能量。",
+    "Energy decays as exp(−t/τ_energy); Δω is the power linewidth (FWHM) of an isolated Lorentzian resonance. The amplitude lifetime is 2τ_energy.": "能量按 exp(−t/τ_energy) 衰减；Δω 是孤立洛伦兹共振的功率谱线宽（半高全宽）。振幅寿命为 2τ_energy。",
+    "Choosing a desired optical response and searching for structural parameters that produce it. The result depends on the objective, physical model, constraints, and operating conditions; a low optimization loss alone does not establish a unique or experimentally robust design.": "先指定希望得到的光学响应，再寻找能够实现它的结构参数。结果取决于目标、物理模型、约束和工作条件；优化损失很低，本身不能证明设计唯一或在实验中稳健。",
+    "Computing derivatives of a scalar objective with respect to many design parameters using a forward field problem and an adjoint sensitivity problem. For one linear field problem and one scalar objective, the number of large field solves need not grow with the number of parameters.": "通过一个前向光场问题和一个伴随敏感度问题，计算标量目标对许多设计参数的导数。对于一个线性光场问题与一个标量目标，大型光场求解的次数无需随参数数量增长。",
+    "Applying the chain rule to the elementary operations of an implemented computation. It differentiates that discrete program, including FFT normalization; it does not automatically verify the physical model or make nondifferentiable choices differentiable.": "对计算程序中的基本运算应用链式法则。它求导的是实际离散程序，包括 FFT 的归一化方式；它不会自动验证物理模型，也不会使不可微的选择变成可微。",
+    "Restrictions that make a design compatible with fabrication, such as allowed materials, discrete phase levels, or minimum feature sizes. They can enter the parameterization or optimization. The final geometry must still be simulated and evaluated again.": "使设计符合制造工艺的限制，例如允许的材料、离散相位等级或最小特征尺寸。这些限制可以进入参数化或优化过程；仍需对最终几何重新仿真并评估。",
+    "Read this episode →": "阅读这一章 →",
+    "Explain →": "查看解释 →"
   },
   "termAliases": {
     "phase": [
@@ -2203,6 +2228,73 @@
       "回溯线搜索",
       "线搜索",
       "回溯"
+    ],
+    "spatialFiltering": [
+      "空间滤波",
+      "空间滤波器"
+    ],
+    "phaseContrast": [
+      "相位衬度",
+      "相衬",
+      "相位圆盘"
+    ],
+    "diffractionLimit": [
+      "衍射极限",
+      "衍射受限"
+    ],
+    "interference": [
+      "干涉"
+    ],
+    "spectralBandwidth": [
+      "光谱带宽",
+      "谱宽",
+      "带宽"
+    ],
+    "coherenceLength": [
+      "相干长度"
+    ],
+    "diffractiveOptics": [
+      "衍射光学",
+      "衍射透镜",
+      "衍射元件"
+    ],
+    "chromaticAberration": [
+      "色差",
+      "色差失配"
+    ],
+    "braggReflection": [
+      "布拉格反射",
+      "布拉格反射镜",
+      "布拉格共振"
+    ],
+    "evanescentCoupling": [
+      "倏逝耦合",
+      "定向耦合",
+      "耦合波导"
+    ],
+    "qualityFactor": [
+      "品质因数",
+      "品质因子",
+      "加载 Q"
+    ],
+    "inverseDesign": [
+      "逆向设计"
+    ],
+    "adjointMethod": [
+      "伴随法",
+      "伴随方法",
+      "伴随计算",
+      "伴随求解"
+    ],
+    "automaticDifferentiation": [
+      "自动微分",
+      "自动求导"
+    ],
+    "fabricationConstraints": [
+      "制造约束",
+      "加工约束",
+      "加工投影",
+      "最小特征尺寸"
     ]
   }
 }

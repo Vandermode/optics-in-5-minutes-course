@@ -1,6 +1,6 @@
 import {t, language} from './language.js';
-import {terms, lessonTerms} from './glossary.js';
-import {conceptTerms, preferredEpisode, termURL} from './term-network.js';
+import {terms} from './glossary.js';
+import {conceptTerms, episodesForTerm, preferredEpisode, termURL} from './term-network.js';
 
 const section = document.getElementById('knowledge-map');
 const graph = document.getElementById('concept-graph');
@@ -27,17 +27,18 @@ for (const [id, panel] of panels) {
   const hint = document.createElement('p');
   hint.textContent = t('Open a term to see its explanation and nearby ideas.');
   const list = document.createElement('ul');
-  const ids = [...conceptTerms[id]].sort((a, b) => Number(Boolean(lessonTerms[episode]?.[b])) - Number(Boolean(lessonTerms[episode]?.[a])));
+  const usedHere = term => episodesForTerm(term).includes(episode);
+  const ids = [...conceptTerms[id]].sort((a, b) => Number(usedHere(b)) - Number(usedHere(a)));
   for (const term of ids) {
-    const inChapter = Boolean(lessonTerms[episode]?.[term]);
+    const inChapter = usedHere(term);
     const target = inChapter ? episode : preferredEpisode(term, id);
     const item = document.createElement('li'), link = document.createElement('a');
     link.href = termURL(term, target, language, id).href;
     link.dataset.specificTerm = term;
     const name = document.createElement('span'), location = document.createElement('small');
     name.textContent = t(terms[term].name);
-    location.textContent = inChapter ? t('In this episode') : target;
-    if (inChapter) {
+    location.textContent = !chapter ? t('Explain →') : inChapter ? t('In this episode') : target;
+    if (inChapter || !chapter) {
       link.dataset.openTerm = term;
       link.setAttribute('aria-haspopup', 'dialog');
       link.setAttribute('aria-controls', 'term-panel');
@@ -126,7 +127,7 @@ document.addEventListener('click', event => {
   showConcept(id, true);
   // A connection link may hide its own panel; keep keyboard focus in the map.
   if (activePanel) nodes.get(id).focus({preventScroll: true});
-  scrollToPanel(id, Boolean(activePanel));
+  scrollToPanel(id, Boolean(activePanel) || link.hasAttribute('data-term-concept'));
 });
 
 for (const [id, node] of nodes) {

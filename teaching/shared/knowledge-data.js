@@ -200,7 +200,14 @@ export const knowledge = {
         "Spatial frequency",
         "FFT",
         "Evanescent waves"
-      ]
+      ],
+      "keywordTerms": {
+        "Plane waves": "planeWave",
+        "Angular spectrum": "angularSpectrum",
+        "Spatial frequency": "spatialFrequency",
+        "FFT": "fft",
+        "Evanescent waves": "evanescent"
+      }
     },
     {
       "id": "E02",
@@ -216,7 +223,13 @@ export const knowledge = {
         "4f system",
         "Spatial filtering",
         "Phase contrast"
-      ]
+      ],
+      "keywordTerms": {
+        "Fourier transform": "fourier",
+        "4f system": "fourF",
+        "Spatial filtering": "spatialFiltering",
+        "Phase contrast": "phaseContrast"
+      }
     },
     {
       "id": "E03",
@@ -234,7 +247,14 @@ export const knowledge = {
         "Optical transfer function",
         "Diffraction limit",
         "Deconvolution"
-      ]
+      ],
+      "keywordTerms": {
+        "Point spread function": "psf",
+        "Numerical aperture": "na",
+        "Optical transfer function": "otf",
+        "Diffraction limit": "diffractionLimit",
+        "Deconvolution": "deconvolution"
+      }
     },
     {
       "id": "E04",
@@ -252,7 +272,14 @@ export const knowledge = {
         "Spectral bandwidth",
         "Coherence length",
         "Speckle"
-      ]
+      ],
+      "keywordTerms": {
+        "Temporal coherence": "temporalCoherence",
+        "Spatial coherence": "spatialCoherence",
+        "Spectral bandwidth": "spectralBandwidth",
+        "Coherence length": "coherenceLength",
+        "Speckle": "speckle"
+      }
     },
     {
       "id": "E05",
@@ -270,7 +297,13 @@ export const knowledge = {
         "Off-axis holography",
         "Phase retrieval",
         "Gerchberg–Saxton"
-      ]
+      ],
+      "keywordTerms": {
+        "Interference": "interference",
+        "Off-axis holography": "holography",
+        "Phase retrieval": "phaseRetrieval",
+        "Gerchberg–Saxton": "gerchberg"
+      }
     },
     {
       "id": "E06",
@@ -288,7 +321,14 @@ export const knowledge = {
         "Phase quantization",
         "Chromatic aberration",
         "Thin-element approximation"
-      ]
+      ],
+      "keywordTerms": {
+        "Phase wrapping": "phaseWrapping",
+        "Diffractive optics": "diffractiveOptics",
+        "Phase quantization": "quantization",
+        "Chromatic aberration": "chromaticAberration",
+        "Thin-element approximation": "thinElement"
+      }
     },
     {
       "id": "E07",
@@ -306,7 +346,14 @@ export const knowledge = {
         "Photonic band gaps",
         "Bragg reflection",
         "RCWA"
-      ]
+      ],
+      "keywordTerms": {
+        "Diffraction orders": "diffractionOrder",
+        "Bloch waves": "bloch",
+        "Photonic band gaps": "bandGap",
+        "Bragg reflection": "braggReflection",
+        "RCWA": "rcwa"
+      }
     },
     {
       "id": "E08",
@@ -324,7 +371,14 @@ export const knowledge = {
         "Ring resonators",
         "Quality factor",
         "Critical coupling"
-      ]
+      ],
+      "keywordTerms": {
+        "Waveguide modes": "guidedMode",
+        "Evanescent coupling": "evanescentCoupling",
+        "Ring resonators": "resonator",
+        "Quality factor": "qualityFactor",
+        "Critical coupling": "criticalCoupling"
+      }
     },
     {
       "id": "E09",
@@ -342,7 +396,14 @@ export const knowledge = {
         "CFL condition",
         "Numerical dispersion",
         "PML"
-      ]
+      ],
+      "keywordTerms": {
+        "FDTD": "fdtd",
+        "Yee grid": "yee",
+        "CFL condition": "courant",
+        "Numerical dispersion": "numericalDispersion",
+        "PML": "pml"
+      }
     },
     {
       "id": "E10",
@@ -361,7 +422,14 @@ export const knowledge = {
         "Gradients",
         "Automatic differentiation",
         "Fabrication constraints"
-      ]
+      ],
+      "keywordTerms": {
+        "Inverse design": "inverseDesign",
+        "Adjoint method": "adjointMethod",
+        "Gradients": "gradient",
+        "Automatic differentiation": "automaticDifferentiation",
+        "Fabrication constraints": "fabricationConstraints"
+      }
     }
   ],
   "focus": {
