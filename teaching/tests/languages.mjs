@@ -106,15 +106,15 @@ try {
       await noOverflow(page, label + ' explanation');
       await page.keyboard.press('Escape');
 
-      const range = page.locator('input[type="range"]').first();
+      const range = page.locator('#lab input[type="range"]').first();
       await range.evaluate(el => { el.value = Number(el.value) + Number(el.step); el.dispatchEvent(new Event('input', {bubbles: true})); });
-      const select = page.locator('select').first();
+      const select = page.locator('#lab select').first();
       if (await select.count()) await select.selectOption(await select.locator('option').last().getAttribute('value'));
       if (entry.id === 'E03') {
         await page.locator('#rings').uncheck();
         await page.locator('#frequency').evaluate(el => { el.value = 0.7; el.dispatchEvent(new Event('input', {bubbles: true})); });
       }
-      const selected = await page.locator('input[type="range"], select').evaluateAll(inputs =>
+      const selected = await page.locator('#lab input[type="range"], #lab select').evaluateAll(inputs =>
         Object.fromEntries(inputs.map(input => [input.id, input.value])));
       if (width < 1200) await page.locator('#chapter-toggle').click();
       await page.locator('.chapter-sections a[href="#lab"]').click();

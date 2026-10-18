@@ -6,6 +6,7 @@ import html
 import json
 import os
 import re
+from video_logic import translations as video_logic_translations
 
 SKIP_TAGS = {"script", "style", "pre", "code"}
 SKIP_CLASSES = {"equation", "inline-equation"}
@@ -150,6 +151,8 @@ def collect_page_strings(root, catalog):
 def build_languages(root, catalog):
     data = json.loads((root / 'tools/locales/zh.json').read_text())
     phrases, aliases = data['phrases'], data['termAliases']
+    # Video text is authored as EN/ZH pairs so the two reasoning guides stay together.
+    phrases = {**phrases, **video_logic_translations()}
     pages = page_paths(catalog)
     missing = set()
     outputs = {}

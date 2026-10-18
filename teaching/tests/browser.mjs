@@ -21,7 +21,7 @@ try{
     await page.screenshot({path:new URL(`home-${width}.png`,out).pathname});
     for(const entry of catalog){
       const response=await page.goto(new URL(entry.slug+'/',base).href);assert.equal(response.status(),200);
-      await page.locator('canvas').first().waitFor();
+      await page.locator('#lab canvas').first().waitFor();
       const isOld=entry.id==='E03';
       async function ready(){if(!isOld){await page.waitForFunction(()=>document.getElementById('status')?.textContent==='Calculation complete.',{},{timeout:20000});}}
       await ready();
@@ -31,12 +31,12 @@ try{
       await page.screenshot({path:new URL(`${entry.id}-hero-${width}.png`,out).pathname});
       await page.locator(isOld?'#image-canvas':'#plots').scrollIntoViewIfNeeded();
       await page.screenshot({path:new URL(`${entry.id}-lab-${width}.png`,out).pathname});
-      const canvas=page.locator('canvas').first();
+      const canvas=page.locator('#lab canvas').first();
       assert.ok(await canvas.evaluate(c=>{const data=c.getContext('2d').getImageData(0,0,c.width,c.height).data;let min=255,max=0;for(let i=0;i<data.length;i+=4){min=Math.min(min,data[i]);max=Math.max(max,data[i]);}return max-min>20;}),`${entry.id} blank canvas`);
       const config=isOld?null:await page.locator('#lesson-config').evaluate(el=>JSON.parse(el.textContent));
       if(width===1280){
         // Exercise every range/select, including keyboard input and all named presets.
-        const range=page.locator('input[type=range]').first();const before=Number(await range.inputValue());
+        const range=page.locator('#lab input[type=range]').first();const before=Number(await range.inputValue());
         await range.focus();await page.keyboard.press('ArrowRight');assert.notEqual(Number(await range.inputValue()),before,`${entry.id} keyboard slider`);
         if(config?.worker)await page.locator('#run').click();await ready();
         if(config)for(const control of config.controls){
