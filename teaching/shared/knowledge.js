@@ -1,6 +1,7 @@
 import {t, language} from './language.js';
 import {terms} from './glossary.js';
 import {conceptTerms, episodesForTerm, preferredEpisode, termURL} from './term-network.js';
+import {initializeConceptSearch} from './concept-search.js';
 
 const section = document.getElementById('knowledge-map');
 const graph = document.getElementById('concept-graph');
@@ -305,4 +306,5 @@ document.fonts.ready.then(draw);
 addEventListener('hashchange', restoreFromURL);
 addEventListener('popstate', restoreFromURL);
 if (hashConcept()) requestAnimationFrame(() => scrollToPanel(initial, true));
+initializeConceptSearch(section);
 document.body.classList.add('knowledge-ready');

@@ -16,7 +16,7 @@ export function initializeTermPanel({main, episode = null, onOpen = () => {}, mo
   panel.querySelector('.term-panel-top').after(languageLinks());
   document.body.append(panel);
 
-  let activeTrigger = null, selectedTerm = null;
+  let activeTrigger = null, selectedTerm = null, searchOrigin = false;
   const plainClick = event => event.button === 0 && !event.ctrlKey && !event.metaKey && !event.altKey && !event.shiftKey;
   function localTermURL(id) {
     const url = new URL(location.href);
@@ -30,7 +30,9 @@ export function initializeTermPanel({main, episode = null, onOpen = () => {}, mo
   }
   function termTrigger(id, inlineOnly = false) {
     const selector = `.glossary-term[data-term="${id}"]`;
-    const candidates = [main.querySelector(`#idea ${selector}`), main.querySelector(`#explain ${selector}`),
+    const searchResult = !inlineOnly && new URL(location.href).searchParams.has('q')
+      ? main.querySelector(`[data-search-term="${id}"]`) : null;
+    const candidates = [searchResult, main.querySelector(`#idea ${selector}`), main.querySelector(`#explain ${selector}`),
       ...main.querySelectorAll(selector),
       ...(!inlineOnly ? [main.querySelector(`.course-keywords [data-open-term="${id}"]`),
         ...main.querySelectorAll(`[data-open-term="${id}"]`)] : [])].filter(Boolean);
@@ -104,7 +106,13 @@ export function initializeTermPanel({main, episode = null, onOpen = () => {}, mo
       document.body.classList.remove('term-panel-open');
     });
     activeTrigger?.setAttribute('aria-expanded', 'false');
-    if (restoreFocus) activeTrigger?.focus({preventScroll: true});
+    if (restoreFocus) {
+      const target = searchOrigin
+        ? activeTrigger?.isConnected && activeTrigger.matches('[data-search-term]') ? activeTrigger
+          : main.querySelector(`[data-search-term="${selectedTerm}"]`) || main.querySelector('#concept-search-input')
+        : activeTrigger?.isConnected ? activeTrigger : termTrigger(selectedTerm);
+      target?.focus({preventScroll: true});
+    }
     selectedTerm = null;
     if (updateURL) rememberTerm(null, 'replaceState');
   }
@@ -114,6 +122,7 @@ export function initializeTermPanel({main, episode = null, onOpen = () => {}, mo
     if (trigger || !panel.open) {
       activeTrigger?.setAttribute('aria-expanded', 'false');
       activeTrigger = trigger || termTrigger(id);
+      searchOrigin = trigger ? trigger.matches('[data-search-term]') : new URL(location.href).searchParams.has('q');
     }
     selectedTerm = id;
     panel.dataset.term = id;

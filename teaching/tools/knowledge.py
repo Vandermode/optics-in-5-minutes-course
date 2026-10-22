@@ -186,6 +186,17 @@ def knowledge_map_html(catalog, episode=None):
     return f'''<section id="knowledge-map" class="knowledge-section{" knowledge-lesson" if episode else ""}" aria-labelledby="knowledge-title"{attributes}>
 <div class="knowledge-heading"><div><p class="section-label">{label}</p><h2 id="knowledge-title">{heading}</h2></div>
 <p>{introduction}</p></div>
+<div class="concept-search" hidden>
+<form role="search" aria-labelledby="concept-search-label">
+<label id="concept-search-label" for="concept-search-input">Search concepts</label>
+<div class="concept-search-controls"><div class="concept-search-field">
+<input id="concept-search-input" type="search" name="q" maxlength="120" autocomplete="off" spellcheck="false" placeholder="PSF, coherence length, 相干长度…" aria-describedby="concept-search-hint" aria-controls="concept-search-results">
+<button class="concept-search-clear" type="button" aria-label="Clear search" hidden>×</button></div>
+<button class="concept-search-submit" type="submit">Search</button></div>
+<p id="concept-search-hint">Use an English or Chinese keyword. Choose a result, or press Enter to open the first match.</p></form>
+<p class="concept-search-status" role="status" aria-live="polite" aria-atomic="true"></p>
+<ul id="concept-search-results" class="concept-search-results" aria-label="Matching concepts" hidden></ul>
+<button class="concept-search-more" type="button" hidden></button></div>
 <div class="concept-legend">{membership_key}<span><span class="concept-line basis" aria-hidden="true"></span>Understanding foundation</span><span><span class="concept-line related" aria-hidden="true"></span>Cross-topic connection</span></div>
 <p class="concept-map-note">Connections describe ideas, not a required episode order.</p>
 <p class="concept-depth-note" hidden>Start with a core concept. Expand its specific terms when you want more detail.</p>
