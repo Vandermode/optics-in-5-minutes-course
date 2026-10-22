@@ -15,6 +15,17 @@
 <section id="knowledge-map" class="knowledge-section" aria-labelledby="knowledge-title">
 <div class="knowledge-heading"><div><p class="section-label">按概念探索</p><h2 id="knowledge-title">找到你的探索路径。</h2></div>
 <p>选择一个概念，查看它的联系，再进入相关章节。</p></div>
+<div class="concept-search" hidden>
+<form role="search" aria-labelledby="concept-search-label">
+<label id="concept-search-label" for="concept-search-input">搜索概念</label>
+<div class="concept-search-controls"><div class="concept-search-field">
+<input id="concept-search-input" type="search" name="q" maxlength="120" autocomplete="off" spellcheck="false" placeholder="PSF、coherence length、相干长度…" aria-describedby="concept-search-hint" aria-controls="concept-search-results">
+<button class="concept-search-clear" type="button" aria-label="清空搜索" hidden>×</button></div>
+<button class="concept-search-submit" type="submit">搜索</button></div>
+<p id="concept-search-hint">支持中英文关键词。点击搜索结果，或按 Enter 打开首个匹配概念。</p></form>
+<p class="concept-search-status" role="status" aria-live="polite" aria-atomic="true"></p>
+<ul id="concept-search-results" class="concept-search-results" aria-label="匹配的概念" hidden></ul>
+<button class="concept-search-more" type="button" hidden></button></div>
 <div class="concept-legend"><span><span class="concept-line basis" aria-hidden="true"></span>理解基础</span><span><span class="concept-line related" aria-hidden="true"></span>跨主题联系</span></div>
 <p class="concept-map-note">连线表示概念之间的关系，不代表必须遵循的章节顺序。</p>
 <p class="concept-depth-note" hidden>先选择核心概念，需要深入时再展开具体术语。</p>
